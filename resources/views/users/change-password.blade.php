@@ -9,17 +9,17 @@
         {!! Form::open(['url'=>'/users/change-password', 'method'=>'post']) !!}
             {!! Form::hidden("user_id", $user->id) !!}
         <div class="input-group mb-3">
-            {!! Form::label("current_password", "Current Password", ['class'=>'input-group-text', 'style'=>'width: 150px']) !!}
-            {!! Form::password("current_password", ['class' => 'form-control']) !!}
+            <span class="input-group-text bg-info text-white" style="width: 45px"><i class="fas fa-lock"></i></span>
+            {!! Form::password("current_password", ['class' => 'form-control','placeholder'=>'Current Password']) !!}
         </div>
         <hr>
         <div class="input-group mb-3">
-            {!! Form::label("new_password", "New Password", ['class'=>'input-group-text', 'style'=>'width: 150px']) !!}
-            {!! Form::password("new_password", ['class' => 'form-control']) !!}
+            <span class="input-group-text bg-success text-white" style="width: 45px"><i class="fas fa-key"></i></span>
+            {!! Form::password("new_password", ['class' => 'form-control','placeholder'=>'New Password']) !!}
         </div>
         <div class="input-group mb-3">
-            {!! Form::label("new_password_confirmation", "Confirm Password", ['class'=>'input-group-text', 'style'=>'width: 150px']) !!}
-            {!! Form::password("new_password_confirmation", ['class' => 'form-control']) !!}
+            <span class="input-group-text bg-success text-white" style="width: 45px"><i class="fas fa-key"></i></span>
+            {!! Form::password("new_password_confirmation", ['class' => 'form-control','placeholder'=>'Confirm New Password']) !!}
         </div>
         <div class="d-flex justify-content-end">
             <button class="btn btn-success" type="submit">

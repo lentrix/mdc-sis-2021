@@ -57,19 +57,19 @@
             {{-- file input for submitting profile pic to controller --}}
             <input type="hidden" id="pic-field" name="pic-field" value="">
         <div class="input-group mb-3">
-            {!! Form::label("user", "User Name", ['class'=>'input-group-text','style'=>'width: 120px']) !!}
+            <i class="fa fa-user input-group-text" style="width: 45px"></i>
             {!! Form::text("user", null, ['class'=>'form-control']) !!}
         </div>
         <div class="input-group mb-3">
-            {!! Form::label("lname", "Last Name", ['class'=>'input-group-text','style'=>'width: 120px']) !!}
+            <span class="input-group-text" style="width: 45px">Ln</span>
             {!! Form::text("lname", null, ['class'=>'form-control']) !!}
         </div>
         <div class="input-group mb-3">
-            {!! Form::label("fname", "First Name", ['class'=>'input-group-text','style'=>'width: 120px']) !!}
+            <span class="input-group-text" style="width: 45px">Fn</span>
             {!! Form::text("fname", null, ['class'=>'form-control']) !!}
         </div>
         <div class="input-group mb-3">
-            {!! Form::label("email", "Email", ['class'=>'input-group-text','style'=>'width: 120px']) !!}
+            <i class="fa fa-envelope input-group-text" style="width: 45px"></i>
             {!! Form::email("email", null, ['class'=>'form-control']) !!}
         </div>
         <div class="d-flex justify-content-end">
