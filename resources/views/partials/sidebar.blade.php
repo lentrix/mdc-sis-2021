@@ -86,7 +86,7 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseEnrollment" aria-expanded="false"
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEnrollment" aria-expanded="false"
             aria-controls="collapseEnrollment">
             <i class="fas fa-fw fa-folder"></i>
             <span>Enrollment</span>
@@ -104,7 +104,7 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseReports" aria-expanded="false"
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReports" aria-expanded="false"
             aria-controls="collapseReports">
             <i class="fas fa-fw fa-file"></i>
             <span>Reports</span>
@@ -121,12 +121,29 @@
         </div>
     </li>
 
-    <!-- Nav Item - Charts -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsers" aria-expanded="false"
+            aria-controls="collapseUsers">
+            <i class="fas fa-fw fa-users"></i>
+            <span>User Management</span>
+        </a>
+        <div id="collapseUsers" class="collapse" aria-labelledby="headingUsers"
+            data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Manage Users:</h6>
+                <a class="collapse-item" href="{{url('/users')}}">Users</a>
+                <a class="collapse-item" href="{{url('/roles')}}">Roles</a>
+                <a class="collapse-item" href="{{url('/permissions')}}">Permissions</a>
+            </div>
+        </div>
+    </li>
+
     {{-- <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Charts</span></a>
+        <a class="nav-link" href="{{url('/users-mgt')}}">
+            <i class="fas fa-users fa-chart-area"></i>
+            <span>User Management</span></a>
     </li> --}}
+
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
