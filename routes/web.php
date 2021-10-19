@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserManagementController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,4 +29,7 @@ Route::group(['middleware'=>'auth'], function() {
     Route::post('/users/profile', [UserController::class,'update']);
     Route::get('/users/change-password', [UserController::class, 'changePasswordForm']);
     Route::post('/users/change-password', [UserController::class, 'changePassword']);
+
+    Route::get('/user-mgt/{user}', [UserManagementController::class, 'show']);
+    Route::get('/user-mgt', [UserManagementController::class, 'index']);
 });

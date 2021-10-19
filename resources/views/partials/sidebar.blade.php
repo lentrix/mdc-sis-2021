@@ -131,7 +131,7 @@
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Manage Users:</h6>
-                <a class="collapse-item" href="{{url('/users')}}">Users</a>
+                <a class="collapse-item" href="{{url('/user-mgt')}}">Users</a>
                 <a class="collapse-item" href="{{url('/roles')}}">Roles</a>
                 <a class="collapse-item" href="{{url('/permissions')}}">Permissions</a>
             </div>
