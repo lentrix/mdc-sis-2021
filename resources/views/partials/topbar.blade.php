@@ -174,7 +174,7 @@
                     {{auth()->user()->lname}}
                 </span>
             <img class="img-profile rounded-circle"
-                    src="{{asset('img/undraw_profile.svg')}}">
+                    src="{{auth()->user()->profile_pic}}">
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"

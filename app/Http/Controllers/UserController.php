@@ -17,6 +17,7 @@ class UserController extends Controller
 
     public function update(Request $request) {
         $user = auth()->user();
+
         $request->validate([
             'user' => 'string|required',
             'lname' => 'string|required',
@@ -34,6 +35,10 @@ class UserController extends Controller
         }
 
         $user->update($request->only('user','lname','fname'));
+
+        $picField = $request['pic-field'];
+
+        $this->savePic($picField, $user);
 
         return redirect('/users/profile')->with('Info','Your user profile has been updated.');
     }
@@ -62,5 +67,28 @@ class UserController extends Controller
         $user->update(['password'=>bcrypt($request->new_password)]);
 
         return redirect('/users/profile')->with('Info','Your password has been changed.');
+    }
+
+    private function savePic($field, $user) {
+        $folderPath = 'img/profile-pics/';
+
+        if($field) {
+            $image_parts = explode(";base64,", $field);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $file = $folderPath . $user->id . '.jpg';
+
+            try {
+                $data = imagecreatefromstring($image_base64);
+                if(!$data) {
+                    die("Fatal Error!");
+                }
+
+                imagejpeg($data, $file);
+            }catch(\Exception $ex) {
+                die($ex->getMessage());
+            }
+        }
     }
 }

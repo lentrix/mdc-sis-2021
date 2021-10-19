@@ -43,4 +43,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getProfilePicAttribute() {
+        $path = "img/profile-pics/$this->id.jpg";
+        $file = public_path($path);
+        if(file_exists($file)) {
+            return asset($path);
+        }else {
+            return asset('img/undraw_profile.svg');
+        }
+    }
 }

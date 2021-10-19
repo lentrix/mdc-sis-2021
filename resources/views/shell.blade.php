@@ -21,6 +21,8 @@
     <link href="{{asset('css/sb-admin-2.min.css')}}" rel="stylesheet">
     <link href="{{asset('css/styles.css')}}" rel="stylesheet">
 
+    @yield('heads')
+
 </head>
 
 <body id="page-top">
