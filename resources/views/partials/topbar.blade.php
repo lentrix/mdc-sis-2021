@@ -173,8 +173,8 @@
                     {{auth()->user()->fname}}
                     {{auth()->user()->lname}}
                 </span>
-                <img class="img-profile rounded-circle"
-                    src="img/undraw_profile.svg">
+            <img class="img-profile rounded-circle"
+                    src="{{asset('img/undraw_profile.svg')}}">
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
