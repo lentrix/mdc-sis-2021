@@ -1,0 +1,13 @@
+body {
+    background: linear-gradient(to bottom, rgb(119, 180, 238), rgb(206, 231, 241));
+}
+
+.mdc-login-bg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to right bottom, #20578d, #53b4a4);
+}
+#login-logo {
+    width: 50%;
+}
