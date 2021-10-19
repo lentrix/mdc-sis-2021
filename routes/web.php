@@ -26,4 +26,6 @@ Route::group(['middleware'=>'auth'], function() {
     Route::get('/dashboard',[SiteController::class, 'dashboard']);
     Route::get('/users/profile', [UserController::class,'profile']);
     Route::post('/users/profile', [UserController::class,'update']);
+    Route::get('/users/change-password', [UserController::class, 'changePasswordForm']);
+    Route::post('/users/change-password', [UserController::class, 'changePassword']);
 });
