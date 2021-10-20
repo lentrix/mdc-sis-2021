@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class PermissionsController extends Controller
 {
+
+    public function __construct() {
+        $this->middleware('role:admin');
+    }
+
     public function index() {
         $permissions = Permission::orderBy('permission')->get();
         return view('roles-permissions.permissions',[
