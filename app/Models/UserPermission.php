@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Permission extends Model
+class UserPermission extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['permission', 'description'];
+    protected $fillable = ['user_id','permission_id'];
 
     public function user() {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTol('App\Models\User');
     }
 
     public function permission() {

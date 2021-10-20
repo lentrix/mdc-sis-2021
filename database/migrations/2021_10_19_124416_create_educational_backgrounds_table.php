@@ -20,7 +20,7 @@ class CreateEducationalBackgroundsTable extends Migration
             $table->string('degree',100)->nullable();
             $table->string('school');
             $table->string('address');
-            $table->integer('year', 4)->unsigned();
+            $table->integer('year')->unsigned();
             $table->string('remarks', 191);
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');

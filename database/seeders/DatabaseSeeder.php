@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\UserRole;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,5 +16,8 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         $this->call(UserSeeder::class);
+        $this->call(RoleSeeder::class);
+        UserRole::create(['user_id'=>1,'role_id'=>1]);
+        $this->call(PermissionSeeder::class);
     }
 }

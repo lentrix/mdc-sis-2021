@@ -2,6 +2,9 @@
 
 @section('content')
 
+<div class="float-right">
+    @include('users.mgt.add-user-modal')
+</div>
 <h1>Manage Users</h1>
 <hr>
 <div class="row">

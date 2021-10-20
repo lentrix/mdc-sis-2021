@@ -2357,7 +2357,8 @@ fieldset:disabled a.btn {
 
 .btn-primary {
   color: #fff;
-  background-color: #4e73df;
+  /* background-color: #4e73df; */
+  background: linear-gradient(to bottom right, #4e73df, #43af94);
   border-color: #4e73df;
 }
 
@@ -6411,7 +6412,8 @@ a.close.disabled {
 }
 
 .bg-primary {
-  background-color: #4e73df !important;
+  /* background-color: #4e73df !important; */
+  background: linear-gradient(to bottom right, #4e73df, #428e9b) !important;
 }
 
 a.bg-primary:hover, a.bg-primary:focus,

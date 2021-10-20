@@ -53,4 +53,31 @@ class User extends Authenticatable
             return asset('img/undraw_profile.svg');
         }
     }
+
+    public function userRoles() {
+        return $this->hasMany('App\Models\UserRole')->with('role');
+    }
+
+    public function userPermissions() {
+        return $this->hasMany('App\Models\UserPermission')->with('permission');
+    }
+
+    public function is($roleName) {
+        foreach($this->userRoles as $userRole) {
+            if($roleName == $userRole->role->role) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function may($permissionName) {
+        foreach($this->userPermissions as $perms) {
+            if(strcasecmp($permissionName, $perms->permission->permission) === 0 ) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

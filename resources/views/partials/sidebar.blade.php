@@ -1,7 +1,7 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{url('/dashboard')}}">
         <div class="sidebar-brand-icon">
             <img src="{{asset('img/MDC-Logo-clipped.png')}}" style="width:60px;" alt="MDC Logo">
         </div>
@@ -42,7 +42,6 @@
         </div>
     </li>
 
-     <!-- Nav Item - Pages Collapse Menu -->
      <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTeachers"
             aria-expanded="true" aria-controls="collapseTeachers">
@@ -52,13 +51,12 @@
         <div id="collapseTeachers" class="collapse" aria-labelledby="headingTeachers" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Course Records:</h6>
-                <a class="collapse-item" href="#">Create Course</a>
-                <a class="collapse-item" href="#">Search Course</a>
+                <a class="collapse-item" href="#">Create Teacher</a>
+                <a class="collapse-item" href="#">Search Teacher</a>
             </div>
         </div>
     </li>
 
-    <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCourses"
             aria-expanded="true" aria-controls="collapseCourses">
@@ -68,8 +66,8 @@
         <div id="collapseCourses" class="collapse" aria-labelledby="headingCourses" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Course Records:</h6>
-                <a class="collapse-item" href="#">Create Teacher</a>
-                <a class="collapse-item" href="#">Search Teacher</a>
+                <a class="collapse-item" href="#">Create Course</a>
+                <a class="collapse-item" href="#">Search Course</a>
             </div>
         </div>
     </li>
