@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PermissionsController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\UserController;
@@ -44,4 +45,9 @@ Route::group(['middleware'=>'auth'], function() {
     Route::post('/roles', [RolesController::class, 'store']);
     Route::put('/roles', [RolesController::class, 'update']);
     Route::delete('/roles', [RolesController::class, 'destroy']);
+
+    Route::get('/permissions', [PermissionsController::class, 'index']);
+    Route::post('/permissions', [PermissionsController::class, 'store']);
+    Route::put('/permissions', [PermissionsController::class, 'update']);
+    Route::delete('/permissions', [PermissionsController::class, 'destroy']);
 });
