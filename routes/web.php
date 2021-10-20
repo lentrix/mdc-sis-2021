@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\RolesController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserManagementController;
@@ -38,4 +39,9 @@ Route::group(['middleware'=>'auth'], function() {
     Route::put('/user-mgt/users/{user}', [UserManagementController::class, 'updateUser']);
     Route::patch('/user-mgt/users/{user}', [UserManagementController::class, 'changePassword']);
     Route::post('/user-mgt/toggle-activation/{user}', [UserManagementController::class, 'toggleUserActivation']);
+
+    Route::get('/roles', [RolesController::class, 'index']);
+    Route::post('/roles', [RolesController::class, 'store']);
+    Route::put('/roles', [RolesController::class, 'update']);
+    Route::delete('/roles', [RolesController::class, 'destroy']);
 });
