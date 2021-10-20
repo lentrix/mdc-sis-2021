@@ -14,11 +14,12 @@ class RoleMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next, $roleName)
+    public function handle(Request $request, Closure $next, $role)
     {
+
         $user = $request->user();
 
-        if(!$user->is($roleName)) {
+        if(!$user->is($role)) {
             return back()->with('Error',"Sorry, you are not authorized to perform your recent action.");
         }
 

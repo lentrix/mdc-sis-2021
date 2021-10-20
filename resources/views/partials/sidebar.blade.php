@@ -36,7 +36,7 @@
         <div id="collapseStudents" class="collapse" aria-labelledby="headingStudents" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Student Records:</h6>
-                <a class="collapse-item" href="#">Create Student</a>
+                <a class="collapse-item" href="{{url('/students/create')}}">Create Student</a>
                 <a class="collapse-item" href="#">Search Student</a>
             </div>
         </div>

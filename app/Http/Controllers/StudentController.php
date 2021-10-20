@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
+
+    public function __construct() {
+        $this->middleware('role:registrar');
+    }
+
     public function create() {
         return view('students.create');
     }

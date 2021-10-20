@@ -78,6 +78,29 @@
         {!! Form::close() !!}
 
     </div>
+    <div class="col-md-4">
+        <h5>User Roles</h5>
+        @if(count($user->userRoles)>0)
+        <ul class="list-group">
+            @foreach($user->userRoles as $userRole)
+                <li class="list-group-item text-uppercase">{{$userRole->role->role}}</li>
+            @endforeach
+        </ul>
+        @else
+            <p>You have no roles</p>
+        @endif
+        <hr>
+        <h5>User Permissions</h5>
+        @if(count($user->userPermissions)>0)
+        <ul class="list-group">
+            @foreach($user->userPermissions as $userPermission)
+                <li class="list-group-item text-uppercase">{{$userPermission->permission->permission}}</li>
+            @endforeach
+        </ul>
+        @else
+            <p>You have no additional permissions</p>
+        @endif
+    </div>
 
 </div>
 

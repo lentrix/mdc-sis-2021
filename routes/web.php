@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PermissionsController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\SiteController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserManagementController;
 use Illuminate\Support\Facades\Route;
@@ -50,4 +51,6 @@ Route::group(['middleware'=>'auth'], function() {
     Route::post('/permissions', [PermissionsController::class, 'store']);
     Route::put('/permissions', [PermissionsController::class, 'update']);
     Route::delete('/permissions', [PermissionsController::class, 'destroy']);
+
+    Route::get('/students/create', [StudentController::class, 'create']);
 });
