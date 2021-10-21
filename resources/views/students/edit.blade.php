@@ -9,7 +9,7 @@
 <h1>Create New Student</h1>
 <hr>
 
-{!! Form::open(['url'=>'/students', 'method'=>'post','id'=>'form']) !!}
+{!! Form::model($student,['url'=>'/students/' . $student->id, 'method'=>'put','id'=>'form']) !!}
 @include('students._form')
 {!! Form::close() !!}
 

@@ -20,6 +20,7 @@ class CreateStudentsTable extends Migration
             $table->string('lrn')->nullable();
             $table->string('last_name');
             $table->string('first_name');
+            $table->string('middle_name')->nullable();
             $table->string('sex', 6);
             $table->date('birth_date');
             $table->string('civil_status',20)->nullable();
@@ -33,7 +34,7 @@ class CreateStudentsTable extends Migration
             $table->string('father')->nullable();
             $table->string('mother')->nullable();
             $table->string('occupation_mother')->nullable();
-            $table->string('father_father')->nullable();
+            $table->string('occupation_father')->nullable();
             $table->string('parents_address')->nullable();
             $table->timestamps();
         });

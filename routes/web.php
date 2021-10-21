@@ -53,4 +53,8 @@ Route::group(['middleware'=>'auth'], function() {
     Route::delete('/permissions', [PermissionsController::class, 'destroy']);
 
     Route::get('/students/create', [StudentController::class, 'create']);
+    Route::post('/students', [StudentController::class,'store']);
+    Route::get('/students/{student}', [StudentController::class,'show']);
+    Route::put('/students/{student}', [StudentController::class,'update']);
+    Route::get('/students/edit/{student}', [StudentController::class,'edit']);
 });

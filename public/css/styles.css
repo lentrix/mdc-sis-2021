@@ -11,3 +11,25 @@ body {
 #login-logo {
     width: 50%;
 }
+
+.info-item {
+    display: inline-block;
+    margin-bottom: 14px;
+    font-size: 1.1em;
+}
+
+.info-item>i{
+    background-color: rgb(131, 157, 158);
+    padding: 0 5px;
+    margin: 0;
+    border-left: 1px solid #20578d;
+    color: rgb(225, 250, 255);
+}
+
+.info-item>span {
+    padding: 0px 14px 0 8px;
+    background-color: rgb(223, 243, 243);
+    margin-right: 14px;
+}
+
+.bg-light-blue { background-color: #e3f5ff; }
