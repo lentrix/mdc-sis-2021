@@ -2,6 +2,8 @@
 
 @section('content')
 
+@include('students.educ.edit-modal')
+
 <h1>Student Information</h1>
 <hr>
 
@@ -41,11 +43,11 @@
     </div>
 </div>
 <div class="bg-light-blue pb-4">
-    <div class="float-right">
-        <button class="btn btn-info mt-3 mr-3">+Add</button>
+    <div class="d-flex align-items-start">
+        <h3 class='col pt-3' style="flex: 1">Educational Background</h3>
+        @include('students.educ.add-modal',['student'=>$student])
     </div>
-    <h3 class='col pt-3'>Educational Background</h3>
-    <hr>
+    <hr class="mt-0">
 
     <div class="col">
         <table class="table table-bordered">
@@ -56,20 +58,61 @@
                     <th>Address</th>
                     <th>Year</th>
                     <th>Remarks</th>
+                    <th><i class="fa fa-cog"></i></th>
                 </tr>
             </thead>
             <tbody>
+                @foreach($student->educationalBackgrounds as $edBack)
                 <tr>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
+                    <td>
+                        {{$edBack->level}}
+                        @if($edBack->degree) <br>({{$edBack->degree}}) @endif
+                    </td>
+                    <td>{{$edBack->school}}</td>
+                    <td>{{$edBack->address}}</td>
+                    <td>{{$edBack->year}}</td>
+                    <td>{{$edBack->remarks}}</td>
+                    <td>
+                        <i class="fa fa-edit btn btn-sm text-info edit-educ"
+                                title="Edit this entry"
+                                data-id="{{$edBack->id}}"
+                                data-level="{{$edBack->level}}"
+                                data-degree="{{$edBack->degree}}"
+                                data-school="{{$edBack->school}}"
+                                data-address="{{$edBack->address}}"
+                                data-year="{{$edBack->year}}"
+                                data-remarks="{{$edBack->remarks}}"></i>
+                    </td>
                 </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
 
 </div>
+
+@endsection
+
+
+@section('scripts')
+
+<script>
+
+$(document).ready(()=>{
+    $(".edit-educ").click((e)=>{
+        var el = $(e.target)
+        $("#educ_id").val(el.data('id'))
+        $("#level").val(el.data('level'))
+        $("#degree").val(el.data('degree'))
+        $("#school").val(el.data('school'))
+        $("#address").val(el.data('address'))
+        $("#year").val(el.data('year'))
+        $("#remarks").val(el.data('remarks'))
+        $("#editEducBackgroundModal").modal('show')
+
+    })
+})
+
+</script>
 
 @endsection

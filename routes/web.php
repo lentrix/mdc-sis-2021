@@ -57,4 +57,6 @@ Route::group(['middleware'=>'auth'], function() {
     Route::get('/students/{student}', [StudentController::class,'show']);
     Route::put('/students/{student}', [StudentController::class,'update']);
     Route::get('/students/edit/{student}', [StudentController::class,'edit']);
+    Route::post('/students/educational-backgrounds/{student}', [StudentController::class, 'addEducationalBackground']);
+    Route::put('/students/educational-backgrounds/{student}', [StudentController::class, 'updateEducationalBackground']);
 });

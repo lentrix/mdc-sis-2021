@@ -21,7 +21,7 @@ class Student extends Model
     ];
 
     public function educationalBackgrounds() {
-        return $this->hasMany('App\Models\EducationalBackground');
+        return $this->hasMany('App\Models\EducationalBackground')->orderBy('year','desc');
     }
 
     public function getFullNameAttribute() {

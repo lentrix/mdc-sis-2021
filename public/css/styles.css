@@ -15,21 +15,31 @@ body {
 .info-item {
     display: inline-block;
     margin-bottom: 14px;
+    margin-right: 14px;
     font-size: 1.1em;
+    box-shadow: 1px 0 3px #777;
+    border-left: 4px solid #25533c;
 }
 
 .info-item>i{
-    background-color: rgb(131, 157, 158);
-    padding: 0 5px;
+    background-color: #abf8d2;
+    padding: 0 8px 0 5px;
     margin: 0;
-    border-left: 1px solid #20578d;
-    color: rgb(225, 250, 255);
+    border-right: 1px solid rgba(41, 58, 50, 0.356);
 }
 
 .info-item>span {
     padding: 0px 14px 0 8px;
-    background-color: rgb(223, 243, 243);
-    margin-right: 14px;
+    background-color: #e3f5ff;
+    font-weight: 600;
+    padding-right: 14px;
 }
 
 .bg-light-blue { background-color: #e3f5ff; }
+
+/* Overrides */
+
+
+.table, .form-control {
+    color: #555762;
+}

@@ -15,15 +15,15 @@ class CreateEducationalBackgroundsTable extends Migration
     {
         Schema::create('educational_backgrounds', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('student_id')->unsigned();
             $table->string('level',60);//primary schoo, elementary, high school, tertiary, post graduate, doctorate
             $table->string('degree',100)->nullable();
             $table->string('school');
             $table->string('address');
             $table->integer('year')->unsigned();
-            $table->string('remarks', 191);
+            $table->string('remarks', 191)->nullable();
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
         });
     }
 

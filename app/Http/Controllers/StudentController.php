@@ -62,4 +62,48 @@ class StudentController extends Controller
 
         return redirect('/students/' . $student->id)->with('Info','This student information has been updated');
     }
+
+    public function addEducationalBackground(Student $student, Request $request) {
+        $request->validate([
+            'level' => 'string|required',
+            'school' => 'string|required',
+            'address' => 'string|required',
+            'year' => 'numeric|required',
+        ]);
+
+        EducationalBackground::create([
+            'student_id' => $student->id,
+            'level' => $request->level,
+            'degree' => $request->degree,
+            'school' => $request->school,
+            'address' => $request->address,
+            'year' => $request->year,
+            'remarks' => $request->remarks,
+        ]);
+
+        return redirect('/students/' . $student->id)->with('Info','A new educational background has been added');
+    }
+
+    public function updateEducationalBackground(Student $student, Request $request) {
+        $request->validate([
+            'level' => 'string|required',
+            'school' => 'string|required',
+            'address' => 'string|required',
+            'year' => 'numeric|required',
+        ]);
+
+        $educationalBackground = EducationalBackground::findOrFail($request->id);
+
+        $educationalBackground->update([
+            'student_id' => $student->id,
+            'level' => $request->level,
+            'degree' => $request->degree,
+            'school' => $request->school,
+            'address' => $request->address,
+            'year' => $request->year,
+            'remarks' => $request->remarks,
+        ]);
+
+        return redirect('/students/' . $student->id)->with('Info','An entry in the educational background have been updated');
+    }
 }
