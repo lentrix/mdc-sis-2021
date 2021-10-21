@@ -106,4 +106,16 @@ class StudentController extends Controller
 
         return redirect('/students/' . $student->id)->with('Info','An entry in the educational background have been updated');
     }
+
+    public function search(Request $request) {
+
+        $students = Student::orderBy('updated_at','desc');
+        if($request->last_name) {
+            $students->where('last_name','like',"%$request->last_name%");
+        }
+
+        return view('students.search',[
+            'students' => $students->limit(100)->get()
+        ]);
+    }
 }
