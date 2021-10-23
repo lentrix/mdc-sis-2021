@@ -25,8 +25,7 @@
     <div class="sidebar-heading">
         Records
     </div>
-
-    <!-- Nav Item - Pages Collapse Menu -->
+    @if(auth()->user()->is('registrar'))
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStudents"
             aria-expanded="true" aria-controls="collapseStudents">
@@ -38,21 +37,6 @@
                 <h6 class="collapse-header">Student Records:</h6>
                 <a class="collapse-item" href="{{url('/students/create')}}">Create Student</a>
                 <a class="collapse-item" href="{{url('/students/search')}}">Search Student</a>
-            </div>
-        </div>
-    </li>
-
-     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTeachers"
-            aria-expanded="true" aria-controls="collapseTeachers">
-            <i class="fas fa-chalkboard-teacher"></i>
-            <span>Teachers</span>
-        </a>
-        <div id="collapseTeachers" class="collapse" aria-labelledby="headingTeachers" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Course Records:</h6>
-                <a class="collapse-item" href="#">Create Teacher</a>
-                <a class="collapse-item" href="#">Search Teacher</a>
             </div>
         </div>
     </li>
@@ -71,8 +55,30 @@
             </div>
         </div>
     </li>
+    @endif
 
+    @if(auth()->user()->is('admin'))
+     <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTeachers"
+            aria-expanded="true" aria-controls="collapseTeachers">
+            <i class="fas fa-chalkboard-teacher"></i>
+            <span>Teachers</span>
+        </a>
+        <div id="collapseTeachers" class="collapse" aria-labelledby="headingTeachers" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Teacher Records:</h6>
+                <a class="collapse-item" href="#">Create Teacher</a>
+                <a class="collapse-item" href="#">Search Teacher</a>
+            </div>
+        </div>
+    </li>
+    @endif
 
+    <li class="nav-item">
+        <a class="nav-link" href="{{url('/departments')}}">
+            <i class="fas fa-users fa-chart-area"></i>
+            <span>Departments</span></a>
+    </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider">
@@ -82,7 +88,7 @@
         Transactions
     </div>
 
-    <!-- Nav Item - Pages Collapse Menu -->
+    @if(auth()->user()->is('admin'))
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEnrollment" aria-expanded="false"
             aria-controls="collapseEnrollment">
@@ -99,6 +105,7 @@
             </div>
         </div>
     </li>
+    @endif
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
@@ -119,6 +126,7 @@
         </div>
     </li>
 
+    @if(auth()->user()->is('admin'))
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsers" aria-expanded="false"
             aria-controls="collapseUsers">
@@ -135,6 +143,7 @@
             </div>
         </div>
     </li>
+    @endif
 
     {{-- <li class="nav-item">
         <a class="nav-link" href="{{url('/users-mgt')}}">

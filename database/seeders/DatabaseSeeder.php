@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call(RoleSeeder::class);
         UserRole::create(['user_id'=>1,'role_id'=>1]);
         $this->call(PermissionSeeder::class);
+        $this->call(DepartmentSeeder::class);
     }
 }

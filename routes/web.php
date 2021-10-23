@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\PermissionsController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\SiteController;
@@ -60,4 +61,7 @@ Route::group(['middleware'=>'auth'], function() {
     Route::get('/students/edit/{student}', [StudentController::class,'edit']);
     Route::post('/students/educational-backgrounds/{student}', [StudentController::class, 'addEducationalBackground']);
     Route::put('/students/educational-backgrounds/{student}', [StudentController::class, 'updateEducationalBackground']);
+
+    Route::get('/departments',[DepartmentController::class,'index']);
+    Route::get('/departments/{department}',[DepartmentController::class,'show']);
 });

@@ -54,6 +54,10 @@ class User extends Authenticatable
         }
     }
 
+    public function getFullNameAttribute() {
+        return "$this->lname, $this->fname";
+    }
+
     public function userRoles() {
         return $this->hasMany('App\Models\UserRole')->with('role');
     }
