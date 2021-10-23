@@ -18,6 +18,8 @@ class CreateTermsTable extends Migration
             $table->string('accronym', 20);
             $table->string('name');
             $table->string('type',6);//annual, sem (semestral), tri (trimestral)
+            $table->date('enrol_start');
+            $table->date('enrol_end');
             $table->date('start');
             $table->date('end');
             $table->timestamps();

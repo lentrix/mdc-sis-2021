@@ -43,3 +43,7 @@ body {
 .table, .form-control {
     color: #555762;
 }
+
+.sidebar .nav-item .nav-link {
+    padding: 0.6rem;
+}

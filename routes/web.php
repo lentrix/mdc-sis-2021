@@ -6,6 +6,7 @@ use App\Http\Controllers\PermissionsController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TermsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserManagementController;
 use Illuminate\Support\Facades\Route;
@@ -64,4 +65,6 @@ Route::group(['middleware'=>'auth'], function() {
 
     Route::get('/departments',[DepartmentController::class,'index']);
     Route::get('/departments/{department}',[DepartmentController::class,'show']);
+
+    Route::get('/terms',[TermsController::class,'index']);
 });
