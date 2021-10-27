@@ -17,4 +17,24 @@ class TermsController extends Controller
 
         return view('terms.index',['terms'=>$terms]);
     }
+
+    public function show(Term $term) {
+        return view('terms.show',['term'=>$term]);
+    }
+
+    public function update(Term $term, Request $request) {
+        $request->validate([
+            'accronym' => 'string|required',
+            'name' => 'string|required',
+            'type' => 'string|required',
+            'enrol_start' => 'string|required',
+            'enrol_end' => 'string|required',
+            'start' => 'string|required',
+            'end' => 'string|required',
+        ]);
+
+        $term->update($request->all());
+
+        return redirect('/terms/' . $term->id)->with('Info','Term details have been updated.');
+    }
 }

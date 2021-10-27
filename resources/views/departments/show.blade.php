@@ -2,6 +2,7 @@
 
 @section('content')
 
+<a href="{{url('/departments')}}" class="btn btn-info float-right"><i class="fa fa-arrow-left"></i> Back</a>
 <h1>{{$department->name}}</h1>
 <hr>
 

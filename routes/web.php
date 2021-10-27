@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\PeriodController;
 use App\Http\Controllers\PermissionsController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\SiteController;
@@ -67,4 +68,10 @@ Route::group(['middleware'=>'auth'], function() {
     Route::get('/departments/{department}',[DepartmentController::class,'show']);
 
     Route::get('/terms',[TermsController::class,'index']);
+    Route::get('/terms/{term}', [TermsController::class, 'show']);
+    Route::put('/terms/{term}', [TermsController::class, 'update']);
+
+    Route::post('/periods', [PeriodController::class, 'store']);
+    Route::put('/periods', [PeriodController::class, 'update']);
+    Route::delete('/periods', [PeriodController::class,'destroy']);
 });

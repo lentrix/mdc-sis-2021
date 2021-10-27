@@ -79,13 +79,13 @@
             <i class="fas fa-chart-pie"></i>
             <span>Departments</span></a>
     </li>
-    @if(auth()->user()->is('admin'))
+
     <li class="nav-item">
         <a class="nav-link" href="{{url('/terms')}}">
             <i class="fas fa-calendar"></i>
             <span>Terms &amp; Periods</span></a>
     </li>
-    @endif
+
 
     <!-- Divider -->
     <hr class="sidebar-divider">

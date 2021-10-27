@@ -19,7 +19,9 @@
     <tbody>
         @foreach($terms as $term)
         <tr>
-            <td>{{$term->accronym}}</td>
+            <td class="font-weight-bold">
+                <a href="{{url('/terms/' . $term->id)}}">{{$term->accronym}}</a>
+            </td>
             <td>{{$term->type}}</td>
             <td>{{$term->name}}</td>
             <td>{{$term->enrol_start->format('M-d-Y')}} to {{$term->enrol_end->format('M-d-Y')}}</td>
