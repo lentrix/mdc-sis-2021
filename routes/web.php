@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\PeriodController;
 use App\Http\Controllers\PermissionsController;
+use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\StudentController;
@@ -74,4 +75,11 @@ Route::group(['middleware'=>'auth'], function() {
     Route::post('/periods', [PeriodController::class, 'store']);
     Route::put('/periods', [PeriodController::class, 'update']);
     Route::delete('/periods', [PeriodController::class,'destroy']);
+
+    Route::get('/programs/create', [ProgramController::class, 'create']);
+    Route::get('/programs/search', [ProgramController::class, 'search']);
+    Route::post('/programs', [ProgramController::class, 'store']);
+    Route::get('/programs/{program}', [ProgramController::class, 'show']);
+    Route::put('/programs/{program}', [ProgramController::class, 'update']);
+    Route::delete('/programs/{program}',[ProgramController::class, 'destroy']);
 });

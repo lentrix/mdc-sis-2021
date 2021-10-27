@@ -110,8 +110,15 @@ class StudentController extends Controller
     public function search(Request $request) {
 
         $students = Student::orderBy('updated_at','desc');
+
         if($request->last_name) {
             $students->where('last_name','like',"%$request->last_name%");
+        }
+        if($request->first_name) {
+            $students->where('first_name','like',"%$request->first_name%");
+        }
+        if($request->middle_name) {
+            $students->where('middle_name','like',"%$request->middle_name%");
         }
 
         return view('students.search',[

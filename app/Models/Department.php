@@ -30,4 +30,15 @@ class Department extends Model
             return "None";
         }
     }
+
+    public static function list() {
+        $depts = static::orderBy('name')->get();
+
+        $list  = [];
+
+        foreach($depts as $dept) {
+            $list[$dept->id] = $dept->name;
+        }
+        return $list;
+    }
 }
