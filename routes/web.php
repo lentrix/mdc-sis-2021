@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\PeriodController;
 use App\Http\Controllers\PermissionsController;
@@ -82,4 +83,11 @@ Route::group(['middleware'=>'auth'], function() {
     Route::get('/programs/{program}', [ProgramController::class, 'show']);
     Route::put('/programs/{program}', [ProgramController::class, 'update']);
     Route::delete('/programs/{program}',[ProgramController::class, 'destroy']);
+
+    Route::get('/courses/create', [CourseController::class,'create']);
+    Route::get('/courses/search', [CourseController::class, 'search']);
+    Route::post('/courses', [CourseController::class, 'store']);
+    Route::get('/courses/{course}', [CourseController::class, 'show']);
+    Route::put('/courses/{course}', [CourseController::class, 'update']);
+    Route::delete('/courses/{course}',[CourseController::class, 'destroy']);
 });

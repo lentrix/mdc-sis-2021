@@ -50,8 +50,8 @@
         <div id="collapseCourses" class="collapse" aria-labelledby="headingCourses" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Course Records:</h6>
-                <a class="collapse-item" href="#">Create Course</a>
-                <a class="collapse-item" href="#">Search Course</a>
+                <a class="collapse-item" href="{{url('/courses/create')}}">Create Course</a>
+                <a class="collapse-item" href="{{url('/courses/search')}}">Search Course</a>
                 <h6 class="collapse-header">Programs Records:</h6>
                 <a class="collapse-item" href="{{url('/programs/create')}}">Create Program</a>
                 <a class="collapse-item" href="{{url('/programs/search')}}">Search Program</a>
