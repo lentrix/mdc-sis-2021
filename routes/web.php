@@ -9,6 +9,7 @@ use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\TermsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserManagementController;
@@ -90,5 +91,10 @@ Route::group(['middleware'=>'auth'], function() {
     Route::post('/courses', [CourseController::class, 'store']);
     Route::get('/courses/{course}', [CourseController::class, 'show']);
     Route::put('/courses/{course}', [CourseController::class, 'update']);
-    Route::delete('/courses/{course}',[CourseController::class, 'destroy']);
+
+    Route::get('/teachers/create', [TeacherController::class,'create']);
+    Route::get('/teachers/search', [TeacherController::class, 'search']);
+    Route::post('/teachers', [TeacherController::class, 'store']);
+    Route::get('/teachers/{teacher}', [TeacherController::class, 'show']);
+    Route::put('/teachers/{teacher}', [TeacherController::class, 'update']);
 });

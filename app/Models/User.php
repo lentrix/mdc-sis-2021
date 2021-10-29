@@ -75,6 +75,12 @@ class User extends Authenticatable
         return false;
     }
 
+    public function isOnly($roleName) {
+        $roleCount = count($this->userRoles);
+
+        return ($roleCount==1 && strcasecmp($this->userRoles[0]->role->role, $roleName)==0);
+    }
+
     public function may($permissionName) {
         foreach($this->userPermissions as $perms) {
             if(strcasecmp($permissionName, $perms->permission->permission) === 0 ) {
@@ -83,5 +89,9 @@ class User extends Authenticatable
         }
 
         return false;
+    }
+
+    public function teacherAccount() {
+        return $this->hasOne('App\Models\Teacher');
     }
 }
