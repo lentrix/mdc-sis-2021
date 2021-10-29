@@ -60,7 +60,7 @@
     </li>
     @endif
 
-    @if(auth()->user()->is('admin'))
+    @if(!auth()->user()->isOnly('student'))
      <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTeachers"
             aria-expanded="true" aria-controls="collapseTeachers">
@@ -70,8 +70,8 @@
         <div id="collapseTeachers" class="collapse" aria-labelledby="headingTeachers" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Teacher Records:</h6>
-                <a class="collapse-item" href="#">Create Teacher</a>
-                <a class="collapse-item" href="#">Search Teacher</a>
+                <a class="collapse-item" href="{{url('/teachers/create')}}">Create Teacher</a>
+                <a class="collapse-item" href="{{url('/teachers/search')}}">Search Teacher</a>
             </div>
         </div>
     </li>
