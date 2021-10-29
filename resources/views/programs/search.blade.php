@@ -46,7 +46,7 @@
                         <td>{{$program->full_name}}</td>
                         <td>{{$program->department->name}}</td>
                         <td class="text-center">
-                            <a href='{{url("/programs/$program->id")}}' class="btn fa fa-folder-open text-info"></a>
+                            <a href='{{url("/programs/$program->id")}}' class="fa fa-folder-open text-info" style="cursor: pointer; text-decoration:none"></a>
                         </td>
                     </tr>
                 @endforeach

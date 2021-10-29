@@ -35,7 +35,16 @@ class CourseController extends Controller
     }
 
     public function show(Course $course) {
-        return $course;
+        $programList = Program::orderBy('full_name')->pluck('full_name','id')->toArray();
+        $departmentList = Department::orderBy('name')->pluck('name','id')->toArray();
+        $coursesList = Course::orderBy('name')->pluck('name','id')->toArray();
+
+        return view('courses.view',[
+            'course'=>$course,
+            'coursesList' => $coursesList,
+            'departmentList' => $departmentList,
+            'programList' => $programList
+        ]);
     }
 
     public function search(Request $request) {
@@ -62,5 +71,18 @@ class CourseController extends Controller
             'courses' => $courses->get(),
             'hasSearch' => $hasSearch
         ]);
+    }
+
+    public function update(Course $course, Request $request) {
+        $request->validate([
+            'name' => 'string|required',
+            'description' => 'string|required',
+            'credit' => 'numeric|required',
+            'department_id' => 'numeric|required'
+        ]);
+
+        $course->update($request->all());
+
+        return redirect('/courses/' . $course->id)->with('Info', 'This course has been updated');
     }
 }

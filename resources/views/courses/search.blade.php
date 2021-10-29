@@ -43,8 +43,7 @@
                     <td>{{$course->credit}}</td>
                     <td>{{$course->department?$course->department->accronym:"..."}}</td>
                     <td>
-                        <i class="fa fa-edit text-info" style="cursor:pointer"></i>
-                        <i class="fa fa-trash text-danger" style="cursor:pointer"></i>
+                        <a href="{{url('/courses/' . $course->id)}}" class="fa fa-folder-open text-info" style="cursor:pointer; text-decoration: none"></a>
                     </td>
                 </tr>
                 @endforeach

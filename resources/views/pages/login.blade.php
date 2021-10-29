@@ -5,7 +5,7 @@
 
 
 <!-- Outer Row -->
-<div class="row d-flex justify-content-center align-items-center vh-100">
+<div class="row d-flex justify-content-center align-items-center" style="height: 90vh">
 
     <div class="col-md-8">
 
