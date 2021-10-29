@@ -37,4 +37,20 @@ class TermsController extends Controller
 
         return redirect('/terms/' . $term->id)->with('Info','Term details have been updated.');
     }
+
+    public function store(Request $request) {
+        $request->validate([
+            'accronym' => 'string|required',
+            'name' => 'string|required',
+            'type' => 'string|required',
+            'enrol_start' => 'string|required',
+            'enrol_end' => 'string|required',
+            'start' => 'string|required',
+            'end' => 'string|required',
+        ]);
+
+        $term = Term::create($request->all());
+
+        return redirect("/terms/$term->id")->with('Info','A new term has been created');
+    }
 }
