@@ -13,6 +13,7 @@ use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\TermsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserManagementController;
+use App\Http\Controllers\VenueController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -97,4 +98,10 @@ Route::group(['middleware'=>'auth'], function() {
     Route::post('/teachers', [TeacherController::class, 'store']);
     Route::get('/teachers/{teacher}', [TeacherController::class, 'show']);
     Route::put('/teachers/{teacher}', [TeacherController::class, 'update']);
+
+    Route::get('/venues', [VenueController::class, 'index']);
+    Route::post('/venues', [VenueController::class, 'store']);
+    Route::get('/venues/{venue}', [VenueController::class, 'show']);
+    Route::put('/venues/{venue}', [VenueController::class, 'update']);
+
 });

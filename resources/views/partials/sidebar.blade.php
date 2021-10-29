@@ -89,6 +89,12 @@
             <span>Terms &amp; Periods</span></a>
     </li>
 
+    <li class="nav-item">
+        <a class="nav-link" href="{{url('/venues')}}">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Venues</span></a>
+    </li>
+
 
     <!-- Divider -->
     <hr class="sidebar-divider">
