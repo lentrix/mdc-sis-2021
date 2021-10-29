@@ -2,6 +2,10 @@
 
 @section('content')
 
+<div class="float-right">
+    @if(auth()->user()->is('admin')) @include('terms.add-term-modal') @endif
+</div>
+
 <h1>Terms</h1>
 <hr>
 <table class="table table-bordered table-striped">

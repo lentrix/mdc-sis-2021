@@ -70,6 +70,7 @@ Route::group(['middleware'=>'auth'], function() {
     Route::get('/departments/{department}',[DepartmentController::class,'show']);
 
     Route::get('/terms',[TermsController::class,'index']);
+    Route::post('/terms',[TermsController::class,'store']);
     Route::get('/terms/{term}', [TermsController::class, 'show']);
     Route::put('/terms/{term}', [TermsController::class, 'update']);
 
