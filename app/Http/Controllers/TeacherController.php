@@ -82,7 +82,8 @@ class TeacherController extends Controller
         }
 
         if($request->specialization) {
-            $teachers->where('specilization','like',"%$request->specilization%")->orderBy('name');
+            $teachers->where('specialization','like',"%$request->specialization%")->orderBy('name');
+            $hasSearch=true;
         }
 
         if(!$hasSearch) {
