@@ -9,6 +9,7 @@ use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\SubjectClassController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\TermsController;
 use App\Http\Controllers\UserController;
@@ -104,4 +105,7 @@ Route::group(['middleware'=>'auth'], function() {
     Route::get('/venues/{venue}', [VenueController::class, 'show']);
     Route::put('/venues/{venue}', [VenueController::class, 'update']);
 
+    Route::get('/classes/{class}/edit', [SubjectClassController::class, 'edit']);
+    Route::get('/classes/{class}', [SubjectClassController::class, 'show']);
+    Route::get('/classes', [SubjectClassController::class, 'index']);
 });

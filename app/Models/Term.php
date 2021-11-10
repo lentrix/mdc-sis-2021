@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Term extends Model
 {
@@ -20,5 +21,11 @@ class Term extends Model
 
     public function periods() {
         return $this->hasMany('App\Models\Period');
+    }
+
+    public static function getActive() {
+        $now = Carbon::now('Asia/Manila');
+        return Term::where('start','<=', $now)
+                ->where('end','>=', $now);
     }
 }

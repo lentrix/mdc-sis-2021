@@ -118,6 +118,8 @@
                 <a class="collapse-item" href="#">New Enrollment</a>
                 <a class="collapse-item" href="#">View Enrollment</a>
                 <a class="collapse-item" href="#">Add, Change, Withdraw</a>
+
+                <a class="collapse-item" href="{{url('/classes')}}">Class Offerings</a>
             </div>
         </div>
     </li>
