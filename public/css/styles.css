@@ -47,3 +47,37 @@ body {
 .sidebar .nav-item .nav-link {
     padding: 0.6rem;
 }
+
+#course-search-result {
+    position: absolute;
+    top:100%;
+    left:0;
+    width:500px;
+    max-height: 300px;
+    border: 1px solid rgb(170, 170, 170);
+    padding: 14px;
+    border-radius: 10px;
+    display: none;
+    background-color: rgb(230, 230, 230);
+    box-shadow: 0 4px 10px #999;
+    z-index: 10;
+}
+
+#course-search-result div a.search-item {
+    display: block;
+    text-decoration: none;
+    padding: 4px;
+    cursor: pointer;
+}
+
+#course-search-result div a.search-item:hover {
+    background-color: #dfdfdf;
+}
+
+#close-course-search-result {
+    cursor: pointer;
+}
+
+.day-picker label{
+    margin-right: 14px;
+}

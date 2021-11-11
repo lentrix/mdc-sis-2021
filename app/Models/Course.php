@@ -22,4 +22,8 @@ class Course extends Model
     public function program() {
         return $this->belongsTo('App\Models\Program');
     }
+
+    public function getFullIdentityAttribute() {
+        return "[$this->name] $this->description";
+    }
 }
