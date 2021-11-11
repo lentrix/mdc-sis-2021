@@ -23,6 +23,8 @@
             <tr><th>Teacher</th><td>{{$class->teacher->name}}</td></tr>
             <tr><th>Pay Units</th><td>{{$class->pay_units}}</td></tr>
             <tr><th>Credit Units</th><td>{{$class->credit_units}}</td></tr>
+            <tr><th>Limit</th><td>{{$class->limit}}</td></tr>
+            <tr><th>Term</th><td>{{$class->term->name}}</td></tr>
         </table>
         <h5>Time Schedule</h5>
         <table class="table table-striped">

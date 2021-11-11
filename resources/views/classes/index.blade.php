@@ -16,9 +16,9 @@
         </div>
     </form>
 
-    <button class="btn btn-primary">
+    <a href="{{url('/classes/create')}}" class="btn btn-primary">
         <i class="fa fa-plus"></i> Create Class
-    </button>
+    </a>
 </div>
 
 <h1>Class Offerings</h1>
@@ -48,7 +48,9 @@
                 <td>{{$class->teacher->name}}</td>
                 <td>{{$class->credit_units}}</td>
                 <td>
-                    ...
+                    @foreach($class->schedules as $sched)
+                       <div>{{$sched->summary}}</div>
+                    @endforeach
                 </td>
                 <td>
                     <a href="{{url('/classes/' . $class->id)}}" class="btn fa fa-eye text-info"></a>

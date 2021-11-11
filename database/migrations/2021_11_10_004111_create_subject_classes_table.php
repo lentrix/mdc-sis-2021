@@ -20,6 +20,7 @@ class CreateSubjectClassesTable extends Migration
             $table->bigInteger('term_id')->unsigned();
             $table->integer('credit_units')->unsigned();
             $table->integer('pay_units')->unsigned();
+            $table->integer('limit')->default(50);
             $table->timestamps();
 
             $table->foreign('course_id')->references('id')->on('courses');

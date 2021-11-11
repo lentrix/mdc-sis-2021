@@ -2,6 +2,8 @@
 
 @section('content')
 
+@include('classes.remove-sched-modal')
+
 <h1>Edit: {{$class->course->name}}</h1>
 <hr>
 
@@ -101,7 +103,14 @@
                 <td>{{$sched->end->format('g:i A')}}</td>
                 <td>{{$sched->day}}</td>
                 <td>{{$sched->venue->name}}</td>
-                <td>...</td>
+                <td>
+                    <i class="fa fa-trash-alt btn text-danger remove-sched"
+                        data-id="{{$sched->id}}"
+                        data-start="{{$sched->start->format('g:i A')}}"
+                        data-end="{{$sched->end->format('g:i A')}}"
+                        data-day="{{$sched->day}}"
+                        data-venue="{{$sched->venue->name}}"></i>
+                </td>
             </tr>
 
             @endforeach
@@ -156,6 +165,15 @@ $(document).ready(()=>{
         $("input[name=course_id]").val(el.data('id'))
         $("#course_name").val("[" + el.data('name') + "] " + el.data('description'))
         $("#course-search-result").css('display','none')
+    })
+
+    $(".remove-sched").click((ev)=>{
+        var el = $(ev.target)
+        var schedText = el.data('start') + "-" + el.data('end') + " " + el.data('day') + " " + el.data('venue')
+        $("#schedule_id").val(el.data('id'))
+        $("#sched-summary").text(schedText)
+        $("#removeSchedModal").modal('show')
+        console.log(schedText)
     })
 })
 

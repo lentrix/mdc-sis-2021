@@ -105,9 +105,12 @@ Route::group(['middleware'=>'auth'], function() {
     Route::get('/venues/{venue}', [VenueController::class, 'show']);
     Route::put('/venues/{venue}', [VenueController::class, 'update']);
 
+    Route::get('/classes/create', [SubjectClassController::class, 'create']);
     Route::get('/classes/{class}/edit', [SubjectClassController::class, 'edit']);
-    Route::POST('/classes/{class}/add-sched', [SubjectClassController::class, 'addSched']);
+    Route::delete('/classes/{class}/remove-sched', [SubjectClassController::class, 'removeSched']);
+    Route::post('/classes/{class}/add-sched', [SubjectClassController::class, 'addSched']);
     Route::get('/classes/{class}', [SubjectClassController::class, 'show']);
     Route::put('/classes/{class}', [SubjectClassController::class, 'update']);
     Route::get('/classes', [SubjectClassController::class, 'index']);
+    Route::post('/classes', [SubjectClassController::class, 'store']);
 });
