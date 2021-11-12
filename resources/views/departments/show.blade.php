@@ -2,7 +2,12 @@
 
 @section('content')
 
-<a href="{{url('/departments')}}" class="btn btn-info float-right"><i class="fa fa-arrow-left"></i> Back</a>
+<div class="float-right">
+    <a href="{{url('/departments')}}" class="btn btn-info"><i class="fa fa-arrow-left"></i> Back</a>
+    @if(auth()->user()->is('admin'))
+        @include('departments.edit-department-modal')
+    @endif
+</div>
 <h1>{{$department->name}}</h1>
 <hr>
 

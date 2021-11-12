@@ -7,6 +7,7 @@ use App\Http\Controllers\PeriodController;
 use App\Http\Controllers\PermissionsController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\RolesController;
+use App\Http\Controllers\SectionController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectClassController;
@@ -69,8 +70,10 @@ Route::group(['middleware'=>'auth'], function() {
     Route::post('/students/educational-backgrounds/{student}', [StudentController::class, 'addEducationalBackground']);
     Route::put('/students/educational-backgrounds/{student}', [StudentController::class, 'updateEducationalBackground']);
 
-    Route::get('/departments',[DepartmentController::class,'index']);
     Route::get('/departments/{department}',[DepartmentController::class,'show']);
+    Route::put('/departments/{department}', [DepartmentController::class, 'update']);
+    Route::get('/departments',[DepartmentController::class,'index']);
+    Route::post('/departments',[DepartmentController::class,'store']);
 
     Route::get('/terms',[TermsController::class,'index']);
     Route::post('/terms',[TermsController::class,'store']);
@@ -113,4 +116,9 @@ Route::group(['middleware'=>'auth'], function() {
     Route::put('/classes/{class}', [SubjectClassController::class, 'update']);
     Route::get('/classes', [SubjectClassController::class, 'index']);
     Route::post('/classes', [SubjectClassController::class, 'store']);
+
+    Route::get('/sections/{section}', [SectionController::class, 'show']);
+    Route::put('/sections/{section}', [SectionController::class, 'update']);
+    Route::get('/sections', [SectionController::class, 'index']);
+    Route::post('/sections', [SectionController::class, 'store']);
 });

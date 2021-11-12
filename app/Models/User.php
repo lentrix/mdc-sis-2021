@@ -94,4 +94,16 @@ class User extends Authenticatable
     public function teacherAccount() {
         return $this->hasOne('App\Models\Teacher');
     }
+
+    public static function getList() {
+        $usersList = [];
+
+        $users = User::orderBy('lname')->orderBy('fname')->get();
+
+        foreach($users as $user) {
+            $usersList[$user->id] = $user->lname . ", " . $user->fname;
+        }
+
+        return $usersList;
+    }
 }

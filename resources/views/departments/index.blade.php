@@ -2,6 +2,13 @@
 
 @section('content')
 
+@if(auth()->user()->is('admin'))
+<div class="float-right">
+    @include('departments.create-department-modal')
+</div>
+@endif
+
+
 <h1>Departments</h1>
 <hr>
 

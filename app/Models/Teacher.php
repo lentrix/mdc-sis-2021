@@ -18,4 +18,8 @@ class Teacher extends Model
     public function department() {
         return $this->belongsTo('App\Models\Department');
     }
+
+    public function advisory() {
+        return $this->hasMany('App\Models\Section')->whereIn('term_id', Term::getActive()->select('id')->get());
+    }
 }

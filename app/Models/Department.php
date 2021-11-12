@@ -9,7 +9,7 @@ class Department extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['accronym', 'name','parent','head'];
+    protected $fillable = ['accronym', 'name','parent_id','head_id'];
 
     public function head() {
         return $this->belongsTo('App\Models\User','head_id','id');
@@ -21,6 +21,10 @@ class Department extends Model
 
     public function subDepartments() {
         return $this->hasMany('App\Models\Department', 'parent_id', 'id');
+    }
+
+    public function sections() {
+        return $this->hasMany('App\Models\Section');
     }
 
     public function getDepartmentHeadNameAttribute() {

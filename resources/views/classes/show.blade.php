@@ -2,11 +2,13 @@
 
 @section('content')
 
+@if(auth()->user()->is('registrar'))
 <div class="float-right">
     <a href="{{url('/classes/' . $class->id . "/edit")}}" class="btn btn-info">
         <i class="fa fa-edit"></i> Edit Class Offering
     </a>
 </div>
+@endif
 
 <div class="d-flex align-items-center">
     <h1>{{$class->course->name}} |</h1>

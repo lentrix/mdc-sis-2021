@@ -12,6 +12,11 @@ use Illuminate\Http\Request;
 
 class SubjectClassController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('role:registrar')->except(['index','show']);
+    }
+
     public function index(Request $request) {
 
         $classes = SubjectClass::whereIn('term_id', Term::getActive()->select('id')->get());

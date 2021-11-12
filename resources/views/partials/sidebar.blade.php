@@ -95,6 +95,11 @@
             <span>Venues</span></a>
     </li>
 
+    <li class="nav-item">
+        <a class="nav-link" href="{{url('/sections')}}">
+            <i class="fas fa-th-large"></i>
+            <span>Sections</span></a>
+    </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider">
@@ -104,7 +109,6 @@
         Transactions
     </div>
 
-    @if(auth()->user()->is('admin'))
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEnrollment" aria-expanded="false"
             aria-controls="collapseEnrollment">
@@ -123,7 +127,6 @@
             </div>
         </div>
     </li>
-    @endif
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">

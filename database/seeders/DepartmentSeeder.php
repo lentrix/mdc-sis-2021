@@ -81,6 +81,10 @@ class DepartmentSeeder extends Seeder
                 'name' => 'College of Nursing',
                 'parent_id' =>  6
             ],
+            [
+                'accronym' => 'GS',
+                'name' => 'Graduate Studies',
+            ]
         ];
 
         foreach($depts as $dept) {
