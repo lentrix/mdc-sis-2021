@@ -45,4 +45,8 @@ class Department extends Model
         }
         return $list;
     }
+
+    public static function headedBy(User $user) {
+        return Department::where('head_id', $user->id);
+    }
 }

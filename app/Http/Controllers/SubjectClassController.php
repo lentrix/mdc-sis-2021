@@ -101,7 +101,7 @@ class SubjectClassController extends Controller
         return view('classes.create',[
             'teachers' => Teacher::orderBy('name')->pluck('name','id'),
             'venues' => Venue::orderBy('name')->pluck('name','id'),
-            'terms' => Term::getActive()->pluck('name','id')
+            'terms' => Term::getEnrolling()->pluck('name','id')
         ]);
     }
 

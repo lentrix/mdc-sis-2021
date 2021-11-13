@@ -27,9 +27,9 @@ class SectionController extends Controller
         return view('sections.index',[
             'sections' => $sections->get(),
             'department_id' => $request->department_id,
-            'departmentList' => Department::orderBy('accronym')->pluck('name','id'),
+            'departmentList' => Department::headedBy(auth()->user())->orderBy('accronym')->pluck('name','id'),
             'termsList' => Term::getEnrolling()->pluck('name','id'),
-            'programsList' => Program::orderBy('full_name')->pluck('full_name','id'),
+            'programsList' => Program::whereIn('department_id', Department::headedBy(auth()->user())->select('id')->get() )->orderBy('full_name')->pluck('full_name','id'),
             'teachersList' => Teacher::orderBy('name')->pluck('name','id')
         ]);
     }
@@ -52,9 +52,9 @@ class SectionController extends Controller
     public function show(Section $section) {
         return view('sections.show', [
             'section'=>$section,
-            'departmentList' => Department::orderBy('accronym')->pluck('name','id'),
+            'departmentList' => Department::headedBy(auth()->user())->orderBy('accronym')->pluck('name','id'),
             'termsList' => Term::getEnrolling()->pluck('name','id'),
-            'programsList' => Program::orderBy('full_name')->pluck('full_name','id'),
+            'programsList' => Program::whereIn('department_id', Department::headedBy(auth()->user())->select('id')->get() )->orderBy('full_name')->pluck('full_name','id'),
             'teachersList' => Teacher::orderBy('name')->pluck('name','id')
         ]);
     }

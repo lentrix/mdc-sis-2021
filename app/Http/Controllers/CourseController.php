@@ -10,8 +10,8 @@ use Illuminate\Http\Request;
 class CourseController extends Controller
 {
     public function create() {
-        $programList = Program::orderBy('full_name')->pluck('full_name','id')->toArray();
-        $departmentList = Department::orderBy('name')->pluck('name','id')->toArray();
+        $programList = Program::whereIn('department_id', Department::headedBy(auth()->user())->select('id')->get() )->orderBy('full_name')->pluck('full_name','id');
+        $departmentList = Department::headedBy(auth()->user())->orderBy('accronym')->pluck('name','id');
         $coursesList = Course::orderBy('name')->pluck('name','id')->toArray();
 
         return view('courses.create',[

@@ -13,6 +13,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectClassController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\TermsController;
+use App\Http\Controllers\TestingController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\VenueController;
@@ -35,6 +36,9 @@ Route::get('/', [SiteController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::group(['middleware'=>'auth'], function() {
+
+    Route::get('/test',[TestingController::class, 'index']);
+
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/dashboard',[SiteController::class, 'dashboard']);
     Route::get('/users/profile', [UserController::class,'profile']);

@@ -8,12 +8,19 @@ use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('role:admin')->only(['store','update']);
+    }
+
     public function index() {
         $departments = Department::whereNull('parent_id')->orderBy('accronym')->get();
+
+
         return view('departments.index',[
             'departments'=>$departments,
             'departmentList' => Department::orderBy('accronym')->pluck('name','id'),
-            'users' => User::getList()
+            'users' => User::headsList()
         ]);
     }
 
@@ -21,7 +28,7 @@ class DepartmentController extends Controller
         return view('departments.show',[
             'department' => $department,
             'departmentList' => Department::orderBy('accronym')->pluck('name','id'),
-            'users' => User::getList()
+            'users' => User::headsList()
         ]);
     }
 

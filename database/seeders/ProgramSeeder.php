@@ -43,37 +43,37 @@ class ProgramSeeder extends Seeder
                 'short_name' => 'BEED',
                 'full_name' => 'Bachelor of Elementary Education',
                 'program_head' => 'Ninfa S. Reserva',
-                'department_id' => 11
+                'department_id' => 12
             ],
             [
                 'short_name' => 'BSIT',
                 'full_name' => 'Bachelor of Science in Information Technology',
                 'program_head' => 'Josefina Pangan',
-                'department_id' => 9
+                'department_id' => 10
             ],
             [
                 'short_name' => 'BSCRIM',
                 'full_name' => 'Bachelor of Science in Criminology',
                 'program_head' => 'Avelino Lofranco',
-                'department_id' => 10
+                'department_id' => 11
             ],
             [
                 'short_name' => 'BSHRM',
                 'full_name' => 'Bachelor of Science in Hotel & Restaurant Management',
                 'program_head' => 'Sheila Monte de Ramos',
-                'department_id' => 8
+                'department_id' => 9
             ],
             [
                 'short_name' => 'BSA',
                 'full_name' => 'Bachelor of Science in Accountancy',
                 'program_head' => 'Angelica Balatucan',
-                'department_id' => 7
+                'department_id' => 8
             ],
             [
                 'short_name' => 'BSN',
                 'full_name' => 'Bachelor of Science in Nursing',
                 'program_head' => 'Rosario Poligrates',
-                'department_id' => 12
+                'department_id' => 13
             ],
         ];
 

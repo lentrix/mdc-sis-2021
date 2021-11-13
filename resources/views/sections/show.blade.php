@@ -3,14 +3,14 @@
 
 @section('content')
 
-@if(auth()->user()->is('admin'))
 <div class="float-right">
     <a href="{{url('/sections')}}" class="btn btn-info">
         <i class="fa fa-arrow-left"></i> Back to Sections
     </a>
-    @include('sections.update-section-modal',['section'=>$section])
+    @if(auth()->user()->is('head') && auth()->user()->id===$section->department->head_id)
+        @include('sections.update-section-modal',['section'=>$section])
+    @endif
 </div>
-@endif
 
 <h1>Section: {{$section->name}}</h1>
 <hr>
@@ -26,9 +26,12 @@
             <tr><th>Teacher</th><td>{{$section->adviser->name}}</td></tr>
             <tr><th>Term</th><td>{{$section->term->name}}</td></tr>
         </table>
-
+        @if(auth()->user()->is('head') && auth()->user()->id===$section->department->head_id)
+        <div class="float-right">
+            @include('sections.add-class-modal',['section'=>$section])
+        </div>
+        @endif
         <h4>Class Schedule</h4>
-        <p>Note: the table below do not have implementation yet...</p>
         <table class="table table-striped table-bordered table-sm">
             <thead>
                 <tr class="bg-info text-white">

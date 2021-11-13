@@ -95,6 +95,10 @@ class User extends Authenticatable
         return $this->hasOne('App\Models\Teacher');
     }
 
+    public function headsDepartment() {
+        return $this->hasMany('App\Models\Department','head_id','id');
+    }
+
     public static function getList() {
         $usersList = [];
 
@@ -105,5 +109,24 @@ class User extends Authenticatable
         }
 
         return $usersList;
+    }
+
+    public static function hasRole($role) {
+        return User::whereHas('userRoles', function($q1) use ($role) {
+            $q1->whereHas('role', function($q2) use ($role) {
+                $q2->where('role', $role);
+            });
+        });
+    }
+
+    public static function headsList() {
+        $users = User::hasRole('head');
+        $heads = [];
+
+        foreach($users->get() as $user) {
+            $heads[$user->id]=$user->lname . ", " . $user->fname;
+        }
+
+        return $heads;
     }
 }
