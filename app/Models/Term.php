@@ -28,4 +28,11 @@ class Term extends Model
         return Term::where('start','<=', $now)
                 ->where('end','>=', $now);
     }
+
+    public static function getEnrolling() {
+        $now = Carbon::now('Asia/Manila');
+
+        return Term::where('enrol_start',"<=", $now)
+                ->where('enrol_end',">=", $now);
+    }
 }

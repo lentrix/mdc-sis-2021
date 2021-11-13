@@ -28,7 +28,7 @@ class SectionController extends Controller
             'sections' => $sections->get(),
             'department_id' => $request->department_id,
             'departmentList' => Department::orderBy('accronym')->pluck('name','id'),
-            'termsList' => Term::getActive()->pluck('name','id'),
+            'termsList' => Term::getEnrolling()->pluck('name','id'),
             'programsList' => Program::orderBy('full_name')->pluck('full_name','id'),
             'teachersList' => Teacher::orderBy('name')->pluck('name','id')
         ]);
@@ -47,5 +47,30 @@ class SectionController extends Controller
         $section = Section::create($request->all());
 
         return redirect('/sections/'.$section->id)->with('Info','New section created successfully');
+    }
+
+    public function show(Section $section) {
+        return view('sections.show', [
+            'section'=>$section,
+            'departmentList' => Department::orderBy('accronym')->pluck('name','id'),
+            'termsList' => Term::getEnrolling()->pluck('name','id'),
+            'programsList' => Program::orderBy('full_name')->pluck('full_name','id'),
+            'teachersList' => Teacher::orderBy('name')->pluck('name','id')
+        ]);
+    }
+
+    public function update(Section $section, Request $request) {
+        $request->validate([
+            'department_id' => 'numeric|required',
+            'term_id' => 'numeric|required',
+            'program_id' => 'numeric|required',
+            'teacher_id' => 'numeric|required',
+            'level' => 'string|required',
+            'name' => 'string|required',
+        ]);
+
+        $section->update($request->all());
+
+        return redirect('/sections/' . $section->id)->with('Info','This section has been updated');
     }
 }

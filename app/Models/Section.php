@@ -24,6 +24,6 @@ class Section extends Model
     }
 
     public function adviser() {
-        return $this->belongsTo('App\Models\Teacher');
+        return $this->belongsTo('App\Models\Teacher','teacher_id','id');
     }
 }
