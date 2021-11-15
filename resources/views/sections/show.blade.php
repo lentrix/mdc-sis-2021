@@ -26,10 +26,11 @@
             <tr><th>Teacher</th><td>{{$section->adviser->name}}</td></tr>
             <tr><th>Term</th><td>{{$section->term->name}}</td></tr>
         </table>
+
         @if(auth()->user()->is('head') && auth()->user()->id===$section->department->head_id)
-        <div class="float-right">
-            @include('sections.add-class-modal',['section'=>$section])
-        </div>
+            <div class="float-right">
+                @include('sections.add-class-modal',['section'=>$section])
+            </div>
         @endif
         <h4>Class Schedule</h4>
         <table class="table table-striped table-bordered table-sm">
@@ -38,6 +39,7 @@
                     <th>Course No</th>
                     <th>Description</th>
                     <th>Schedule</th>
+                    <th class="text-center"><i class="fa fa-cog"></i></th>
                 </tr>
             </thead>
         </table>
@@ -48,4 +50,21 @@
         <p>No implementation yet...</p>
     </div>
 </div>
+@endsection
+
+
+@section('scripts')
+
+<script>
+
+$(document).ready(()=>{
+    $("#course-selector").change((ev)=>{
+        var el = $(ev.target)
+
+
+    })
+})
+
+</script>
+
 @endsection

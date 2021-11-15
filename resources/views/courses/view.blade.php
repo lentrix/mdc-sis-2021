@@ -21,14 +21,31 @@
     </div>
     <div class="col-md-6">
         <h4>Course Offerings</h4>
-        <table class="table table-bordered-table-striped">
+        <table class="table table-bordered table-striped">
             <thead>
-                <tr class="bg-info">
+                <tr class="bg-info text-white">
                     <th>Schedule</th>
-                    <th>Room</th>
                     <th>Teacher</th>
+                    <th>
+                        #
+                    </th>
                 </tr>
             </thead>
+            <tbody>
+                @foreach($offerings as $offering)
+
+                <tr>
+                    <td>
+                        @foreach($offering->schedules as $sched)
+                            <div>{{$sched->summary}}</div>
+                        @endforeach
+                    </td>
+                    <td>{{$offering->teacher->name}}</td>
+                    <td>0</td>
+                </tr>
+
+                @endforeach
+            </tbody>
         </table>
     </div>
 </div>

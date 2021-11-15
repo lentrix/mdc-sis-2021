@@ -18,14 +18,20 @@ class CreateSubjectClassesTable extends Migration
             $table->bigInteger('course_id')->unsigned();
             $table->bigInteger('teacher_id')->unsigned();
             $table->bigInteger('term_id')->unsigned();
+            $table->bigInteger('department_id')->unsigned()->nullable();
             $table->integer('credit_units')->unsigned();
             $table->integer('pay_units')->unsigned();
             $table->integer('limit')->default(50);
+            $table->bigInteger('created_by')->unsigned();
+            $table->bigInteger('updated_by')->unsigned();
             $table->timestamps();
 
             $table->foreign('course_id')->references('id')->on('courses');
             $table->foreign('teacher_id')->references('id')->on('teachers');
             $table->foreign('term_id')->references('id')->on('terms');
+            $table->foreach('department_id')->references('id')->on('departments');
+            $table->foreach('created_by')->references('id')->on('users');
+            $table->foreach('updated_by')->references('id')->on('users');
         });
     }
 

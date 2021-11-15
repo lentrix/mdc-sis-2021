@@ -27,6 +27,10 @@ class SubjectClass extends Model
         return $this->belongsTo('App\Models\Term');
     }
 
+    public function section() {
+        return $this->hasOne('App\Models\ClassSection');
+    }
+
     public static function enrollable() {
         return SubjectClass::whereIn('term_id', Term::getEnrolling()->select("id")->get())
             ->with('course', function($query) {

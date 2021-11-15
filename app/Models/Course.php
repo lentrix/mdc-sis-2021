@@ -26,4 +26,8 @@ class Course extends Model
     public function getFullIdentityAttribute() {
         return "[$this->name] $this->description";
     }
+
+    public function subjectClasses() {
+        return $this->hasMany('App\Models\SubjectClass');
+    }
 }

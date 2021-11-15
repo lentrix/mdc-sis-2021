@@ -26,4 +26,8 @@ class Section extends Model
     public function adviser() {
         return $this->belongsTo('App\Models\Teacher','teacher_id','id');
     }
+
+    public function subjectClass() {
+        return $this->hasOne('App\Models\SubjectClass');
+    }
 }

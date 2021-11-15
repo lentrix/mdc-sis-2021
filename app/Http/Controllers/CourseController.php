@@ -5,13 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\Department;
 use App\Models\Program;
+use App\Models\SubjectClass;
+use App\Models\Term;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('role:admin')->except(['show','search']);
+    }
+
     public function create() {
-        $programList = Program::whereIn('department_id', Department::headedBy(auth()->user())->select('id')->get() )->orderBy('full_name')->pluck('full_name','id');
-        $departmentList = Department::headedBy(auth()->user())->orderBy('accronym')->pluck('name','id');
+        $programList = Program::orderBy('full_name')->pluck('full_name','id');
+        $departmentList = Department::orderBy('accronym')->pluck('name','id');
         $coursesList = Course::orderBy('name')->pluck('name','id')->toArray();
 
         return view('courses.create',[
@@ -29,7 +36,14 @@ class CourseController extends Controller
             'department_id' => 'numeric|required'
         ]);
 
-        $course = Course::create($request->all());
+        $course = Course::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'credit' => $request->credit,
+            'department_id' => $request->department_id,
+            'created_by' => $request->user()->id,
+            'updated_by' => $request->user()->id,
+        ]);
 
         return redirect('/courses/' . $course->id)->with('Info','This new course has been created');
     }
@@ -39,11 +53,15 @@ class CourseController extends Controller
         $departmentList = Department::orderBy('name')->pluck('name','id')->toArray();
         $coursesList = Course::orderBy('name')->pluck('name','id')->toArray();
 
+        $offerings = SubjectClass::whereIn('term_id', Term::getActive()->select('id')->get())
+                        ->where('course_id', $course->id)->get();
+
         return view('courses.view',[
             'course'=>$course,
             'coursesList' => $coursesList,
             'departmentList' => $departmentList,
-            'programList' => $programList
+            'programList' => $programList,
+            'offerings' => $offerings
         ]);
     }
 
@@ -81,7 +99,13 @@ class CourseController extends Controller
             'department_id' => 'numeric|required'
         ]);
 
-        $course->update($request->all());
+        $course->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'credit' => $request->credit,
+            'department_id' => $request->department_id,
+            'updated_by' => $request->user()->id,
+        ]);
 
         return redirect('/courses/' . $course->id)->with('Info', 'This course has been updated');
     }

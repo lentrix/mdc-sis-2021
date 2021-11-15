@@ -14,7 +14,7 @@ class SubjectClassController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:registrar')->except(['index','show']);
+        $this->middleware('role:head')->except(['index','show']);
     }
 
     public function index(Request $request) {
@@ -64,7 +64,15 @@ class SubjectClassController extends Controller
             'term_id' => 'numeric|required',
         ]);
 
-        $class->update($request->all());
+        $class->update([
+            'course_id' => $request->course_id,
+            'teacher_id' => $request->teacher_id,
+            'pay_units' => $request->pay_units,
+            'credit_units' => $request->credit_units,
+            'term_id' => $request->term_id,
+            'limit' => $request->limit,
+            'updated_by' => $request->user()->id
+        ]);
 
         return redirect('/classes/' . $class->id)->with('Info','Subject class has been updated');
     }
@@ -136,6 +144,7 @@ class SubjectClassController extends Controller
             'pay_units' => $request->pay_units,
             'limit' => $request->limit,
             'venue_id' => $request->venue_id,
+            'created_by' => $request->user()->id
         ]);
 
         //create schedule

@@ -5,7 +5,7 @@
 
   <!-- Modal -->
   <div class="modal fade" id="addClassModal" tabindex="-1" aria-labelledby="addClassModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog  modal-lg ">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="addClassModalLabel">Add Class to Section</h5>
@@ -13,15 +13,36 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        {!! Form::open(['url'=>'/sections/' . $section->id . "/add-class", 'method'=>'post']) !!}
         <div class="modal-body">
 
+            <div class="mb-3">
+                <select name="course" id="course-selector" class="form-control">
+                    @foreach($courses as $course)
+                        <option value="{{$course->id}}">
+                            {{$course->description}} &nbsp;&nbsp; [{{$course->name}}]
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <table class="table table-striped table-bordered table-sm">
+                <thead>
+                    <tr class="bg-info text-white">
+                        <th>Course No.</th>
+                        <th>Description</th>
+                        <th>Schedule</th>
+                        <th>Teacher</th>
+                    </tr>
+                </thead>
+                <tbody id="course-rows">
+
+                </tbody>
+            </table>
+
+            {!! Form::open(['url'=>'/sections/' . $section->id . "/add-class", 'method'=>'post']) !!}
+                <input type="hidden" name="subject_class_id" id="subject_class_id">
+            {!! Form::close() !!}
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Add Class</button>
-        </div>
-        {!! Form::close() !!}
       </div>
     </div>
   </div>

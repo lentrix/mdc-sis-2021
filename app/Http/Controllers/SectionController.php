@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Models\Department;
 use App\Models\Program;
 use App\Models\Section;
+use App\Models\SubjectClass;
 use App\Models\Teacher;
 use App\Models\Term;
 use Illuminate\Http\Request;
@@ -50,12 +52,16 @@ class SectionController extends Controller
     }
 
     public function show(Section $section) {
+
         return view('sections.show', [
             'section'=>$section,
             'departmentList' => Department::headedBy(auth()->user())->orderBy('accronym')->pluck('name','id'),
             'termsList' => Term::getEnrolling()->pluck('name','id'),
             'programsList' => Program::whereIn('department_id', Department::headedBy(auth()->user())->select('id')->get() )->orderBy('full_name')->pluck('full_name','id'),
-            'teachersList' => Teacher::orderBy('name')->pluck('name','id')
+            'teachersList' => Teacher::orderBy('name')->pluck('name','id'),
+            'courses' => Course::whereHas('subjectClasses', function($q) {
+                $q->whereIn('term_id', Term::getEnrolling()->select('id')->get());
+            })->select('courses.id','courses.name','courses.description')->get()
         ]);
     }
 
