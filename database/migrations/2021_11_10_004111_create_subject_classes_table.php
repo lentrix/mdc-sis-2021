@@ -29,9 +29,9 @@ class CreateSubjectClassesTable extends Migration
             $table->foreign('course_id')->references('id')->on('courses');
             $table->foreign('teacher_id')->references('id')->on('teachers');
             $table->foreign('term_id')->references('id')->on('terms');
-            $table->foreach('department_id')->references('id')->on('departments');
-            $table->foreach('created_by')->references('id')->on('users');
-            $table->foreach('updated_by')->references('id')->on('users');
+            $table->foreign('department_id')->references('id')->on('departments');
+            $table->foreign('created_by')->references('id')->on('users');
+            $table->foreign('updated_by')->references('id')->on('users');
         });
     }
 

@@ -36,6 +36,13 @@ class UserSeeder extends Seeder
                 'email' => 'j1fina@yahoo.com',
                 'password' => 'password123'
             ],
+            [
+                'user' => 'avelino',
+                'lname' => 'Lofranco',
+                'fname' => 'Avelino',
+                'email' => 'avelino.lofranco@yahoo.com',
+                'password' => 'password123'
+            ],
         ];
 
         foreach($users as $user) {

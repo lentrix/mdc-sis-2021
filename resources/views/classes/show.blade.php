@@ -2,7 +2,7 @@
 
 @section('content')
 
-@if(auth()->user()->is('registrar'))
+@if(auth()->user()->is('head') && auth()->user()->id===$class->department->head_id)
 <div class="float-right">
     <a href="{{url('/classes/' . $class->id . "/edit")}}" class="btn btn-info">
         <i class="fa fa-edit"></i> Edit Class Offering
@@ -26,6 +26,7 @@
             <tr><th>Pay Units</th><td>{{$class->pay_units}}</td></tr>
             <tr><th>Credit Units</th><td>{{$class->credit_units}}</td></tr>
             <tr><th>Limit</th><td>{{$class->limit}}</td></tr>
+            <tr><th>Department</th><td>{{$class->department->name}}</td></tr>
             <tr><th>Term</th><td>{{$class->term->name}}</td></tr>
         </table>
         <h5>Time Schedule</h5>

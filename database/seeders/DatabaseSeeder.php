@@ -17,7 +17,6 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
         $this->call(UserSeeder::class);
         $this->call(RoleSeeder::class);
-        UserRole::create(['user_id'=>1,'role_id'=>1]);
         $this->call(PermissionSeeder::class);
         $this->call(DepartmentSeeder::class);
         $this->call(ProgramSeeder::class);
@@ -25,5 +24,13 @@ class DatabaseSeeder extends Seeder
         $this->call(CourseSeeder::class);
         $this->call(TeacherSeeder::class);
         $this->call(VenueSeeder::class);
+        $this->call(SubjectClassSeeder::class);
+
+        UserRole::create(['user_id'=>1,'role_id'=>1]);
+        UserRole::create(['user_id'=>1,'role_id'=>3]);
+        UserRole::create(['user_id'=>3,'role_id'=>3]);
+        UserRole::create(['user_id'=>3,'role_id'=>7]);
+        UserRole::create(['user_id'=>4,'role_id'=>3]);
+        UserRole::create(['user_id'=>4,'role_id'=>7]);
     }
 }
