@@ -27,7 +27,7 @@ class Section extends Model
         return $this->belongsTo('App\Models\Teacher','teacher_id','id');
     }
 
-    public function subjectClass() {
-        return $this->hasOne('App\Models\SubjectClass');
+    public function classSections() {
+        return $this->hasMany('App\Models\ClassSection');
     }
 }

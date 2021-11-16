@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\Course;
+use App\Models\SubjectClass;
+use App\Models\Term;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,4 +27,31 @@ Route::get("/course-search/{text}", function($text) {
             ->select('id','name','description')
             ->get();
     return response()->json($courses);
+});
+
+Route::get('/offerings/{course}', function(Course $course) {
+    $subjectClasses = SubjectClass::whereIn('term_id', Term::getActive()->select('id')->get())
+            ->where('course_id', $course->id)
+            ->with('course')
+            ->with('schedules')
+            ->with('teacher')
+            ->get();
+
+    $data = [];
+
+    foreach($subjectClasses as $sc) {
+        $data[] = [
+            'id' => $sc->id,
+            'name' => $sc->course->name,
+            'description' => $sc->course->description,
+            'schedule' => $sc->scheduleString,
+            'teacher' => $sc->teacher->name
+        ];
+    }
+
+    if(count($subjectClasses)==0) {
+        return false;
+    }
+
+    return response()->json($data);
 });

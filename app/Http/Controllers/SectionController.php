@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ClassSection;
 use App\Models\Course;
 use App\Models\Department;
 use App\Models\Program;
@@ -78,5 +79,34 @@ class SectionController extends Controller
         $section->update($request->all());
 
         return redirect('/sections/' . $section->id)->with('Info','This section has been updated');
+    }
+
+    public function addSubjectClass(Section $section, Request $request) {
+        $request->validate([
+            'subject_class_id' => 'numeric|required'
+        ]);
+
+        //check for section schedule conflict with class to be added.
+
+
+        ClassSection::create([
+            'subject_class_id' => $request->subject_class_id,
+            'user_id' => $request->user()->id,
+            'section_id' => $section->id
+        ]);
+
+        return redirect('/sections/' . $section->id)->with('Info','Class has been added to this section');
+    }
+
+    public function removeSubjectClass(Section $section, Request $request) {
+        $request->validate([
+            'class_section_id' => 'numeric|required'
+        ]);
+
+        $classSection = ClassSection::findOrFail($request->class_section_id);
+
+        $classSection->delete();
+
+        return redirect('/sections/' . $section->id)->with('Info','A class has been removed from this section');
     }
 }

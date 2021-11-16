@@ -9,7 +9,7 @@ class Course extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name','description','credit','requisite','department_id','program_id'];
+    protected $fillable = ['name','description','credit','requisite','department_id','program_id','created_by','updated_by'];
 
     public function requisite() {
         return $this->belongsTo('App\Models\Course','requisite_course','id');

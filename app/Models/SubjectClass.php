@@ -35,6 +35,16 @@ class SubjectClass extends Model
         return $this->belongsTo('App\Models\Department');
     }
 
+    public function getScheduleStringAttribute() {
+        $str = "";
+
+        foreach($this->schedules as $sched) {
+            $str .= $sched->summary . " ";
+        }
+
+        return $str;
+    }
+
     public static function enrollable() {
         return SubjectClass::whereIn('term_id', Term::getEnrolling()->select("id")->get())
             ->with('course', function($query) {

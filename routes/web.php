@@ -121,6 +121,8 @@ Route::group(['middleware'=>'auth'], function() {
     Route::get('/classes', [SubjectClassController::class, 'index']);
     Route::post('/classes', [SubjectClassController::class, 'store']);
 
+    Route::post('/sections/{section}/add-class', [SectionController::class, 'addSubjectClass']);
+    Route::delete('/sections/{section}/remove-class', [SectionController::class, 'removeSubjectClass']);
     Route::get('/sections/{section}', [SectionController::class, 'show']);
     Route::put('/sections/{section}', [SectionController::class, 'update']);
     Route::get('/sections', [SectionController::class, 'index']);

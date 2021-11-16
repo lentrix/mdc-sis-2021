@@ -3,6 +3,8 @@
 
 @section('content')
 
+@include("sections.remove-class-modal")
+
 <div class="float-right">
     <a href="{{url('/sections')}}" class="btn btn-info">
         <i class="fa fa-arrow-left"></i> Back to Sections
@@ -42,6 +44,23 @@
                     <th class="text-center"><i class="fa fa-cog"></i></th>
                 </tr>
             </thead>
+            <tbody>
+                @foreach($section->classSections as $class)
+                <tr>
+                    <td>{{$class->subjectClass->course->name}}</td>
+                    <td>{{$class->subjectClass->course->description}}</td>
+                    <td>{{$class->subjectClass->scheduleString}}</td>
+                    <td>
+                        <i class="fa fa-trash btn-sm text-danger remove-class"
+                                data-id="{{$class->id}}"
+                                data-name="{{$class->subjectClass->course->name}}"
+                                data-description="{{$class->subjectClass->course->description}}"
+                                style="cursor:pointer"
+                                title="Remove this class"></i>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
         </table>
     </div>
     <div class="col-md-5">
@@ -59,9 +78,37 @@
 
 $(document).ready(()=>{
     $("#course-selector").change((ev)=>{
+        var id = $(ev.target).val()
+
+        var el = $("#course-rows");
+        el.empty()
+
+        $.get('{{url("/api/offerings/")}}/' + id, function(response) {
+            response.forEach(function(offering) {
+                var tr = $(document.createElement("tr"))
+                tr.append("<td>" + offering.name + "</td>")
+                tr.append("<td>" + offering.description + "</td>")
+                tr.append("<td>" + offering.schedule + "</td>")
+                tr.append("<td>" + offering.teacher + "</td>")
+                tr.append("<td><i class='fa fa-plus text-info add-course' style='cursor:pointer' data-id='" + offering.id + "'></i></td>")
+                el.append(tr)
+            })
+        })
+    })
+
+    $(document).on("click", ".add-course", function(ev) {
+        var el = $(ev.target)
+        $("#subject_class_id").val(el.data('id'))
+        $("#add-class-form").trigger('submit')
+    })
+
+    $(".remove-class").click(function(ev){
         var el = $(ev.target)
 
-
+        $("#course-name").text(el.data('name'))
+        $("#course-description").text(el.data('description'))
+        $("#class_section_id").val(el.data('id'))
+        $("#removeClassModal").modal('show')
     })
 })
 

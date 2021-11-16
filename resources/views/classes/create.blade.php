@@ -113,7 +113,7 @@
 
 <script>
 function fetchCourse(text) {
-    $.get('/sis/api/course-search/' + text, function(response) {
+    $.get('{{url("api/course-search")}}/' + text, function(response) {
         $("#course-search-result").css('display','block')
         var el = $("#course-search-result div")
         el.empty()

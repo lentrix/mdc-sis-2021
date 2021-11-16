@@ -17,6 +17,7 @@
 
             <div class="mb-3">
                 <select name="course" id="course-selector" class="form-control">
+                    <option value="">Select a course</option>
                     @foreach($courses as $course)
                         <option value="{{$course->id}}">
                             {{$course->description}} &nbsp;&nbsp; [{{$course->name}}]
@@ -32,6 +33,7 @@
                         <th>Description</th>
                         <th>Schedule</th>
                         <th>Teacher</th>
+                        <th><i class="fa fa-cog"></i></th>
                     </tr>
                 </thead>
                 <tbody id="course-rows">
@@ -39,7 +41,7 @@
                 </tbody>
             </table>
 
-            {!! Form::open(['url'=>'/sections/' . $section->id . "/add-class", 'method'=>'post']) !!}
+            {!! Form::open(['url'=>'/sections/' . $section->id . "/add-class", 'method'=>'post','id'=>'add-class-form']) !!}
                 <input type="hidden" name="subject_class_id" id="subject_class_id">
             {!! Form::close() !!}
         </div>
