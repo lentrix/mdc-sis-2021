@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\APIController;
 use App\Models\Course;
 use App\Models\SubjectClass;
 use App\Models\Term;
@@ -21,37 +22,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get("/course-search/{text}", function($text) {
-    $courses = Course::where('name','like',"%$text%")
-            ->orWhere('description','like',"%$text%")
-            ->select('id','name','description')
-            ->get();
-    return response()->json($courses);
-});
+Route::get("/course-search/{text}", [APIController::class, 'courseSearch']);
 
-Route::get('/offerings/{course}', function(Course $course) {
-    $subjectClasses = SubjectClass::whereIn('term_id', Term::getActive()->select('id')->get())
-            ->where('course_id', $course->id)
-            ->with('course')
-            ->with('schedules')
-            ->with('teacher')
-            ->get();
+Route::get('/offerings/{course}', [APIController::class, 'offeringsByCourse']);
 
-    $data = [];
+Route::get('/sections/{department}', [APIController::class, 'sectionByDepartment']);
 
-    foreach($subjectClasses as $sc) {
-        $data[] = [
-            'id' => $sc->id,
-            'name' => $sc->course->name,
-            'description' => $sc->course->description,
-            'schedule' => $sc->scheduleString,
-            'teacher' => $sc->teacher->name
-        ];
-    }
 
-    if(count($subjectClasses)==0) {
-        return false;
-    }
-
-    return response()->json($data);
-});

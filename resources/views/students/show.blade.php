@@ -10,7 +10,7 @@
             <i class="fas fa-history"></i> Enrollment History
         </a>
 
-        <a href="{{url('/enrols/' . $student->id)}}" class="btn btn-success">
+        <a href="{{url('/enrols/current/' . $student->id)}}" class="btn btn-success">
             <i class="fas fa-file-invoice"></i> Current Enrollment
         </a>
 

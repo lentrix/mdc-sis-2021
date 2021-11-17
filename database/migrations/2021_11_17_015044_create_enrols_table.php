@@ -18,6 +18,7 @@ class CreateEnrolsTable extends Migration
             $table->bigInteger('student_id')->unsigned();
             $table->bigInteger('program_id')->unsigned();
             $table->bigInteger('term_id')->unsigned();
+            $table->bigInteger('section_id')->unsigned()->nullable();
             $table->string('level', 4);
             $table->bigInteger('created_by')->unsigned();
             $table->bigInteger('updated_by')->unsigned();
@@ -27,6 +28,7 @@ class CreateEnrolsTable extends Migration
             $table->timestamps();
             $table->foreign('student_id')->references('id')->on('students');
             $table->foreign('program_id')->references('id')->on('programs');
+            $table->foreign('section_id')->references('id')->on('sections');
             $table->foreign('term_id')->references('id')->on('terms');
             $table->foreign('created_by')->references('id')->on('users');
             $table->foreign('updated_by')->references('id')->on('users');

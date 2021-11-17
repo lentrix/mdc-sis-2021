@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\EnrolController;
 use App\Http\Controllers\PeriodController;
 use App\Http\Controllers\PermissionsController;
 use App\Http\Controllers\ProgramController;
@@ -127,4 +128,12 @@ Route::group(['middleware'=>'auth'], function() {
     Route::put('/sections/{section}', [SectionController::class, 'update']);
     Route::get('/sections', [SectionController::class, 'index']);
     Route::post('/sections', [SectionController::class, 'store']);
+
+    Route::get('/enrols/current/{student}', [EnrolController::class, 'current']);
+    Route::get('/enrols/history/{student}', [EnrolController::class, 'history']);
+    Route::get('/enrols/current/{student}', [EnrolController::class, 'current']);
+    Route::post('/enrols/create/{student}', [EnrolController::class, 'create']);
+    Route::post('/enrols/sectioned/{student}', [EnrolController::class, 'enrolToSection']);
+    Route::get('/enrols/{enrol}', [EnrolController::class, 'show']);
+
 });

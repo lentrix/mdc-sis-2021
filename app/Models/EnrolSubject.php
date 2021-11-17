@@ -16,7 +16,7 @@ class EnrolSubject extends Model
     }
 
     public function subjectClass() {
-        return $this->belongsTo('App\Models\Subjectclass');
+        return $this->belongsTo('App\Models\SubjectClass');
     }
 
     public function createdBy() {
