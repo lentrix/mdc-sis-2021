@@ -6,6 +6,12 @@
     </button>
 
     <!-- Topbar Search -->
+    <div class='d-flex align-items-center text-black'>
+        <h5 class='mr-2'>Active Terms:</h5>
+        @foreach(\App\Models\Term::getActive()->get() as $term)
+            <h6 class='mr-2'>[{{$term->name}}]</h6>
+        @endforeach
+    </div>
 
 
     <!-- Topbar Navbar -->
