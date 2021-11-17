@@ -25,34 +25,27 @@
             {!! Form::select("teacher_id", $teachers, null, ["class"=>'form-control','placeholder'=>'Select a teacher']) !!}
         </div>
 
-        <div class="row">
-            <div class="col">
-                <div class="form-group">
-                    {!! Form::label("Credit Units", null) !!}
-                    {!! Form::text("credit_units", null, ['class'=>'form-control']) !!}
-                </div>
+        <div class="d-flex">
+            <div class="form-group mr-1">
+                {!! Form::label("pay_units", "Pay Units") !!}
+                {!! Form::text("pay_units", null, ['class'=>'form-control']) !!}
             </div>
-            <div class="col">
-                <div class="form-group">
-                    {!! Form::label("Pay Units", null) !!}
-                    {!! Form::text("pay_units", null, ['class'=>'form-control']) !!}
-                </div>
+            <div class="form-group ml-1">
+                {!! Form::label("credit_units", "Credit Units") !!}
+                {!! Form::text("credit_units", null, ['class'=>'form-control']) !!}
+            </div>
+            <div class="form-group ml-2">
+                {!! Form::label("limit", "Limit") !!}
+                {!! Form::text("limit", null, ['class'=>'form-control']) !!}
             </div>
         </div>
-
-        <div class="row">
-            <div class="col">
-                <div class="form-group">
-                    {!! Form::label("limit", null) !!}
-                    {!! Form::number("limit", null, ['class'=>'form-control']) !!}
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-group">
-                    {!! Form::label("term_id", "Term") !!}
-                    {!! Form::select("term_id", $terms,null, ['class'=>'form-control','placeholder'=>'Select a term']) !!}
-                </div>
-            </div>
+        <div class="form-group">
+            {!! Form::label("term_id", "Term") !!}
+            {!! Form::select("term_id", $terms, null, ['class'=>'form-control','placeholder'=>'Select a term']) !!}
+        </div>
+        <div class="form-group">
+            {!! Form::label("department_id", "Department") !!}
+            {!! Form::select("department_id", $departments, null, ['class'=>'form-control','placeholder'=>'Select a department']) !!}
         </div>
 
     </div>

@@ -6,6 +6,7 @@ use App\Models\ClassSection;
 use App\Models\Course;
 use App\Models\Department;
 use App\Models\Program;
+use App\Models\Schedule;
 use App\Models\Section;
 use App\Models\SubjectClass;
 use App\Models\Teacher;
@@ -87,7 +88,10 @@ class SectionController extends Controller
         ]);
 
         //check for section schedule conflict with class to be added.
-
+        $subjectClass = SubjectClass::find($request->subject_class_id);
+        if($conflict = Schedule::checkSectionConflict($section, $subjectClass)) {
+            return back()->with('Error', 'The class you want to add is in coflict with ' . $conflict->subjectClass->course->name . " - " . $conflict->summary);
+        }
 
         ClassSection::create([
             'subject_class_id' => $request->subject_class_id,

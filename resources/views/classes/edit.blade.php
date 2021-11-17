@@ -25,17 +25,27 @@
             {!! Form::label("teacher_id", "Teacher") !!}
             {!! Form::select("teacher_id", $teachers, null, ['class'=>'form-control','placeholder'=>'Select a teacher']) !!}
         </div>
-        <div class="form-group">
-            {!! Form::label("pay_units", "Pay Units") !!}
-            {!! Form::text("pay_units", null, ['class'=>'form-control']) !!}
-        </div>
-        <div class="form-group">
-            {!! Form::label("credit_units", "Credit Units") !!}
-            {!! Form::text("credit_units", null, ['class'=>'form-control']) !!}
+        <div class="d-flex">
+            <div class="form-group mr-1">
+                {!! Form::label("pay_units", "Pay Units") !!}
+                {!! Form::text("pay_units", null, ['class'=>'form-control']) !!}
+            </div>
+            <div class="form-group ml-1">
+                {!! Form::label("credit_units", "Credit Units") !!}
+                {!! Form::text("credit_units", null, ['class'=>'form-control']) !!}
+            </div>
+            <div class="form-group ml-2">
+                {!! Form::label("limit", "Limit") !!}
+                {!! Form::text("limit", null, ['class'=>'form-control']) !!}
+            </div>
         </div>
         <div class="form-group">
             {!! Form::label("term_id", "Term") !!}
             {!! Form::select("term_id", $terms, null, ['class'=>'form-control','placeholder'=>'Select a term']) !!}
+        </div>
+        <div class="form-group">
+            {!! Form::label("department_id", "Department") !!}
+            {!! Form::select("department_id", $departments, $class->department_id, ['class'=>'form-control','placeholder'=>'Select a department']) !!}
         </div>
         <button class="btn btn-primary" type="submit">
             <i class="fa fa-save"></i> Save Changes

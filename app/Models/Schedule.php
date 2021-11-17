@@ -94,6 +94,30 @@ class Schedule extends Model
         return null;
     }
 
+    public static function checkSectionConflict(Section $section, SubjectClass $subjectClass) {
+        foreach($subjectClass->schedules as $sched) {
+            $startPlus = Carbon::parse($sched->start)->addMinute()->toTimeString();
+            $endMinus = Carbon::parse($sched->end)->subMinute()->toTimeString();
+            $start = $sched->start;
+            $end = $sched->end;
+
+            foreach(explode(",", $subjectClass->day) as $day) {
+                $sched = static::where(function($query) use ($startPlus, $endMinus, $start, $end) {
+                    $query->whereBetween('start',[$start,$endMinus])
+                        ->orWhereBetween('end',[$startPlus, $end]);
+                })->whereHas('subjectClass', function($query) use ($section) {
+                    $query->whereHas('classSections', function($q2) use ($section){
+                        $q2->where('section_id', $section->id);
+                    });
+                })
+                ->first();
+
+                if($sched) return $sched;
+            }
+        }
+        return null;
+    }
+
     public static function hasDay($day, $days) {
 
         foreach(explode(",", $days) as $d) {

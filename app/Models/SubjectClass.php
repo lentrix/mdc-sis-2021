@@ -9,7 +9,7 @@ class SubjectClass extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['course_id','teacher_id','pay_units','credit_units','term_id'];
+    protected $fillable = ['course_id','teacher_id','pay_units','credit_units','term_id','department_id','created_by','updated_by'];
 
     public function schedules() {
         return $this->hasMany('App\Models\Schedule');
@@ -43,6 +43,10 @@ class SubjectClass extends Model
         }
 
         return $str;
+    }
+
+    public function classSections() {
+        return $this->hasMany('App\Models\ClassSection');
     }
 
     public static function enrollable() {

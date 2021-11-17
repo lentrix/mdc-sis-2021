@@ -22,7 +22,8 @@ class CreateSchedulesTable extends Migration
             $table->bigInteger('subject_class_id')->unsigned();
             $table->timestamps();
             $table->foreign('venue_id')->references('id')->on('venues');
-            $table->foreign('subject_class_id')->references('id')->on('subject_classes');
+            $table->foreign('subject_class_id')->references('id')->on('subject_classes')
+                    ->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

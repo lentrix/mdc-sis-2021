@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\Department;
 use App\Models\Schedule;
 use App\Models\SubjectClass;
 use App\Models\Teacher;
@@ -51,7 +52,8 @@ class SubjectClassController extends Controller
             'class'=>$class,
             'teachers' => Teacher::orderBy('name')->pluck('name','id'),
             'terms' => Term::getActive()->pluck('name','id'),
-            'venues' => Venue::orderBy('name')->pluck('name','id')
+            'venues' => Venue::orderBy('name')->pluck('name','id'),
+            'departments' => Department::where('head_id', auth()->user()->id)->pluck('name','id')
         ]);
     }
 
@@ -109,7 +111,8 @@ class SubjectClassController extends Controller
         return view('classes.create',[
             'teachers' => Teacher::orderBy('name')->pluck('name','id'),
             'venues' => Venue::orderBy('name')->pluck('name','id'),
-            'terms' => Term::getEnrolling()->pluck('name','id')
+            'terms' => Term::getEnrolling()->pluck('name','id'),
+            'departments' => Department::where('head_id', auth()->user()->id)->pluck('name','id')
         ]);
     }
 
@@ -122,6 +125,7 @@ class SubjectClassController extends Controller
             'pay_units' => 'numeric|required',
             'limit' => 'numeric|required',
             'venue_id' => 'numeric|required',
+            'department_id' => 'numeric|required',
             'start' => 'string|required',
             'end' => 'string|required',
             'days' => 'array|required|min:1',
@@ -143,8 +147,10 @@ class SubjectClassController extends Controller
             'credit_units' => $request->credit_units,
             'pay_units' => $request->pay_units,
             'limit' => $request->limit,
+            'department_id' => $request->department_id,
             'venue_id' => $request->venue_id,
-            'created_by' => $request->user()->id
+            'created_by' => $request->user()->id,
+            'updated_by' => $request->user()->id
         ]);
 
         //create schedule
