@@ -4,6 +4,19 @@
 
 @include('students.educ.edit-modal')
 
+@if(auth()->user()->is('registrar'))
+    <div class="float-right">
+        <a href="{{url('/enrols/history/' . $student->id)}}" class="btn btn-info">
+            <i class="fas fa-history"></i> Enrollment History
+        </a>
+
+        <a href="{{url('/enrols/' . $student->id)}}" class="btn btn-success">
+            <i class="fas fa-file-invoice"></i> Current Enrollment
+        </a>
+
+    </div>
+@endif
+
 <h1>Student Information</h1>
 <hr>
 

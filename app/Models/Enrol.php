@@ -26,4 +26,8 @@ class Enrol extends Model
     public function createdBy() {
         return $this->belongsTo('App\Models\User','created_by','id');
     }
+
+    public function term() {
+        return $this->belongsTo('App\Models\Term');
+    }
 }

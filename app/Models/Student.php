@@ -42,4 +42,10 @@ class Student extends Model
             return asset('img/student-pics/stud-no-pic.jpg');
         }
     }
+
+    public function currentEnrollment() {
+        return Enrol::where('student_id', $this->id)
+            ->whereIn('term_id', Term::getActive()->select('id')->get())
+            ->first();
+    }
 }
