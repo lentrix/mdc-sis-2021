@@ -49,4 +49,12 @@ class Department extends Model
     public static function headedBy(User $user) {
         return Department::where('head_id', $user->id);
     }
+
+    public function getTopLevel() {
+        if($this->parent) {
+            return $this->parent->getTopLevel();
+        }
+
+        return $this;
+    }
 }

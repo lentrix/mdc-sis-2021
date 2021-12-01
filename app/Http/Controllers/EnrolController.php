@@ -95,6 +95,12 @@ class EnrolController extends Controller
         ]);
     }
 
+    public function edit(Enrol $enrol) {
+        return view('enrols.edit', [
+            'enrol' => $enrol
+        ]);
+    }
+
     public function search(Request $request) {
         $enrols = Enrol::whereIn('term_id', Term::getActive()->select('id')->get())
             ->with('student')
@@ -131,5 +137,32 @@ class EnrolController extends Controller
             'programs' => $programs,
             'levels' => config('mdc.levels')
         ]);
+    }
+
+    public function store(Request $request, Student $student) {
+        $request->validate([
+            'program_id' => 'numeric|required',
+            'level' => 'string|required',
+            'term_id' => 'numeric|required',
+        ]);
+
+        $prog = Program::findOrFail($request->program_id);
+
+        if(!$prog->checkLevel($request->level)) {
+            return back()->with('Error','The program and level combination does not seem to be correct. Please check and try again.')->withInput();
+        }
+
+        $user = auth()->user();
+
+        $enrol = Enrol::create([
+            'student_id' => $student->id,
+            'program_id' => $prog->id,
+            'level' => $request->level,
+            'term_id' => $request->term_id,
+            'created_by' => $user->id,
+            'updated_by' => $user->id,
+        ]);
+
+        return redirect('/enrols/edit/' . $enrol->id)->with('Info','A new enrollment has been made.');
     }
 }

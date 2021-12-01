@@ -78,6 +78,7 @@ $(document).ready(function(){
 
         $.get('{{url("/api/sections/")}}/' + el.val(), function(response) {
             var tbody = $("#section-rows")
+            tbody.empty()
             response.forEach(function(section) {
                 tbody.append("<td>" + section.name + "</td>")
                 tbody.append("<td>" + section.program.short_name + "</td>")

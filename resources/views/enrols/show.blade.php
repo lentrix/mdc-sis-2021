@@ -34,7 +34,7 @@
                 <th class='bg-secondary text-white'>Section</th>
             </tr>
             <tr>
-                <td>{{$enrol->section?->name}}</td>
+                <td>{{$enrol->section ? $enrol->section->name : 'No Section'}}</td>
             </tr>
             <tr>
                 <th class='bg-secondary text-white'>Term</th>
