@@ -4,8 +4,13 @@
 </div>
 
 <div class="form-group">
-    {!! Form::label("name", "Name") !!}
+    {!! Form::label("name", "Full Name") !!}
     {!! Form::text("name", null, ['class'=>'form-control']) !!}
+</div>
+
+<div class="form-group">
+    {!! Form::label("short_name", "Short Name") !!}
+    {!! Form::text("short_name", null, ['class'=>'form-control']) !!}
 </div>
 
 <div class="form-group">

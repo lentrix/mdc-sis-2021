@@ -17,6 +17,7 @@ class CreateTeachersTable extends Migration
             $table->id();
             $table->bigInteger('user_id')->unsigned()->unique();
             $table->string('name');
+            $table->string('short_name')->nullable();
             $table->string('specialization');
             $table->string('phone',20)->nullable();
             $table->bigInteger('department_id')->unsigned();

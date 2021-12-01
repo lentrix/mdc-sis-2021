@@ -19,7 +19,7 @@ class CourseController extends Controller
     public function create() {
         $programList = Program::orderBy('full_name')->pluck('full_name','id');
         $departmentList = Department::orderBy('accronym')->pluck('name','id');
-        $coursesList = Course::orderBy('name')->pluck('name','id')->toArray();
+        $coursesList = Course::orderBy('description')->pluck('description','id')->toArray();
 
         return view('courses.create',[
             'programList' => $programList,

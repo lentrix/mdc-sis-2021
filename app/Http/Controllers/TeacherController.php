@@ -67,6 +67,7 @@ class TeacherController extends Controller
 
             return redirect("/teachers/$teacher->id")->with('Info','This teacher\'s record has been updated');
         }catch(QueryException $ex) {
+            dd($ex);
             return back()->with('Error', "The user you selected may already have a teacher account.");
         }
     }

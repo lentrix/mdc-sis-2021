@@ -66,6 +66,16 @@ class SubjectClassController extends Controller
             'term_id' => 'numeric|required',
         ]);
 
+        //compare all the venues' capacity with the current class limit
+        foreach($class->schedules as $sched) {
+            $vn = $sched->venue;
+            if($vn->capacity < $request->limit) {
+                return back()->withInput()->with('Error',"Sorry! The class limit of $request->limit exceeds the capacity of the venue
+                    $vn->name of $vn->capacity for the schedule $sched->summary. You can either change the class limit
+                    or replace the venue of the above schedule.");
+            }
+        }
+
         $class->update([
             'course_id' => $request->course_id,
             'teacher_id' => $request->teacher_id,
@@ -86,6 +96,14 @@ class SubjectClassController extends Controller
             'venue_id' => 'numeric|required',
             'days' => 'required',
         ]);
+
+        $venue = Venue::findOrFail($request->venue_id);
+
+        if($venue->capacity < $class->limit) {
+            return back()->withInput()->with('Error',
+                    "Sorry! The class limit $class->limit exceeds the capacity of the venue
+                    $venue->name of $venue->capacity. Please change the venue to proceed.");
+        }
 
         $conflict = Schedule::checkVenueConflict($request->start, $request->end, $request->days, $request->venue_id);
         if($conflict) return back()->with('Error','The schedule is in conflict with ' . $conflict->subjectClass->course->name . " " . $conflict->summary)->withInput();
@@ -132,6 +150,14 @@ class SubjectClassController extends Controller
         ]);
 
         //check schedule availability
+
+        $venue = Venue::findOrFail($request->venue_id);
+
+        if($venue->capacity < $request->limit) {
+            return back()->withInput()->with('Error',
+                "Sorry! The class limit exceeds the $venue->name's capacity of
+                $venue->capacity. Please select another venue or decrease your limit");
+        }
 
         $conflict = Schedule::checkVenueConflict($request->start, $request->end, $request->days, $request->venue_id);
         if($conflict) return back()->withInput()->with('Error',"The schedule is in conflict with " . $conflict->subjectClass->course->name . " " . $conflict->summary);

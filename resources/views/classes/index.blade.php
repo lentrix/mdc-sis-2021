@@ -45,7 +45,7 @@
             <tr>
                 <td>{{$class->course->name}}</td>
                 <td>{{$class->course->description}}</td>
-                <td>{{$class->teacher->name}}</td>
+                <td>{{$class->teacher->short_name}}</td>
                 <td>{{$class->credit_units}}</td>
                 <td>
                     @foreach($class->schedules as $sched)
