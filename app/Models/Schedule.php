@@ -105,7 +105,9 @@ class Schedule extends Model
                 $sched = static::where(function($query) use ($startPlus, $endMinus, $start, $end) {
                     $query->whereBetween('start',[$start,$endMinus])
                         ->orWhereBetween('end',[$startPlus, $end]);
-                })->whereHas('subjectClass', function($query) use ($section) {
+                })
+                ->where('day','like',"%$day%")
+                ->whereHas('subjectClass', function($query) use ($section) {
                     $query->whereHas('classSections', function($q2) use ($section){
                         $q2->where('section_id', $section->id);
                     });
@@ -116,6 +118,27 @@ class Schedule extends Model
             }
         }
         return null;
+    }
+
+    public static function checkAddSchedSectionConflict($start, $end, $days, Section $section) {
+        $startPlus = Carbon::parse($start)->addMinute()->toTimeString();
+        $endMinus = Carbon::parse($end)->subMinute()->toTimeString();
+
+        foreach($days as $day) {
+            $sched = static::where(function($query) use ($startPlus, $endMinus, $start, $end) {
+                $query->whereBetween('start',[$start,$endMinus])
+                    ->orWhereBetween('end',[$startPlus, $end]);
+            })
+            ->where('day','like',"%$day%")
+            ->whereHas('subjectClass', function($query) use ($section) {
+                $query->whereHas('classSections', function($query2) use ($section) {
+                    $query2->where('section_id', $section->id);
+                });
+            })
+            ->first();
+
+            if($sched) return $sched;
+        }
     }
 
     public static function hasDay($day, $days) {

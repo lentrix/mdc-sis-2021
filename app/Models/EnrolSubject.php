@@ -12,7 +12,7 @@ class EnrolSubject extends Model
     protected $fillable = ['enrol_id','subject_class_id','created_by'];
 
     public function enrol() {
-        return $this->belongsTo('App\Model\Enrol');
+        return $this->belongsTo('App\Models\Enrol');
     }
 
     public function subjectClass() {

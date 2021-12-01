@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ClassSection;
 use App\Models\Course;
 use App\Models\Department;
+use App\Models\EnrolSubject;
 use App\Models\Program;
 use App\Models\Schedule;
 use App\Models\Section;
@@ -99,6 +100,15 @@ class SectionController extends Controller
             'section_id' => $section->id
         ]);
 
+        //add the subject class to each enrol belonging to this section
+        foreach($section->enrols as $enrol) {
+            EnrolSubject::create([
+                'enrol_id' => $enrol->id,
+                'subject_class_id' => $request->subject_class_id,
+                'created_by' => auth()->user()->id
+            ]);
+        }
+
         return redirect('/sections/' . $section->id)->with('Info','Class has been added to this section');
     }
 
@@ -109,7 +119,15 @@ class SectionController extends Controller
 
         $classSection = ClassSection::findOrFail($request->class_section_id);
 
+        $subjectClassId = $classSection->subjectClass->id;
+
         $classSection->delete();
+
+        //Delete all enrol_classes having this class_id under this section
+        EnrolSubject::where('subject_class_id', $subjectClassId)
+            ->whereHas('enrol', function($query) use ($section) {
+                $query->where('section_id', $section->id);
+            })->delete();
 
         return redirect('/sections/' . $section->id)->with('Info','A class has been removed from this section');
     }

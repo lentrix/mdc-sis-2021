@@ -105,6 +105,15 @@ class SubjectClassController extends Controller
                     $venue->name of $venue->capacity. Please change the venue to proceed.");
         }
 
+        $section = $class->section?->section;
+
+        if($section) {
+            $conflict = Schedule::checkAddSchedSectionConflict($request->start, $request->end, $request->days, $section);
+            if($conflict) return back()->with('Error','The schedule is in conflict with '
+                . $conflict->subjectClass->course->name . " ". $conflict->summary . ' within the section '
+                . $section->name . ' which this class in assigned in.')->withInput();
+        }
+
         $conflict = Schedule::checkVenueConflict($request->start, $request->end, $request->days, $request->venue_id);
         if($conflict) return back()->with('Error','The schedule is in conflict with ' . $conflict->subjectClass->course->name . " " . $conflict->summary)->withInput();
 

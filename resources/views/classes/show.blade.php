@@ -36,7 +36,6 @@
                 <th>End</th>
                 <th>Day</th>
                 <th>Venue</th>
-                <th style="max-width: 30px;"><i class="fa fa-cog"></i></th>
             </tr>
             @foreach($class->schedules as $sched)
 
@@ -45,7 +44,6 @@
                 <td>{{$sched->end->format('g:i A')}}</td>
                 <td>{{$sched->day}}</td>
                 <td>{{$sched->venue->name}}</td>
-                <td>...</td>
             </tr>
 
             @endforeach

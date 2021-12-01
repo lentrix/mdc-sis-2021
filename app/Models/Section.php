@@ -30,4 +30,8 @@ class Section extends Model
     public function classSections() {
         return $this->hasMany('App\Models\ClassSection');
     }
+
+    public function enrols() {
+        return $this->hasMany('App\Models\Enrol');
+    }
 }
