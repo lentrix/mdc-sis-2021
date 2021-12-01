@@ -119,10 +119,8 @@
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Enrollment Transaction:</h6>
-                <a class="collapse-item" href="#">New Enrollment</a>
-                <a class="collapse-item" href="#">View Enrollment</a>
+                <a class="collapse-item" href="{{url('/enrols')}}">Search Enrollment</a>
                 <a class="collapse-item" href="#">Add, Change, Withdraw</a>
-
                 <a class="collapse-item" href="{{url('/classes')}}">Class Offerings</a>
             </div>
         </div>

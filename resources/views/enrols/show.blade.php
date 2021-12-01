@@ -4,7 +4,7 @@
 
 <div class="float-right">
     <a href="{{url('/students/' . $enrol->student_id)}}" class="btn btn-outline-info">
-        <i class="fa fa-arrow-left"></i> Back
+        <i class="fa fa-arrow-left"></i> Student Information
     </a>
 </div>
 

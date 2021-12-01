@@ -131,9 +131,9 @@ Route::group(['middleware'=>'auth'], function() {
 
     Route::get('/enrols/current/{student}', [EnrolController::class, 'current']);
     Route::get('/enrols/history/{student}', [EnrolController::class, 'history']);
-    Route::get('/enrols/current/{student}', [EnrolController::class, 'current']);
     Route::post('/enrols/create/{student}', [EnrolController::class, 'create']);
     Route::post('/enrols/sectioned/{student}', [EnrolController::class, 'enrolToSection']);
     Route::get('/enrols/{enrol}', [EnrolController::class, 'show']);
+    Route::get('/enrols', [EnrolController::class, 'search']);
 
 });
