@@ -21,6 +21,7 @@
             </div>
             {!! Form::hidden("course_id", null) !!}
         </div>
+
         <div class="form-group">
             {!! Form::label("teacher_id", "Teacher") !!}
             {!! Form::select("teacher_id", $teachers, null, ['class'=>'form-control','placeholder'=>'Select a teacher']) !!}
@@ -134,7 +135,7 @@
 
 <script>
 function fetchCourse(text) {
-    $.get('/sis/api/course-search/' + text, function(response) {
+    $.get('{{url("api/course-search")}}/' + text, function(response) {
         $("#course-search-result").css('display','block')
         var el = $("#course-search-result div")
         el.empty()
