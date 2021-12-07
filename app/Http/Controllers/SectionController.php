@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ClassSection;
 use App\Models\Course;
 use App\Models\Department;
+use App\Models\Enrol;
 use App\Models\EnrolSubject;
 use App\Models\Program;
 use App\Models\Schedule;
@@ -79,6 +80,13 @@ class SectionController extends Controller
         ]);
 
         $section->update($request->all());
+
+        //update enrols...
+        Enrol::where('section_id', $section->id)
+            ->update([
+                'program_id' => $request->program_id,
+                'level' => $request->level
+            ]);
 
         return redirect('/sections/' . $section->id)->with('Info','This section has been updated');
     }
