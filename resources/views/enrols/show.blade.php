@@ -43,6 +43,9 @@
                 <td>{{$enrol->term->name}}</td>
             </tr>
         </table>
+        <a href="{{url('/enrols/edit/' . $enrol->id)}}" class="btn btn-info mt-3 btn-block">
+            <i class="fa fa-edit"></i> Edit Enrolment
+        </a>
     </div>
     <div class="col-md-9">
         <h4>Study Load</h4>

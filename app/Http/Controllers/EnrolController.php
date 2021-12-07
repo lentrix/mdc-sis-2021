@@ -96,9 +96,71 @@ class EnrolController extends Controller
     }
 
     public function edit(Enrol $enrol) {
-        return view('enrols.edit', [
-            'enrol' => $enrol
+        if($enrol->section_id==null) {
+            return view('enrols.edit', [
+                'enrol' => $enrol,
+                'programs' => Program::orderBy('short_name')->pluck('short_name','id'),
+                'levels'=>config('mdc.levels'),
+                'terms'=>Term::getActive()->pluck('name','id'),
+                'sections' => Section::orderBy('name')->pluck('name','id')
+            ]);
+        }else {
+            return view('enrols.detach-section', [
+                'enrol' => $enrol,
+            ]);
+        }
+    }
+
+    public function update(Enrol $enrol, Request $request) {
+        $request->validate([
+            'program_id' => 'numeric|required',
+            'level' => 'string|required',
+            'term_id' => 'numeric|required',
         ]);
+
+        $enrol->update($request->all());
+
+        return redirect('/enrols/' . $enrol->id)->with('Info','Enrollment details updated.');
+    }
+
+    public function attachSection(Enrol $enrol, Request $request) {
+        $section = Section::findOrFail($request->section_id);
+
+        //remove all enrolled subjects from this enrollment
+        EnrolSubject::where('enrol_id', $enrol->id)->delete();
+
+        $enrol->update([
+            'program_id' => $section->program_id,
+            'level' => $section->level,
+            'term_id' => $section->term_id,
+            'section_id' => $section->id
+        ]);
+
+        //add enrolled subjects...
+        foreach($section->classSections as $classSection) {
+            EnrolSubject::create([
+                'enrol_id' => $enrol->id,
+                'subject_class_id' => $classSection->subject_class_id,
+                'created_by' => auth()->user()->id
+            ]);
+        }
+
+        return redirect('/enrols/' . $enrol->id)->with('Info','This enrollment has been attached to a section.');
+    }
+
+    public function detachSection(Enrol $enrol) {
+
+        $sectionName = $enrol->section->name;
+
+        //delete enrolled subjects
+        EnrolSubject::where('enrol_id', $enrol->id)->delete();
+
+        $enrol->update([
+            'section_id'=>null
+        ]);
+
+        return redirect('/enrols/edit/' . $enrol->id)->with('Info','This enrollment has been detached from section ' . $sectionName);
+
     }
 
     public function search(Request $request) {

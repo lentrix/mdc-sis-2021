@@ -133,8 +133,11 @@ Route::group(['middleware'=>'auth'], function() {
     Route::get('/enrols/history/{student}', [EnrolController::class, 'history']);
     Route::post('/enrols/create/{student}', [EnrolController::class, 'create']);
     Route::post('/enrols/sectioned/{student}', [EnrolController::class, 'enrolToSection']);
+    Route::patch('/enrols/attach-section/{enrol}', [EnrolController::class, 'attachSection']);
+    Route::patch('/enrols/detach-section/{enrol}', [EnrolController::class, 'detachSection']);
     Route::get('/enrols/{enrol}', [EnrolController::class, 'show']);
     Route::get('/enrols/edit/{enrol}', [EnrolController::class, 'edit']);
+    Route::put('/enrols/edit/{enrol}', [EnrolController::class, 'update']);
     Route::post('/enrols/{student}', [EnrolController::class, 'store']);
     Route::get('/enrols', [EnrolController::class, 'search']);
 
