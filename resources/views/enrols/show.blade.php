@@ -73,7 +73,7 @@
 
                 @endforeach
                 <tr>
-                    <td colspan="4">TOTAL UNINTS</td>
+                    <td colspan="4">TOTAL UNITS</td>
                     <td class="text-center">{{$totalUnits}}</td>
                 </tr>
             </tbody>
