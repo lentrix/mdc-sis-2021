@@ -48,6 +48,11 @@
         </a>
     </div>
     <div class="col-md-9">
+        @if(auth()->user()->is('registrar'))
+            <div class="float-right">
+                @include('enrols.add-class-modal')
+            </div>
+        @endif
         <h4>Study Load</h4>
         <table class="table table-striped table-bordered table-sm">
             <thead>

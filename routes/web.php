@@ -135,6 +135,7 @@ Route::group(['middleware'=>'auth'], function() {
     Route::post('/enrols/sectioned/{student}', [EnrolController::class, 'enrolToSection']);
     Route::patch('/enrols/attach-section/{enrol}', [EnrolController::class, 'attachSection']);
     Route::patch('/enrols/detach-section/{enrol}', [EnrolController::class, 'detachSection']);
+    Route::patch('/enrols/add-class-by-serial/{enrol}', [EnrolController::class, 'addBySerial']);
     Route::get('/enrols/{enrol}', [EnrolController::class, 'show']);
     Route::get('/enrols/edit/{enrol}', [EnrolController::class, 'edit']);
     Route::put('/enrols/edit/{enrol}', [EnrolController::class, 'update']);

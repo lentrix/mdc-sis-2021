@@ -32,6 +32,7 @@
 <table class="table table-bordered table-striped">
     <thead>
         <tr class="bg-info text-white">
+            <th>Serial</th>
             <th>Course Name</th>
             <th>Description</th>
             <th>Teacher</th>
@@ -43,6 +44,7 @@
     <tbody>
         @foreach($classes as $class)
             <tr>
+                <td>{{str_pad($class->id, 8, '0', STR_PAD_LEFT)}}</td>
                 <td>{{$class->course->name}}</td>
                 <td>{{$class->course->description}}</td>
                 <td>{{$class->teacher->short_name}}</td>

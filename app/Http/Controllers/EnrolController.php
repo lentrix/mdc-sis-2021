@@ -6,8 +6,10 @@ use App\Models\Department;
 use App\Models\Enrol;
 use App\Models\EnrolSubject;
 use App\Models\Program;
+use App\Models\Schedule;
 use App\Models\Section;
 use App\Models\Student;
+use App\Models\SubjectClass;
 use App\Models\Term;
 use Illuminate\Http\Request;
 
@@ -226,5 +228,60 @@ class EnrolController extends Controller
         ]);
 
         return redirect('/enrols/edit/' . $enrol->id)->with('Info','A new enrollment has been made.');
+    }
+
+    public function addBySerial(Enrol $enrol, Request $request) {
+        $errors = [];
+
+        $serials = explode(",", $request->serials);
+
+        foreach($serials as $serial) {
+            $serial = trim($serial);
+
+            $subjectClass = SubjectClass::find($serial);
+
+            if(!$subjectClass) {
+                $errors[] = "Serial# " . $serial . " is invalid.";
+                continue;
+            }
+
+            if($error = $this->addClass($enrol, $subjectClass)) {
+                $errors[] = $error;
+            }
+        }
+
+        if(count($errors)>0) {
+            $errorMessage = "<ul>";
+
+            foreach($errors as $error) {
+                $errorMessage .= "<li>" . $error . "</li>";
+            }
+
+            $errorMessage .= "</li>";
+        }
+
+
+        return redirect('/enrols/' . $enrol->id)->with('Error', 'Errors during insertion: ' . $errorMessage);
+    }
+
+    private function addClass(Enrol $enrol, SubjectClass $class) {
+
+        if($sched = Schedule::checkEnrolConflict($enrol, $class)) {
+            return "This class " . $class->course->name . " is in conflict with "
+                . $sched->subjectClass->course->name . " "
+                . $sched->summary;
+        }
+
+        if($class->section) {
+            return "This class " . $class->course->name . " is assigned to a section.";
+        }
+
+        EnrolSubject::create([
+            'enrol_id' => $enrol->id,
+            'subject_class_id' => $class->id,
+            'created_by' => auth()->user()->id
+        ]);
+
+        return false;
     }
 }

@@ -35,6 +35,10 @@ class SubjectClass extends Model
         return $this->belongsTo('App\Models\Department');
     }
 
+    public function enrolSubjects() {
+        return $this->hasMany('App\Models\EnrolSubject');
+    }
+
     public function getScheduleStringAttribute() {
         $str = "";
 

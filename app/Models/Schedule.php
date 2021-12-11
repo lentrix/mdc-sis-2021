@@ -141,6 +141,31 @@ class Schedule extends Model
         }
     }
 
+    public static function checkEnrolConflict(Enrol $enrol, SubjectClass $subjectClass) {
+        foreach($subjectClass->schedules as $sched) {
+            $startPlus = Carbon::parse($sched->start)->addMinute()->toTimeString();
+            $endMinus = Carbon::parse($sched->end)->subMinute()->toTimeString();
+            $start = $sched->start;
+            $end = $sched->end;
+
+            foreach(explode(",", $subjectClass->day) as $day) {
+                $sched = static::where(function($query) use ($startPlus, $endMinus, $start, $end) {
+                    $query->whereBetween('start',[$start,$endMinus])
+                        ->orWhereBetween('end',[$startPlus, $end]);
+                })
+                ->where('day','like',"%$day%")
+                ->whereHas('subjectClass', function($query) use ($enrol) {
+                    $query->whereHas('enrolSubjects', function($q2) use ($enrol){
+                        $q2->where('enrol_id', $enrol->id);
+                    });
+                })
+                ->first();
+
+                if($sched) return $sched;
+            }
+        }
+    }
+
     public static function hasDay($day, $days) {
 
         foreach(explode(",", $days) as $d) {
