@@ -245,6 +245,11 @@ class EnrolController extends Controller
                 continue;
             }
 
+            if(count($subjectClass->schedules)<=0) {
+                $errors[] = "Serial# " . $serial . " cannot be added because it is not scheduled yet.";
+                continue;
+            }
+
             if($error = $this->addClass($enrol, $subjectClass)) {
                 $errors[] = $error;
             }
@@ -258,10 +263,12 @@ class EnrolController extends Controller
             }
 
             $errorMessage .= "</li>";
+
+            return redirect('/enrols/' . $enrol->id)->with('Error', 'Errors during insertion: ' . $errorMessage);
         }
 
+        return redirect('/enrols/' . $enrol->id)->with('Info','Classes have been added without any errors.');
 
-        return redirect('/enrols/' . $enrol->id)->with('Error', 'Errors during insertion: ' . $errorMessage);
     }
 
     private function addClass(Enrol $enrol, SubjectClass $class) {
@@ -283,5 +290,20 @@ class EnrolController extends Controller
         ]);
 
         return false;
+    }
+
+    public function removeClass(Enrol $enrol, Request $request) {
+        $enrolSubject = EnrolSubject::find($request->enrol_subject_id);
+
+        if(!$enrolSubject) {
+            return back()->with('Error','Unfortunately, the ID Number corresponding to the subject class cannot be found.');
+        }
+
+        $courseName = $enrolSubject->subjectClass->course->name;
+        $courseDescription = $enrolSubject->subjectClass->course->description;
+
+        $enrolSubject->delete();
+
+        return back()->with('Info',"The course $courseName $courseDescription has been removed from this enrollment.");
     }
 }

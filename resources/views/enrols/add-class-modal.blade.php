@@ -22,7 +22,7 @@
                     <a href="#" class="nav-link" data-target="search-class">Search Class</a>
                 </li>
           </ul>
-          <div class="tab-content" id="search-class" style="display:none; border-width: 0 1px 1px 1px; border-style: solid; border-color: #">
+          <div class="tab-content" id="search-class" style="display:none;">
             <h3 class="mt-2">Search and Add Class</h3>
             <hr>
           </div>
@@ -46,7 +46,7 @@
     </div>
   </div>
 
-@section('scripts')
+@section('scripts2')
 
 <script>
 

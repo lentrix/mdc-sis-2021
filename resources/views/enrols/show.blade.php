@@ -2,6 +2,8 @@
 
 @section('content')
 
+@include('enrols.remove-class-modal')
+
 <div class="float-right">
     <a href="{{url('/students/' . $enrol->student_id)}}" class="btn btn-outline-info">
         <i class="fa fa-arrow-left"></i> Student Information
@@ -57,11 +59,12 @@
         <table class="table table-striped table-bordered table-sm">
             <thead>
                 <tr>
-                    <th>Couse No</th>
+                    <th>Course No</th>
                     <th>Description</th>
                     <th>Schedule</th>
                     <th>Teacher</th>
                     <th class="text-center">Units</th>
+                    <th><i class="fa fa-cog"></i></th>
                 </tr>
             </thead>
             <tbody>
@@ -74,6 +77,13 @@
                     <td>{{$subject->subjectClass->schedule_string}}</td>
                     <td>{{$subject->subjectClass->teacher->name}}</td>
                     <td class="text-center">{{$subject->subjectClass->credit_units}}</td>
+                    <td>
+                        <a href="#" class="fa fa-trash text-danger remove-class"
+                            title="Remove {{$subject->subjectClass->course->name}}"
+                            data-id="{{$subject->id}}"
+                            data-name="{{$subject->subjectClass->course->name}}"
+                            data-description="{{$subject->subjectClass->course->description}}"></a>
+                    </td>
                 </tr>
 
                 @endforeach
@@ -85,5 +95,29 @@
         </table>
     </div>
 </div>
+
+@endsection
+
+@section('scripts')
+
+<script>
+
+$(document).ready(()=>{
+    $(".remove-class").click((e)=>{
+        e.preventDefault()
+        var el = $(e.target)
+        var id = el.data('id')
+        var name = el.data('name')
+        var description = el.data('description')
+
+        $("#course-name").text(name)
+        $("#course-description").text(description)
+        $("#enrol_subject_id").val(id)
+
+        $("#removeClassModal").modal('show')
+    })
+})
+
+</script>
 
 @endsection

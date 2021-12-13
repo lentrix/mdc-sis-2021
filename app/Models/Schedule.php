@@ -148,7 +148,7 @@ class Schedule extends Model
             $start = $sched->start;
             $end = $sched->end;
 
-            foreach(explode(",", $subjectClass->day) as $day) {
+            foreach(explode(",", $sched->day) as $day) {
                 $sched = static::where(function($query) use ($startPlus, $endMinus, $start, $end) {
                     $query->whereBetween('start',[$start,$endMinus])
                         ->orWhereBetween('end',[$startPlus, $end]);
