@@ -137,6 +137,8 @@ Route::group(['middleware'=>'auth'], function() {
     Route::patch('/enrols/detach-section/{enrol}', [EnrolController::class, 'detachSection']);
     Route::patch('/enrols/add-class-by-serial/{enrol}', [EnrolController::class, 'addBySerial']);
     Route::patch('/enrols/remove-class/{enrol}', [EnrolController::class, 'removeClass']);
+    Route::patch('/enrols/withdraw/{enrol}', [EnrolController::class, 'withdrawEnrollment']);
+    Route::patch('/enrols/restore/{enrol}', [EnrolController::class, 'restoreEnrollment']);
     Route::get('/enrols/{enrol}', [EnrolController::class, 'show']);
     Route::get('/enrols/edit/{enrol}', [EnrolController::class, 'edit']);
     Route::put('/enrols/edit/{enrol}', [EnrolController::class, 'update']);

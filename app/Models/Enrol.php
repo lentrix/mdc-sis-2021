@@ -9,7 +9,11 @@ class Enrol extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['student_id', 'program_id','section_id', 'term_id', 'level','created_by','updated_by'];
+    protected $fillable = ['student_id', 'program_id','section_id', 'term_id', 'level','created_by','updated_by','withdrawn','withdrawn_by','withdrawn_at','restored_by','restored_at'];
+
+    protected $casts = [
+        'withdrawn_at' => 'datetime'
+    ];
 
     public function student() {
         return $this->belongsTo('App\Models\Student');
@@ -37,6 +41,14 @@ class Enrol extends Model
 
     public function enrolSubjects() {
         return $this->hasMany('App\Models\EnrolSubject');
+    }
+
+    public function withdrawnSubjects() {
+        return $this->hasMany('App\Models\WithdrawnSubject');
+    }
+
+    public function withdrawnBy() {
+        return $this->belongsTo('App\Models\User', 'withdrawn_by','id');
     }
 
 }

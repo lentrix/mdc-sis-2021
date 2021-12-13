@@ -3,6 +3,7 @@
 @section('content')
 
 @include('enrols.remove-class-modal')
+@include('enrols.restore-withdrawn-modal')
 
 <div class="float-right">
     <a href="{{url('/students/' . $enrol->student_id)}}" class="btn btn-outline-info">
@@ -13,7 +14,7 @@
 <h1>View Enrollment</h1>
 <hr>
 
-<div class="row">
+<div class="row position-relative py-2">
     <div class="col-md-3">
         <h4>Enrollment Details</h4>
         <table class="table table-bordered table-striped table-sm">
@@ -50,7 +51,7 @@
         </a>
     </div>
     <div class="col-md-9">
-        @if(auth()->user()->is('registrar'))
+        @if(auth()->user()->is('registrar') && !$enrol->withdrawn)
             <div class="float-right">
                 @include('enrols.add-class-modal')
             </div>
@@ -64,12 +65,15 @@
                     <th>Schedule</th>
                     <th>Teacher</th>
                     <th class="text-center">Units</th>
+                    @if(!$enrol->withdrawn)
                     <th><i class="fa fa-cog"></i></th>
+                    @endif
                 </tr>
             </thead>
             <tbody>
                 <?php $totalUnits = 0; ?>
-                @foreach($enrol->enrolSubjects as $subject)
+                <?php $subjects = $enrol->withdrawn ? $enrol->withdrawnSubjects : $enrol->enrolSubjects; ?>
+                @foreach($subjects as $subject)
                     <?php $totalUnits += $subject->subjectClass->credit_units; ?>
                 <tr>
                     <td>{{$subject->subjectClass->course->name}}</td>
@@ -77,6 +81,7 @@
                     <td>{{$subject->subjectClass->schedule_string}}</td>
                     <td>{{$subject->subjectClass->teacher->name}}</td>
                     <td class="text-center">{{$subject->subjectClass->credit_units}}</td>
+                    @if(!$enrol->withdrawn)
                     <td>
                         <a href="#" class="fa fa-trash text-danger remove-class"
                             title="Remove {{$subject->subjectClass->course->name}}"
@@ -84,6 +89,7 @@
                             data-name="{{$subject->subjectClass->course->name}}"
                             data-description="{{$subject->subjectClass->course->description}}"></a>
                     </td>
+                    @endif
                 </tr>
 
                 @endforeach
@@ -93,8 +99,32 @@
                 </tr>
             </tbody>
         </table>
+        <hr>
+        @if(auth()->user()->is('registrar') && !$enrol->withdrawn)
+
+        <div class="alert alert-danger d-flex" style="margin-top: 200px">
+            <div style="flex: 1">
+                Withdraw this enrollment.
+            </div>
+            @include('enrols.withdraw-enroll-modal')
+        </div>
+
+        @endif
     </div>
+    @if($enrol->withdrawn)
+    <div class="overlay">
+        <h1>Withdrawn</h1>
+        <hr>
+        by: {{$enrol->withdrawnBy->fullName}} on {{$enrol->withdrawn_at->format('F d, Y g:i A')}}
+        <br>
+        <br>
+        <button type="button" class="btn btn-success shadow" data-toggle="modal" data-target="#restoreWithdrawnModal">
+            Restore Enrollment
+        </button>
+    </div>
+    @endif
 </div>
+
 
 @endsection
 

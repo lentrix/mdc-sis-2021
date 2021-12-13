@@ -11,7 +11,10 @@ use App\Models\Section;
 use App\Models\Student;
 use App\Models\SubjectClass;
 use App\Models\Term;
+use App\Models\WithdrawnSubject;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EnrolController extends Controller
 {
@@ -64,11 +67,23 @@ class EnrolController extends Controller
         ]);
     }
 
+    private function addSectionClasses(Enrol $enrol, Section $section) {
+
+        //add classes based on classSections
+        foreach($section->classSections as $classSection) {
+            EnrolSubject::create([
+                'enrol_id' => $enrol->id,
+                'subject_class_id' => $classSection->subject_class_id,
+                'created_by' => auth()->user()->id
+            ]);
+        }
+
+        return $enrol;
+    }
+
     public function enrolToSection(Student $student, Request $request) {
         $section = Section::findOrFail($request->section_id);
-
         $user = auth()->user();
-
         $enrol = Enrol::create([
             'student_id' => $student->id,
             'program_id' => $section->program_id,
@@ -79,14 +94,7 @@ class EnrolController extends Controller
             'updated_by' => $user->id
         ]);
 
-        //add classes based on classSections
-        foreach($section->classSections as $classSection) {
-            EnrolSubject::create([
-                'enrol_id' => $enrol->id,
-                'subject_class_id' => $classSection->subject_class_id,
-                'created_by' => $user->id
-            ]);
-        }
+        $this->addSectionClasses($enrol, $section);
 
         return redirect('/enrols/' . $enrol->id)->with('Info','The student has been enrolled successfully');
     }
@@ -305,5 +313,77 @@ class EnrolController extends Controller
         $enrolSubject->delete();
 
         return back()->with('Info',"The course $courseName $courseDescription has been removed from this enrollment.");
+    }
+
+    public function withdrawEnrollment(Enrol $enrol) {
+        foreach($enrol->enrolSubjects as $subject) {
+            WithdrawnSubject::create([
+                'enrol_id' => $subject->enrol_id,
+                'subject_class_id' => $subject->subject_class_id
+            ]);
+        }
+
+        DB::table('enrol_subjects')->where('enrol_id', $enrol->id)->delete();
+
+        $enrol->update([
+            'withdrawn' => 1,
+            'withdrawn_by' => auth()->user()->id,
+            'withdrawn_at' => Carbon::now()
+        ]);
+
+        return redirect('/enrols/' . $enrol->id)->with('Info','This enrollment has been withdrawn');
+    }
+
+    public function restoreEnrollment(Enrol $enrol) {
+        $enrol->update([
+            'restored_by' => auth()->user()->id,
+            'restored_at' => Carbon::now(),
+            'withdrawn' => 0
+        ]);
+
+        if($enrol->section) {
+            $this->addSectionClasses($enrol, $enrol->section);
+            DB::table('withdrawn_subjects')->where('enrol_id',$enrol->id)->delete();
+            return redirect('/enrols/' . $enrol->id)->with('Info','Enrollment has been restored.');
+        }else {
+
+            $errors = [];
+
+            foreach($enrol->withdrawnSubjects as $subject) {
+
+                $serial = $subject->subject_class_id;
+
+                $subjectClass = SubjectClass::find($serial);
+
+                if(!$subjectClass) {
+                    $errors[] = "Serial# " . $serial . " is invalid.";
+                    continue;
+                }
+
+                if(count($subjectClass->schedules)<=0) {
+                    $errors[] = "Serial# " . $serial . " cannot be added because it is not scheduled yet.";
+                    continue;
+                }
+
+                if($error = $this->addClass($enrol, $subjectClass)) {
+                    $errors[] = $error;
+                }
+            }
+
+            DB::table('withdrawn_subjects')->where('enrol_id',$enrol->id)->delete();
+
+            if(count($errors)>0) {
+                $errorMessage = "<ul>";
+
+                foreach($errors as $error) {
+                    $errorMessage .= "<li>" . $error . "</li>";
+                }
+
+                $errorMessage .= "</li>";
+
+                return redirect('/enrols/' . $enrol->id)->with('Error', 'Enrollment has been restored but there were errors during insertion: ' . $errorMessage);
+            }
+            return redirect('/enrols/' . $enrol->id)->with('Info','Enrollment has been restored and classes have been added without any errors.');
+        }
     }
 }
