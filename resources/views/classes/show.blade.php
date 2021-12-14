@@ -52,6 +52,20 @@
     <div class="col-md-5">
         <h5>List of Students</h5>
         <hr>
+        @if(count($class->classList)>0)
+            <div class="list-group">
+            @foreach($class->classList as $index=>$enrol)
+
+                <a href="{{url('/enrols/current/' . $enrol->id)}}" class="list-group-item list-group-item-action">
+                    {{$index+1}}. {{$enrol->student->full_name}} {{$enrol->program->short_name}}-{{$enrol->level}}
+                </a>
+
+            @endforeach
+            </div>
+        @else
+            <span clas="text-black-50">No enrolees yet.</span>
+        @endif
+
     </div>
 </div>
 @endsection

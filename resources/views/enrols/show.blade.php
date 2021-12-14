@@ -5,11 +5,13 @@
 @include('enrols.remove-class-modal')
 @include('enrols.restore-withdrawn-modal')
 
+@if(auth()->user()->is('registrar'))
 <div class="float-right">
     <a href="{{url('/students/' . $enrol->student_id)}}" class="btn btn-outline-info">
         <i class="fa fa-arrow-left"></i> Student Information
     </a>
 </div>
+@endif
 
 <h1>View Enrollment</h1>
 <hr>

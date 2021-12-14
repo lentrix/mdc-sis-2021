@@ -39,6 +39,14 @@ class SubjectClass extends Model
         return $this->hasMany('App\Models\EnrolSubject');
     }
 
+    public function getClassListAttribute() {
+        return Enrol::whereHas('enrolSubjects', function($query){
+            $query->where('subject_class_id', $this->id);
+        })->join('students','students.id','enrols.student_id')
+        ->orderBy('students.last_name')->orderBy('students.first_name')
+        ->get();
+    }
+
     public function getScheduleStringAttribute() {
         $str = "";
 
