@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class VenueController extends Controller
 {
+
+    public function __construct() {
+        $this->middleware('role:admin')->except('index', 'show');
+    }
+
     public function index() {
         $venues = Venue::orderBy('name')->get();
         return view('venues.index',[

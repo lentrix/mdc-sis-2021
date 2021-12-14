@@ -41,15 +41,22 @@
                     <th>Course No</th>
                     <th>Description</th>
                     <th>Schedule</th>
-                    <th class="text-center"><i class="fa fa-cog"></i></th>
+                    @if(auth()->user()->is('head') && auth()->user()->id===$section->department->head_id)
+                        <th class="text-center"><i class="fa fa-cog"></i></th>
+                    @endif
                 </tr>
             </thead>
             <tbody>
                 @foreach($section->classSections as $class)
                 <tr>
-                    <td>{{$class->subjectClass->course->name}}</td>
+                    <td>
+                        <a href="{{url('/classes/' . $class->id)}}" class="nav-link">
+                            {{$class->subjectClass->course->name}}
+                        </a>
+                    </td>
                     <td>{{$class->subjectClass->course->description}}</td>
                     <td>{{$class->subjectClass->scheduleString}}</td>
+                    @if(auth()->user()->is('head') && auth()->user()->id===$section->department->head_id)
                     <td>
                         <i class="fa fa-trash btn-sm text-danger remove-class"
                                 data-id="{{$class->id}}"
@@ -58,6 +65,7 @@
                                 style="cursor:pointer"
                                 title="Remove this class"></i>
                     </td>
+                    @endif
                 </tr>
                 @endforeach
             </tbody>
