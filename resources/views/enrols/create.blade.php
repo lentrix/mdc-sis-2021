@@ -8,61 +8,68 @@
     </a>
 </div>
 
-<h1>Create Enrollment</h1>
-<h5>
-    <strong>[{{$student->id_number}}-{{$student->id_extension}}]</strong>
-    <u>{{$student->last_name}}, {{$student->first_name}} {{$student->middle_name}}</u>
-</h5>
-<hr>
+@if(auth()->user()->is('registrar'))
 
-<div class="row">
+    <h1>Create Enrollment</h1>
+    <h5>
+        <strong>[{{$student->id_number}}-{{$student->id_extension}}]</strong>
+        <u>{{$student->last_name}}, {{$student->first_name}} {{$student->middle_name}}</u>
+    </h5>
+    <hr>
 
-    <div class="col-md-4">
-        <h4>Basic Enroll</h4>
-        <hr>
-        {!! Form::open(['url'=>'/enrols/' . $student->id, 'method'=>'post']) !!}
+    <div class="row">
 
-            {!! Form::hidden("student_id", $student->id) !!}
+        <div class="col-md-4">
+            <h4>Basic Enroll</h4>
+            <hr>
+            {!! Form::open(['url'=>'/enrols/' . $student->id, 'method'=>'post']) !!}
 
-            @include('enrols._form')
+                {!! Form::hidden("student_id", $student->id) !!}
 
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary float-right">
-                    <i class="fa fa-check"></i> Enroll
-                </button>
-            </div>
+                @include('enrols._form')
 
-        {!! Form::close() !!}
-    </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary float-right">
+                        <i class="fa fa-check"></i> Enroll
+                    </button>
+                </div>
 
-    <div class="col-md-8">
-        <h4>Blocked Section</h4>
-        <hr>
-        {!! Form::open(['url'=>'/enrols/sectioned/' . $student->id, 'method'=>'post', 'id'=>'section_form']) !!}
-            {!! Form::hidden("section_id", null,['id'=>'section_id']) !!}
-        {!! Form::close() !!}
-
-        <div class="form-group">
-            {!! Form::label("department_id", "Department") !!}
-            {!! Form::select("department_id", $departments, null, ['class'=>'form-control','placeholder'=>'Filter by department']) !!}
+            {!! Form::close() !!}
         </div>
 
-        <table class="table table-bordered table-striped">
-            <tr class="bg-info text-white">
-                <th>Section Name</th>
-                <th>Program</th>
-                <th>Level</th>
-                <th>Adviser</th>
-                <th class='text-center'><i class="fa fa-cog"></i></th>
-            </tr>
-            <tbody id="section-rows">
-            </tbody>
-        </table>
+        <div class="col-md-8">
+            <h4>Blocked Section</h4>
+            <hr>
+            {!! Form::open(['url'=>'/enrols/sectioned/' . $student->id, 'method'=>'post', 'id'=>'section_form']) !!}
+                {!! Form::hidden("section_id", null,['id'=>'section_id']) !!}
+            {!! Form::close() !!}
+
+            <div class="form-group">
+                {!! Form::label("department_id", "Department") !!}
+                {!! Form::select("department_id", $departments, null, ['class'=>'form-control','placeholder'=>'Filter by department']) !!}
+            </div>
+
+            <table class="table table-bordered table-striped">
+                <tr class="bg-info text-white">
+                    <th>Section Name</th>
+                    <th>Program</th>
+                    <th>Level</th>
+                    <th>Adviser</th>
+                    <th class='text-center'><i class="fa fa-cog"></i></th>
+                </tr>
+                <tbody id="section-rows">
+                </tbody>
+            </table>
+
+        </div>
+
 
     </div>
+@else
 
+    <div class="mt-5 alert alert-warning">This student is not yet enrolled for this term.</div>
 
-</div>
+@endif
 
 @endsection
 

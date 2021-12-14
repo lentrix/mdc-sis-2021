@@ -31,7 +31,15 @@ class Section extends Model
         return $this->hasMany('App\Models\ClassSection');
     }
 
-    public function enrols() {
-        return $this->hasMany('App\Models\Enrol');
+    public function getEnrolsAttribute() {
+        // return $this->hasMany('App\Models\Enrol')
+        //     ->with('student', function($query){
+        //         $query->orderBy('last_name')->orderBy('first_name');
+        //     });
+
+        return Enrol::where('section_id', $this->id)
+            ->join('students','students.id','enrols.student_id')
+            ->orderBy('students.last_name')->orderBy('students.first_name')
+            ->get();
     }
 }

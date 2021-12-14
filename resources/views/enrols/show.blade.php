@@ -46,9 +46,11 @@
                 <td>{{$enrol->term->name}}</td>
             </tr>
         </table>
+        @if(auth()->user()->is('registrar'))
         <a href="{{url('/enrols/edit/' . $enrol->id)}}" class="btn btn-info mt-3 btn-block">
             <i class="fa fa-edit"></i> Edit Enrolment
         </a>
+        @endif
     </div>
     <div class="col-md-9">
         @if(auth()->user()->is('registrar') && !$enrol->withdrawn)
@@ -65,8 +67,8 @@
                     <th>Schedule</th>
                     <th>Teacher</th>
                     <th class="text-center">Units</th>
-                    @if(!$enrol->withdrawn)
-                    <th><i class="fa fa-cog"></i></th>
+                    @if(!$enrol->withdrawn && auth()->user()->is('registrar'))
+                        <th><i class="fa fa-cog"></i></th>
                     @endif
                 </tr>
             </thead>
@@ -76,12 +78,16 @@
                 @foreach($subjects as $subject)
                     <?php $totalUnits += $subject->subjectClass->credit_units; ?>
                 <tr>
-                    <td>{{$subject->subjectClass->course->name}}</td>
+                    <td>
+                        <a href="{{url('/classes/' . $subject->subject_class_id)}}" class="nav-link">
+                            {{$subject->subjectClass->course->name}}
+                        </a>
+                    </td>
                     <td>{{$subject->subjectClass->course->description}}</td>
                     <td>{{$subject->subjectClass->schedule_string}}</td>
                     <td>{{$subject->subjectClass->teacher->name}}</td>
                     <td class="text-center">{{$subject->subjectClass->credit_units}}</td>
-                    @if(!$enrol->withdrawn)
+                    @if(!$enrol->withdrawn && auth()->user()->is('registrar'))
                     <td>
                         <a href="#" class="fa fa-trash text-danger remove-class"
                             title="Remove {{$subject->subjectClass->course->name}}"

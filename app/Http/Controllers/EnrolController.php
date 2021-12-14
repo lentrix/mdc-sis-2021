@@ -20,7 +20,7 @@ class EnrolController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:registrar');
+        $this->middleware('role:registrar')->except('current');
     }
 
     public function index(Request $request) {

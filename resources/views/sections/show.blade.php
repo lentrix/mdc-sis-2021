@@ -66,7 +66,13 @@
     <div class="col-md-5">
         <h4>List of Students</h4>
         <hr>
-        <p>No implementation yet...</p>
+        <div class="list-group">
+            @foreach($section->enrols as $index=>$enrol)
+                <a href="{{url('/enrols/current/' . $enrol->id)}}" class="list-group-item list-group-item-action">
+                    {{$index+1}}. {{$enrol->student->full_name}} {{$enrol->program->short_name}}-{{$enrol->level}}
+                </a>
+            @endforeach
+        </div>
     </div>
 </div>
 @endsection
