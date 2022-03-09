@@ -2,6 +2,15 @@
 
 @section('content')
 
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{{url('/dashboard')}}">Home</a></li>
+      <li class="breadcrumb-item"><a href="{{url('/classes')}}">Class Offerings</a></li>
+      <li class="breadcrumb-item"><a href="{{url('/classes/' . $class->id)}}">{{$class->course_no}}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Edit Class</li>
+    </ol>
+</nav>
+
 @include('classes.remove-sched-modal')
 
 <h1>Edit: {{$class->course->name}}</h1>

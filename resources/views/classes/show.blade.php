@@ -2,6 +2,14 @@
 
 @section('content')
 
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{{url('/dashboard')}}">Home</a></li>
+      <li class="breadcrumb-item"><a href="{{url('/classes')}}">Class Offerings</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{$class->course_no}}</li>
+    </ol>
+</nav>
+
 @if(auth()->user()->is('head') && auth()->user()->id===$class->department->head_id)
 <div class="float-right">
     <a href="{{url('/classes/' . $class->id . "/edit")}}" class="btn btn-info">
@@ -20,8 +28,8 @@
     <div class="col-md-7">
         <h5>Class Details</h5>
         <table class="table table-bordered table-striped">
-            <tr><th>Name</th><td>{{$class->course->name}}</td></tr>
-            <tr><th>Description</th><td>{{$class->course->description}}</td></tr>
+            <tr><th>Name</th><td>{{$class->course_no}}</td></tr>
+            <tr><th>Description</th><td>{{$class->description}}</td></tr>
             <tr><th>Teacher</th><td>{{$class->teacher->name}}</td></tr>
             <tr><th>Pay Units</th><td>{{$class->pay_units}}</td></tr>
             <tr><th>Credit Units</th><td>{{$class->credit_units}}</td></tr>

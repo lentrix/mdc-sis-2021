@@ -45,8 +45,8 @@
         @foreach($classes as $class)
             <tr>
                 <td>{{str_pad($class->id, 8, '0', STR_PAD_LEFT)}}</td>
-                <td>{{$class->course->name}}</td>
-                <td>{{$class->course->description}}</td>
+                <td>{{$class->course_no}}</td>
+                <td>{{$class->description}}</td>
                 <td>{{$class->teacher->short_name}}</td>
                 <td>{{$class->credit_units}}</td>
                 <td>

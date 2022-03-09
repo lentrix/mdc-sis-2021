@@ -9,7 +9,18 @@ class SubjectClass extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['course_id','teacher_id','pay_units','limit', 'credit_units','term_id','department_id','created_by','updated_by'];
+    protected $fillable = [
+        'course_id',
+        'course_no',
+        'description',
+        'teacher_id',
+        'pay_units',
+        'limit',
+        'credit_units',
+        'term_id',
+        'department_id',
+        'created_by',
+        'updated_by'];
 
     public function schedules() {
         return $this->hasMany('App\Models\Schedule');

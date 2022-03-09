@@ -76,8 +76,16 @@ class SubjectClassController extends Controller
             }
         }
 
+        $course = Course::find($request->course_id);
+
+        if(!$course) {
+            return back()->with('Error','The Course ID cannot be resolved to an existing course.');
+        }
+
         $class->update([
             'course_id' => $request->course_id,
+            'course_no' => $course->name,
+            'description' => $course->description,
             'teacher_id' => $request->teacher_id,
             'pay_units' => $request->pay_units,
             'credit_units' => $request->credit_units,
@@ -174,9 +182,16 @@ class SubjectClassController extends Controller
         $conflict = Schedule::checkTeacherConflict($request->start, $request->end, $request->days, $request->teacher_id);
         if($conflict) return back()->with('Error','This schedule is in conflict with one of the teacher\'s existing schedules: ' . $conflict->subjectClass->course->name . " " . $conflict->summary)->withInput();
 
+        $course = Course::find($request->course_id);
+        if(!$course) {
+            return back()->with('Error','The course id cannot be resolved to an existing course.');
+        }
+
         //create subject class
         $class = SubjectClass::create([
             'course_id' => $request->course_id,
+            'course_no' => $course->name,
+            'description' => $course->description,
             'teacher_id' => $request->teacher_id,
             'term_id' => $request->term_id,
             'credit_units' => $request->credit_units,
