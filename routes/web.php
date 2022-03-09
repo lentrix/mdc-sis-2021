@@ -35,10 +35,10 @@ Route::resource('/','Controller');
 
 Route::get('/', [SiteController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
+Route::get('/test',[TestingController::class, 'index']);
 
 Route::group(['middleware'=>'auth'], function() {
 
-    Route::get('/test',[TestingController::class, 'index']);
 
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/dashboard',[SiteController::class, 'dashboard']);
