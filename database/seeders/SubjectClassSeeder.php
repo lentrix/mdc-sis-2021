@@ -48,6 +48,8 @@ class SubjectClassSeeder extends Seeder
                 'credit_units' => 3,
                 'pay_units' => 3,
                 'limit' => 40,
+                'grading_periods' => 2,
+                'grading_names' => 'Midterm, Final',
                 'created_by' => 1,
                 'updated_by' => 1,
             ]);
