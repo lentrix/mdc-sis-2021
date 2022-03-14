@@ -53,4 +53,13 @@ class APIController extends Controller
 
         return response()->json($sections);
     }
+
+    public function searchSubjectClass($key) {
+        $subjectClasses = SubjectClass::whereHas('course', function($query) use ($key) {
+            $query->where('name','like',"%$key%")
+                ->orWhere('description','like',"%$key%");
+        })->get();
+
+        return response()->json($subjectClasses);
+    }
 }

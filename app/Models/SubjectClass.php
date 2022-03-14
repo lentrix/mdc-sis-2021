@@ -22,6 +22,8 @@ class SubjectClass extends Model
         'created_by',
         'updated_by'];
 
+    protected $appends = ['scheduleString'];
+
     public function schedules() {
         return $this->hasMany('App\Models\Schedule');
     }

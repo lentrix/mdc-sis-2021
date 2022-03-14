@@ -28,4 +28,4 @@ Route::get('/offerings/{course}', [APIController::class, 'offeringsByCourse']);
 
 Route::get('/sections/{department}', [APIController::class, 'sectionByDepartment']);
 
-
+Route::get('/subject-classes/search/{key}', [APIController::class, 'searchSubjectClass']);
