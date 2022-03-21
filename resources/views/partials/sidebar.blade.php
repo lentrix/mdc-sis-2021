@@ -25,6 +25,7 @@
     <div class="sidebar-heading">
         Records
     </div>
+
     @if(auth()->user()->is('registrar'))
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStudents"
@@ -58,6 +59,11 @@
             </div>
         </div>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{url('/terms')}}">
+            <i class="fas fa-calendar"></i>
+            <span>Terms &amp; Periods</span></a>
+    </li>
     @endif
 
     @if(!auth()->user()->isOnly('student'))
@@ -81,12 +87,6 @@
         <a class="nav-link" href="{{url('/departments')}}">
             <i class="fas fa-chart-pie"></i>
             <span>Departments</span></a>
-    </li>
-
-    <li class="nav-item">
-        <a class="nav-link" href="{{url('/terms')}}">
-            <i class="fas fa-calendar"></i>
-            <span>Terms &amp; Periods</span></a>
     </li>
 
     <li class="nav-item">
