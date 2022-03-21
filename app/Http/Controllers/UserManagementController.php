@@ -77,6 +77,14 @@ class UserManagementController extends Controller
         return redirect('/user-mgt/' . $user->id)->with('Info','A role has been added to this user');
     }
 
+    public function deleteRole(User $user, Request $request) {
+        $userRole = UserRole::findOrFail($request['role-id']);
+        $roleName = $userRole->role->role;
+        $userRole->delete();
+
+        return back()->with('Info','The role ' . $roleName . " has been removed from " . $user->user . ".");
+    }
+
     public function addPermission(Request $request) {
         $request->validate([
             'user_id' => 'numeric|required',

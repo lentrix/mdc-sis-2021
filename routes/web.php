@@ -50,6 +50,7 @@ Route::group(['middleware'=>'auth'], function() {
     Route::get('/user-mgt/{user}', [UserManagementController::class, 'show']);
     Route::get('/user-mgt', [UserManagementController::class, 'index']);
     Route::post('/user-mgt/roles', [UserManagementController::class, 'addRole']);
+    Route::delete('/user-mgt/{user}/roles', [UserManagementController::class, 'deleteRole']);
     Route::post('/user-mgt/permissions', [UserManagementController::class, 'addPermission']);
     Route::post('/user-mgt/users', [UserManagementController::class, 'addUser']);
     Route::put('/user-mgt/users/{user}', [UserManagementController::class, 'updateUser']);

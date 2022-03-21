@@ -4,6 +4,7 @@
 
 @include('users.mgt.add-role-modal',['roles'=>$roles])
 @include('users.mgt.add-permission-modal',['roles'=>$permissions])
+@include('users.mgt.delete-role-confirmation-modal',['user'=>$user])
 
 <h1>View User</h1>
 <hr>
@@ -38,7 +39,8 @@
                     <div style="text-transform: uppercase; flex:1">{{$userRole->role->role}}</div>
                     <div>
                         <button class="btn text-danger btn-sm" title="Remove this role">
-                            <i class="fa fa-trash"></i>
+                            <i class="fa fa-trash delete-role"
+                                    data-id="{{$userRole->id}}" data-role="{{$userRole->role->role}}"></i>
                         </button>
                     </div>
                 </li>
@@ -71,5 +73,25 @@
         @endif
     </div>
 </div>
+
+@endsection
+
+@section('scripts2')
+
+<script>
+    $(document).ready(()=>{
+        $(document).on('click','.delete-role',(e)=>{
+
+            var el = $(e.target)
+            var id = el.data('id')
+            var role = el.data('role')
+
+            $("#role-id").val(id)
+            $("#role-name").text(role)
+            $("#deleteRoleModal").modal('show')
+
+        })
+    })
+</script>
 
 @endsection
