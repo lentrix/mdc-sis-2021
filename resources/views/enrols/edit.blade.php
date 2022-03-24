@@ -2,6 +2,10 @@
 
 @section('content')
 
+<div class="float-right">
+    <a href="{{url('/enrols/' . $enrol->id)}}" class="btn btn-primary">View Enrollment</a>
+</div>
+
 <h1>Edit Enrollment</h1>
 <hr>
 <h4>{{$enrol->student->full_name}}</h4>

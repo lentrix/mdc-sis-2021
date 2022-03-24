@@ -67,11 +67,15 @@ class SubjectClass extends Model
             $str .= $sched->summary . " ";
         }
 
-        return $str;
+        return $str ? $str : "Unscheduled";
     }
 
     public function classSections() {
         return $this->hasMany('App\Models\ClassSection');
+    }
+
+    public function getStudentCountAttribute() {
+        return $this->enrolSubjects->count();
     }
 
     public static function enrollable() {

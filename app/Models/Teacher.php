@@ -22,4 +22,6 @@ class Teacher extends Model
     public function advisory() {
         return $this->hasMany('App\Models\Section')->whereIn('term_id', Term::getActive()->select('id')->get());
     }
+
+
 }

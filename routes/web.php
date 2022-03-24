@@ -12,6 +12,7 @@ use App\Http\Controllers\SectionController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectClassController;
+use App\Http\Controllers\TeacherClassesController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\TermsController;
 use App\Http\Controllers\TestingController;
@@ -145,5 +146,10 @@ Route::group(['middleware'=>'auth'], function() {
     Route::put('/enrols/edit/{enrol}', [EnrolController::class, 'update']);
     Route::post('/enrols/{student}', [EnrolController::class, 'store']);
     Route::get('/enrols', [EnrolController::class, 'search']);
+
+    Route::group(['middleware'=>'role:teacher'], function() {
+        Route::get('/teacher-classes', [TeacherClassesController::class,'index']);
+        Route::get('/teacher-classes/{subjectClass}', [TeacherClassesController::class, 'show']);
+    });
 
 });

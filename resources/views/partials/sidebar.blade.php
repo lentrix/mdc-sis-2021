@@ -169,7 +169,13 @@
             <i class="fas fa-users fa-chart-area"></i>
             <span>User Management</span></a>
     </li> --}}
-
+    @if(auth()->user()->is('teacher'))
+    <li class="nav-item">
+        <a class="nav-link" href="{{url('/teacher-classes')}}">
+            <i class="fas fa-chalkboard"></i>
+            <span>My Classes</span></a>
+    </li>
+    @endif
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

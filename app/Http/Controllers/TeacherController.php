@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Department;
 use App\Models\Role;
+use App\Models\SubjectClass;
 use App\Models\Teacher;
+use App\Models\Term;
 use App\Models\User;
 use App\Models\UserRole;
 use Illuminate\Database\QueryException;
@@ -47,8 +49,12 @@ class TeacherController extends Controller
     }
 
     public function show(Teacher $teacher) {
+        $subjectClasses = SubjectClass::where('teacher_id', $teacher->id)
+                ->whereIn('term_id', Term::getActive()->pluck('id'))->get();
+
         return view('teachers.view',[
             'teacher' => $teacher,
+            'subjectClasses' => $subjectClasses,
             'usersList' => User::orderBy('user')->pluck('user','id')->toArray(),
             'departmentsList' => Department::orderBy('name')->pluck('name','id')->toArray()
         ]);
