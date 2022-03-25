@@ -150,6 +150,9 @@ Route::group(['middleware'=>'auth'], function() {
     Route::group(['middleware'=>'role:teacher'], function() {
         Route::get('/teacher-classes', [TeacherClassesController::class,'index']);
         Route::get('/teacher-classes/{subjectClass}', [TeacherClassesController::class, 'show']);
+        Route::get('/teacher-classes/{subjectClass}/grading', [TeacherClassesController::class, 'grading']);
+        Route::patch('/teacher-classes/{subjectClass}/grading-config', [TeacherClassesController::class, 'setConfiguration']);
+        Route::put('/teacher-classes/{subjectClass}/set-grade/{col}', [TeacherClassesController::class, 'setGrade']);
     });
 
 });

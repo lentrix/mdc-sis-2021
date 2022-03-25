@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TeacherSeeder::class);
         $this->call(VenueSeeder::class);
         $this->call(SubjectClassSeeder::class);
+        $this->call(StudentSeeder::class);
 
         UserRole::create(['user_id'=>1,'role_id'=>1]);
         UserRole::create(['user_id'=>1,'role_id'=>3]);

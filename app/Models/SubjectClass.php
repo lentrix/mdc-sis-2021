@@ -19,6 +19,7 @@ class SubjectClass extends Model
         'credit_units',
         'term_id',
         'department_id',
+        'grading_names',
         'created_by',
         'updated_by'];
 
@@ -76,6 +77,10 @@ class SubjectClass extends Model
 
     public function getStudentCountAttribute() {
         return $this->enrolSubjects->count();
+    }
+
+    public function getGradingPeriodsAttribute() {
+        return explode(',',$this->grading_names);
     }
 
     public static function enrollable() {
