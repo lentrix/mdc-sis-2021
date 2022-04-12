@@ -36,6 +36,7 @@ class CreateStudentsTable extends Migration
             $table->string('occupation_mother')->nullable();
             $table->string('occupation_father')->nullable();
             $table->string('parents_address')->nullable();
+            $table->string('email')->nullable();
             $table->timestamps();
         });
     }

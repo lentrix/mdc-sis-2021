@@ -60,6 +60,10 @@
     <div class="col-md-6">
         <h4>&nbsp;</h4>
         <div class="mb-2">
+            {!! Form::label("email", "Email Address") !!}
+            {!! Form::email("email", null, ['class'=>'form-control']) !!}
+        </div>
+        <div class="mb-2">
             {!! Form::label("address", "Address") !!}
             <div class="d-flex">
                 {!! Form::text("street", null, ['class'=>'form-control mb-1','placeholder'=>'Street/Sitio','title'=>'Street/Sitio']) !!}
