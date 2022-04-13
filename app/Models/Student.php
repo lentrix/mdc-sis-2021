@@ -13,7 +13,7 @@ class Student extends Model
         'id_number','id_extension','lrn','last_name','first_name','middle_name','sex',
         'birth_date','civil_status','religion','street','barangay','town','province',
         'nationality','phone','father','occupation_father','mother','occupation_mother',
-        'parents_address',
+        'parents_address','email'
     ];
 
     protected $casts = [

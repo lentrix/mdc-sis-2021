@@ -51,6 +51,7 @@
             <div class="info-item"><i>Mother's Name</i><span>{{$student->mother}}</span></div>
             <div class="info-item"><i>Mother's Occupation</i><span>{{$student->occupation_mother}}</span></div>
             <div class="info-item"><i>Address of Parents</i><span>{{$student->parents_address}}</span></div>
+            <div class="info-item"><i>Email Address</i><span>{{$student->email}}</span></div>
 
         </div>
     </div>
