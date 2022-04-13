@@ -24,7 +24,7 @@ class CreateSubjectClassesTable extends Migration
             $table->integer('credit_units')->unsigned();
             $table->integer('pay_units')->unsigned();
             $table->integer('limit')->default(50);
-            $table->string('grading_names');//separated by comma
+            $table->string('grading_names')->nullable();//separated by comma
             $table->bigInteger('created_by')->unsigned();
             $table->bigInteger('updated_by')->unsigned();
             $table->timestamps();
