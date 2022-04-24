@@ -10,7 +10,7 @@
     </ol>
 </nav>
 
-@if(auth()->user()->is('head') && auth()->user()->id===$class->department->head_id)
+@if($class->department->isHeadedBy(auth()->user()))
 <div class="float-right">
     <a href="{{url('/classes/' . $class->id . "/edit")}}" class="btn btn-info">
         <i class="fa fa-edit"></i> Edit Class Offering

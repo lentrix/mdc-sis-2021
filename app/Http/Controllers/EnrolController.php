@@ -181,23 +181,23 @@ class EnrolController extends Controller
 
         $programs = Program::orderBy('short_name')->pluck('short_name', 'id');
 
-        if($lname = $request?->last_name) {
+        if($lname = $request->last_name) {
             $enrols->whereHas('student', function($query) use ($lname) {
                 $query->where('last_name','like',"%$lname%");
             });
         }
 
-        if($fname = $request?->first_name) {
+        if($fname = $request->first_name) {
             $enrols->whereHas('student', function($query) use ($fname) {
                 $query->where('first_name','like',"%$fname%");
             });
         }
 
-        if($program_id = $request?->program_id) {
+        if($program_id = $request->program_id) {
             $enrols->where('program_id', $program_id);
         }
 
-        if($level = $request?->level) {
+        if($level = $request->level) {
             $enrols->where('level', $level);
         }
 

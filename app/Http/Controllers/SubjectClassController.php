@@ -53,7 +53,9 @@ class SubjectClassController extends Controller
             'teachers' => Teacher::orderBy('name')->pluck('name','id'),
             'terms' => Term::getActive()->pluck('name','id'),
             'venues' => Venue::orderBy('name')->pluck('name','id'),
-            'departments' => Department::where('head_id', auth()->user()->id)->pluck('name','id')
+            'departments' => Department::whereHas('heads', function($query) {
+                $query->where('user_id', auth()->user()->id);
+            })->pluck('name','id')
         ]);
     }
 
@@ -113,7 +115,7 @@ class SubjectClassController extends Controller
                     $venue->name of $venue->capacity. Please change the venue to proceed.");
         }
 
-        $section = $class->section?->section;
+        $section = $class->section;
 
         if($section) {
             $conflict = Schedule::checkAddSchedSectionConflict($request->start, $request->end, $request->days, $section);
@@ -147,7 +149,9 @@ class SubjectClassController extends Controller
             'teachers' => Teacher::orderBy('name')->pluck('name','id'),
             'venues' => Venue::orderBy('name')->pluck('name','id'),
             'terms' => Term::getEnrolling()->pluck('name','id'),
-            'departments' => Department::where('head_id', auth()->user()->id)->pluck('name','id')
+            'departments' => Department::whereHas('heads', function($query){
+                $query->where('user_id',auth()->user()->id);
+            })->pluck('name','id')
         ]);
     }
 

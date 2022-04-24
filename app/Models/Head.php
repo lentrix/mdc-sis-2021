@@ -5,11 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Teacher extends Model
+class Head extends Model
 {
     use HasFactory;
-
-    protected $fillable = ['user_id','name','short_name','specialization','phone','department_id'];
+    protected $fillable = ['user_id','department_id'];
 
     public function user() {
         return $this->belongsTo('App\Models\User');
@@ -18,9 +17,4 @@ class Teacher extends Model
     public function department() {
         return $this->belongsTo('App\Models\Department');
     }
-
-    public function advisory() {
-        return $this->hasMany('App\Models\Section')->whereIn('term_id', Term::getActive()->select('id')->get());
-    }
-
 }

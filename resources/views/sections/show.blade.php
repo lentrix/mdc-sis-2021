@@ -9,7 +9,7 @@
     <a href="{{url('/sections')}}" class="btn btn-info">
         <i class="fa fa-arrow-left"></i> Back to Sections
     </a>
-    @if(auth()->user()->is('head') && auth()->user()->id===$section->department->head_id)
+    @if($section->department->isHeadedBy(auth()->user()))
         @include('sections.update-section-modal',['section'=>$section])
     @endif
 </div>
@@ -29,7 +29,7 @@
             <tr><th>Term</th><td>{{$section->term->name}}</td></tr>
         </table>
 
-        @if(auth()->user()->is('head') && auth()->user()->id===$section->department->head_id)
+        @if($section->department->isHeadedBy(auth()->user()))
             <div class="float-right">
                 @include('sections.add-class-modal',['section'=>$section])
             </div>
@@ -41,7 +41,7 @@
                     <th>Course No</th>
                     <th>Description</th>
                     <th>Schedule</th>
-                    @if(auth()->user()->is('head') && auth()->user()->id===$section->department->head_id)
+                    @if($section->department->isHeadedBy(auth()->user()))
                         <th class="text-center"><i class="fa fa-cog"></i></th>
                     @endif
                 </tr>
@@ -56,7 +56,7 @@
                     </td>
                     <td>{{$class->subjectClass->course->description}}</td>
                     <td>{{$class->subjectClass->scheduleString}}</td>
-                    @if(auth()->user()->is('head') && auth()->user()->id===$section->department->head_id)
+                    @if($section->department->isHeadedBy(auth()->user()))
                     <td>
                         <i class="fa fa-trash btn-sm text-danger remove-class"
                                 data-id="{{$class->id}}"

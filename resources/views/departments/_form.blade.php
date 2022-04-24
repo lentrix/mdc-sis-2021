@@ -13,8 +13,4 @@
     {!! Form::select("parent_id", $departmentList,null, ['class'=>'form-control','placeholder'=>'Select department']) !!}
 </div>
 
-<div class="form-group">
-    {!! Form::label("head_id", "Department Head") !!}
-    {!! Form::select("head_id", $users, isset($department)?$department->head_id:null, ['class'=>'form-control','placeholder'=>'Select user']) !!}
-</div>
 

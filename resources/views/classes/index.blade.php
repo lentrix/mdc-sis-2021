@@ -38,6 +38,7 @@
             <th>Teacher</th>
             <th>Credit Units</th>
             <th>Schedule</th>
+            <th>Term</th>
             <th><i class="fa fa-cog"></i></th>
         </tr>
     </thead>
@@ -54,6 +55,7 @@
                        <div>{{$sched->summary}}</div>
                     @endforeach
                 </td>
+                <td>{{$class->term->accronym}}</td>
                 <td>
                     <a href="{{url('/classes/' . $class->id)}}" class="btn fa fa-eye text-info"></a>
                 </td>

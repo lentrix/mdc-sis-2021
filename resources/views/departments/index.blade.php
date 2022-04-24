@@ -19,7 +19,7 @@
                 <div style="font-weight: 700; flex: 2">{{$dept->accronym}}</div>
                 <div style="flex: 10">{{$dept->name}}</div>
                 <div style="flex:4">
-                    {{$dept->head_id ? "Head: " . $dept->head->fullName : ""}}
+                    @foreach($dept->heads as $head) [{{$head->user->full_name}}] &nbsp; @endforeach
                 </div>
                 <div style="flex-1">
                     <a href="{{url('/departments/' . $dept->id)}}" class="btn fas fa-folder-open text-dark"></a>
@@ -34,7 +34,7 @@
                                 <div style="font-weight: 700; flex: 2">{{$sub->accronym}}</div>
                                 <div style="flex: 10">{{$sub->name}}</div>
                                 <div style="flex:4">
-                                    {{$sub->head_id ? "Head: " . $sub->head->fullName : ""}}
+                                    @foreach($sub->heads as $head) [{{$head->user->full_name}}] &nbsp; @endforeach
                                 </div>
                                 <div style="flex-1">
                                     <a href="{{url('/departments/' . $sub->id)}}" class="btn fas fa-folder-open text-dark"></a>
@@ -49,7 +49,7 @@
                                                 <div style="font-weight: 700; flex: 2">{{$sub2->accronym}}</div>
                                                 <div style="flex: 10">{{$sub2->name}}</div>
                                                 <div style="flex:4">
-                                                    {{$sub2->head_id ? "Head: " . $sub2->head->fullName : ""}}
+                                                    @foreach($sub2->heads as $head) [{{$head->user->full_name}}] &nbsp; @endforeach
                                                 </div>
                                                 <div style="flex-1">
                                                     <a href="{{url('/departments/' . $sub2->id)}}" class="btn fas fa-folder-open text-dark"></a>
