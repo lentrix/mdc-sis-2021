@@ -25,7 +25,6 @@ class StudentController extends Controller
             'middle_name' => 'string|required',
             'sex' => 'string|required',
             'birth_date' => 'date|required',
-            'email' => 'email'
         ]);
 
         $stud = Student::create($request->all());
@@ -57,7 +56,6 @@ class StudentController extends Controller
             'middle_name' => 'string|required',
             'sex' => 'string|required',
             'birth_date' => 'date|required',
-            'email' => 'email'
         ]);
 
         $student->update($request->all());
