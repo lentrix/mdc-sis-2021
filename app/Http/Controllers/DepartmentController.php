@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Department;
+use App\Models\Head;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -28,7 +29,7 @@ class DepartmentController extends Controller
         return view('departments.show',[
             'department' => $department,
             'departmentList' => Department::orderBy('accronym')->pluck('name','id'),
-            'users' => User::headsList()
+            'users' => User::headsList($department)
         ]);
     }
 

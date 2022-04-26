@@ -23,7 +23,7 @@ class SectionController extends Controller
     }
 
     public function index(Request $request) {
-        $sections = Section::whereIn('term_id', Term::getActive()->select('id')->get())
+        $sections = Section::whereIn('term_id', Term::getEnrolling()->select('id')->get())
             ->orderBy('department_id');
 
         if($request->deparment) {
@@ -100,6 +100,10 @@ class SectionController extends Controller
         $subjectClass = SubjectClass::find($request->subject_class_id);
         if($conflict = Schedule::checkSectionConflict($section, $subjectClass)) {
             return back()->with('Error', 'The class you want to add is in coflict with ' . $conflict->subjectClass->course->name . " - " . $conflict->summary);
+        }
+
+        if($subjectClass->term_id!=$section->term_id) {
+            return back()->with('Error', 'The class you added is not offered in the same term as the section.');
         }
 
         ClassSection::create([

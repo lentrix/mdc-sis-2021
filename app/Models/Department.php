@@ -27,14 +27,6 @@ class Department extends Model
         return $this->hasMany('App\Models\Section');
     }
 
-    public function getDepartmentHeadNameAttribute() {
-        if($this->head_id) {
-            return $this->head->fullName;
-        }else{
-            return "None";
-        }
-    }
-
     public static function list() {
         $depts = static::orderBy('name')->get();
 
@@ -46,8 +38,21 @@ class Department extends Model
         return $list;
     }
 
+    public function heads() {
+        return $this->hasMany('App\Models\Head');
+    }
+
     public static function headedBy(User $user) {
-        return Department::where('head_id', $user->id);
+        return Department::whereHas('heads', function($query) use ($user) {
+            $query->where('user_id', $user->id);
+        });
+    }
+
+    public function isHeadedBy(User $user) {
+        foreach($this->heads as $head) {
+            if($head->user_id === $user->id) return $head;
+        }
+        return null;
     }
 
     public function getTopLevel() {

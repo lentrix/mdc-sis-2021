@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 class APIController extends Controller
 {
     public function offeringsByCourse(Course $course) {
-        $subjectClasses = SubjectClass::whereIn('term_id', Term::getActive()->select('id')->get())
+        $subjectClasses = SubjectClass::whereIn('term_id', Term::getEnrolling()->select('id')->get())
                 ->where('course_id', $course->id)
                 ->with('course')
                 ->with('schedules')
@@ -55,7 +55,8 @@ class APIController extends Controller
     }
 
     public function searchSubjectClass($key) {
-        $subjectClasses = SubjectClass::whereHas('course', function($query) use ($key) {
+        $subjectClasses = SubjectClass::whereIn('term_id', Term::getEnrolling()->select('id')->get())
+            ->whereHas('course', function($query) use ($key) {
             $query->where('name','like',"%$key%")
                 ->orWhere('description','like',"%$key%");
         })->get();

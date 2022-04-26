@@ -95,10 +95,6 @@ class User extends Authenticatable
         return $this->hasOne('App\Models\Teacher');
     }
 
-    public function headsDepartment() {
-        return $this->hasMany('App\Models\Department','head_id','id');
-    }
-
     public static function getList() {
         $usersList = [];
 
@@ -119,8 +115,13 @@ class User extends Authenticatable
         });
     }
 
-    public static function headsList() {
+    public static function headsList($department=null) {
         $users = User::hasRole('head');
+
+        if($department) {
+            $users->whereNotIn('id', $department->heads->pluck('user_id'));
+        }
+
         $heads = [];
 
         foreach($users->get() as $user) {

@@ -25,7 +25,7 @@ class Term extends Model
 
     public static function getActive() {
         $now = Carbon::now('Asia/Manila');
-        return Term::where('start','<=', $now)
+        return Term::where('enrol_start','<=', $now)
                 ->where('end','>=', $now);
     }
 

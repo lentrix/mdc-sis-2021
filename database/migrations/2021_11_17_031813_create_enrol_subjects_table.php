@@ -18,11 +18,11 @@ class CreateEnrolSubjectsTable extends Migration
             $table->bigInteger('enrol_id')->unsigned();
             $table->bigInteger('subject_class_id')->unsigned();
             $table->bigInteger('created_by')->unsigned();
-            $table->decimal('g1', 4, 1)->nullable();
-            $table->decimal('g2', 4, 1)->nullable();
-            $table->decimal('g3', 4, 1)->nullable();
-            $table->decimal('g4', 4, 1)->nullable();
-            $table->decimal('rating', 4, 1)->nullable();
+            $table->string('g1', 4)->nullable();
+            $table->string('g2', 4)->nullable();
+            $table->string('g3', 4)->nullable();
+            $table->string('g4', 4)->nullable();
+            $table->string('rating', 4)->nullable();
             $table->timestamps();
             $table->foreign('enrol_id')->references('id')->on('enrols');
             $table->foreign('subject_class_id')->references('id')->on('subject_classes');

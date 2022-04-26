@@ -28,21 +28,29 @@
 <table class="table table-bordered table-striped">
     <thead>
         <tr class="bg-info text-white">
-            <th>Code Name</th>
+            <th>Course No</th>
             <th>Description</th>
             <th>Schedule</th>
-            <th>Venue</th>
-            <th>Learners</th>
+            <th class="text-center">Learners</th>
+            <th class="text-center">
+                <i class="fa fa-cog"></i>
+            </th>
         </tr>
     </thead>
     <tbody>
+        @foreach($subjectClasses as $class)
         <tr>
-            <th>SMP 100</th>
-            <td>Sample Class Description</td>
-            <td>8:00-9:00 MTW</td>
-            <td>Room 203</td>
-            <td>37</td>
+            <th>{{$class->course->name}}</th>
+            <td>{{$class->course->description}}</td>
+            <td>{{$class->scheduleString}}</td>
+            <td class="text-center">{{$class->studentCount}}</td>
+            <td class="text-center">
+                <a href="{{url('/classes/' . $class->id)}}" class="btn btn-sm btn-success">
+                    <i class="fa fa-eye"></i>
+                </a>
+            </td>
         </tr>
+        @endforeach
     </tbody>
 </table>
 
