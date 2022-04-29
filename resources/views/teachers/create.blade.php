@@ -20,3 +20,23 @@
 </div>
 
 @endsection
+
+@section('scripts')
+
+<script>
+
+$(document).ready(()=>{
+    $("#user_id").change((e)=>{
+        const userId = $(e.target).val()
+        fetch('{{url("/api/users/")}}/' + userId)
+        .then((res)=>res.json())
+        .then((data)=>{
+            $("#name").val(data.fname + " " + data.lname)
+            $("#short_name").val(data.fname.substring(0,1) + ". " + data.lname)
+        })
+    })
+})
+
+</script>
+
+@endsection

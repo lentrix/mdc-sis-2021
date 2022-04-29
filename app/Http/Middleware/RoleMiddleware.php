@@ -19,7 +19,7 @@ class RoleMiddleware
 
         $user = $request->user();
 
-        if(!$user->is($role)) {
+        if(!$user->is($role) && !$user->is('admin')) {
             return back()->with('Error',"Sorry, you are not authorized to perform your recent action.");
         }
 

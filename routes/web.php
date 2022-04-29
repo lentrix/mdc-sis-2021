@@ -92,73 +92,84 @@ Route::group(['middleware'=>'auth'], function() {
         Route::post('/venues', [VenueController::class, 'store']);
         Route::put('/venues/{venue}', [VenueController::class, 'update']);
 
+        Route::delete('/programs/{program}',[ProgramController::class, 'destroy']);
+
+        Route::get('/teachers/create', [TeacherController::class,'create']);
+        Route::get('/teachers/search', [TeacherController::class, 'search']);
+        Route::post('/teachers', [TeacherController::class, 'store']);
+        Route::get('/teachers/{teacher}', [TeacherController::class, 'show']);
+        Route::put('/teachers/{teacher}', [TeacherController::class, 'update']);
 
     });
 
+    Route::group(['middleware'=>'role:head'], function(){
+        Route::get('/programs/create', [ProgramController::class, 'create']);
+        Route::post('/programs', [ProgramController::class, 'store']);
+        Route::put('/programs/{program}', [ProgramController::class, 'update']);
 
-    Route::get('/students/create', [StudentController::class, 'create']);
-    Route::get('/students/search', [StudentController::class, 'search']);
-    Route::post('/students', [StudentController::class,'store']);
+        Route::get('/courses/create', [CourseController::class,'create']);
+        Route::get('/courses/search', [CourseController::class, 'search']);
+        Route::post('/courses', [CourseController::class, 'store']);
+        Route::get('/courses/{course}', [CourseController::class, 'show']);
+        Route::put('/courses/{course}', [CourseController::class, 'update']);
+
+        Route::get('/classes/create', [SubjectClassController::class, 'create']);
+        Route::get('/classes/{class}/edit', [SubjectClassController::class, 'edit']);
+        Route::delete('/classes/{class}/remove-sched', [SubjectClassController::class, 'removeSched']);
+        Route::post('/classes/{class}/add-sched', [SubjectClassController::class, 'addSched']);
+        Route::put('/classes/{class}', [SubjectClassController::class, 'update']);
+        Route::get('/classes', [SubjectClassController::class, 'index']);
+        Route::post('/classes', [SubjectClassController::class, 'store']);
+
+        Route::post('/sections/{section}/add-class', [SectionController::class, 'addSubjectClass']);
+        Route::delete('/sections/{section}/remove-class', [SectionController::class, 'removeSubjectClass']);
+        Route::put('/sections/{section}', [SectionController::class, 'update']);
+        Route::get('/sections', [SectionController::class, 'index']);
+        Route::post('/sections', [SectionController::class, 'store']);
+
+    });
+
+    Route::group(['middleware'=>'role:registrar'], function(){
+        Route::get('/students/create', [StudentController::class, 'create']);
+        Route::get('/students/search', [StudentController::class, 'search']);
+        Route::post('/students', [StudentController::class,'store']);
+        Route::put('/students/{student}', [StudentController::class,'update']);
+        Route::get('/students/edit/{student}', [StudentController::class,'edit']);
+        Route::post('/students/educational-backgrounds/{student}', [StudentController::class, 'addEducationalBackground']);
+        Route::put('/students/educational-backgrounds/{student}', [StudentController::class, 'updateEducationalBackground']);
+
+        Route::post('/enrols/create/{student}', [EnrolController::class, 'create']);
+        Route::post('/enrols/sectioned/{student}', [EnrolController::class, 'enrolToSection']);
+        Route::patch('/enrols/attach-section/{enrol}', [EnrolController::class, 'attachSection']);
+        Route::patch('/enrols/detach-section/{enrol}', [EnrolController::class, 'detachSection']);
+        Route::patch('/enrols/add-class-by-serial/{enrol}', [EnrolController::class, 'addBySerial']);
+        Route::patch('/enrols/remove-class/{enrol}', [EnrolController::class, 'removeClass']);
+        Route::patch('/enrols/withdraw/{enrol}', [EnrolController::class, 'withdrawEnrollment']);
+        Route::patch('/enrols/restore/{enrol}', [EnrolController::class, 'restoreEnrollment']);
+        Route::get('/enrols/{enrol}', [EnrolController::class, 'show']);
+        Route::get('/enrols/edit/{enrol}', [EnrolController::class, 'edit']);
+        Route::put('/enrols/edit/{enrol}', [EnrolController::class, 'update']);
+        Route::post('/enrols/{student}', [EnrolController::class, 'store']);
+        Route::get('/enrols', [EnrolController::class, 'search']);
+    });
+
     Route::get('/students/{student}', [StudentController::class,'show']);
-    Route::put('/students/{student}', [StudentController::class,'update']);
-    Route::get('/students/edit/{student}', [StudentController::class,'edit']);
-    Route::post('/students/educational-backgrounds/{student}', [StudentController::class, 'addEducationalBackground']);
-    Route::put('/students/educational-backgrounds/{student}', [StudentController::class, 'updateEducationalBackground']);
 
-    Route::get('/programs/create', [ProgramController::class, 'create']);
     Route::get('/programs/search', [ProgramController::class, 'search']);
-    Route::post('/programs', [ProgramController::class, 'store']);
+
     Route::get('/programs/{program}', [ProgramController::class, 'show']);
-    Route::put('/programs/{program}', [ProgramController::class, 'update']);
-    Route::delete('/programs/{program}',[ProgramController::class, 'destroy']);
 
-    Route::get('/courses/create', [CourseController::class,'create']);
-    Route::get('/courses/search', [CourseController::class, 'search']);
-    Route::post('/courses', [CourseController::class, 'store']);
-    Route::get('/courses/{course}', [CourseController::class, 'show']);
-    Route::put('/courses/{course}', [CourseController::class, 'update']);
-
-    Route::get('/teachers/create', [TeacherController::class,'create']);
-    Route::get('/teachers/search', [TeacherController::class, 'search']);
-    Route::post('/teachers', [TeacherController::class, 'store']);
-    Route::get('/teachers/{teacher}', [TeacherController::class, 'show']);
-    Route::put('/teachers/{teacher}', [TeacherController::class, 'update']);
 
     Route::get('/venues', [VenueController::class, 'index']);
     Route::get('/venues/{venue}', [VenueController::class, 'show']);
 
-
-    Route::get('/classes/create', [SubjectClassController::class, 'create']);
-    Route::get('/classes/{class}/edit', [SubjectClassController::class, 'edit']);
-    Route::delete('/classes/{class}/remove-sched', [SubjectClassController::class, 'removeSched']);
-    Route::post('/classes/{class}/add-sched', [SubjectClassController::class, 'addSched']);
     Route::get('/classes/{class}', [SubjectClassController::class, 'show']);
-    Route::put('/classes/{class}', [SubjectClassController::class, 'update']);
-    Route::get('/classes', [SubjectClassController::class, 'index']);
-    Route::post('/classes', [SubjectClassController::class, 'store']);
 
-    Route::post('/sections/{section}/add-class', [SectionController::class, 'addSubjectClass']);
-    Route::delete('/sections/{section}/remove-class', [SectionController::class, 'removeSubjectClass']);
     Route::get('/sections/{section}', [SectionController::class, 'show']);
-    Route::put('/sections/{section}', [SectionController::class, 'update']);
-    Route::get('/sections', [SectionController::class, 'index']);
-    Route::post('/sections', [SectionController::class, 'store']);
 
     Route::get('/enrols/current/{student}', [EnrolController::class, 'current']);
     Route::get('/enrols/history/{student}', [EnrolController::class, 'history']);
-    Route::post('/enrols/create/{student}', [EnrolController::class, 'create']);
-    Route::post('/enrols/sectioned/{student}', [EnrolController::class, 'enrolToSection']);
-    Route::patch('/enrols/attach-section/{enrol}', [EnrolController::class, 'attachSection']);
-    Route::patch('/enrols/detach-section/{enrol}', [EnrolController::class, 'detachSection']);
-    Route::patch('/enrols/add-class-by-serial/{enrol}', [EnrolController::class, 'addBySerial']);
-    Route::patch('/enrols/remove-class/{enrol}', [EnrolController::class, 'removeClass']);
-    Route::patch('/enrols/withdraw/{enrol}', [EnrolController::class, 'withdrawEnrollment']);
-    Route::patch('/enrols/restore/{enrol}', [EnrolController::class, 'restoreEnrollment']);
-    Route::get('/enrols/{enrol}', [EnrolController::class, 'show']);
-    Route::get('/enrols/edit/{enrol}', [EnrolController::class, 'edit']);
-    Route::put('/enrols/edit/{enrol}', [EnrolController::class, 'update']);
-    Route::post('/enrols/{student}', [EnrolController::class, 'store']);
-    Route::get('/enrols', [EnrolController::class, 'search']);
+
 
     Route::group(['middleware'=>'role:teacher'], function() {
         Route::get('/teacher-classes', [TeacherClassesController::class,'index']);

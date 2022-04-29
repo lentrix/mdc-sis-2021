@@ -7,6 +7,7 @@ use App\Models\Department;
 use App\Models\Section;
 use App\Models\SubjectClass;
 use App\Models\Term;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class APIController extends Controller
@@ -62,5 +63,9 @@ class APIController extends Controller
         })->get();
 
         return response()->json($subjectClasses);
+    }
+
+    public function singleUser(User $user) {
+        return response()->json($user);
     }
 }
