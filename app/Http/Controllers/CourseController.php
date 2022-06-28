@@ -41,6 +41,8 @@ class CourseController extends Controller
             'description' => $request->description,
             'credit' => $request->credit,
             'department_id' => $request->department_id,
+            'requisite_course' => $request->requisite_course,
+            'program_id' => $request->program_id,
             'created_by' => $request->user()->id,
             'updated_by' => $request->user()->id,
         ]);
@@ -104,6 +106,8 @@ class CourseController extends Controller
             'description' => $request->description,
             'credit' => $request->credit,
             'department_id' => $request->department_id,
+            'requisite_course' => $request->requisite_course,
+            'program_id' => $request->program_id,
             'updated_by' => $request->user()->id,
         ]);
 
