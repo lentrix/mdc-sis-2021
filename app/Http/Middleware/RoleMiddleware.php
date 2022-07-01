@@ -14,15 +14,23 @@ class RoleMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next, $role)
+    public function handle(Request $request, Closure $next, $role1, $role2=null)
     {
 
         $user = $request->user();
 
-        if(!$user->is($role) && !$user->is('admin')) {
-            return back()->with('Error','Sorry, you are not allowed to perform your recent action.');
+        if($user->is('admin')) {
+            return $next($request);
         }
 
-        return $next($request);
+        if($user->is($role1)) {
+            return $next($request);
+        }
+
+        if($role2 && $user->is($role2)) {
+            return $next($request);
+        }
+
+        return back()->with('Error','Sorry, you are not allowed to perform your recent action.');
     }
 }

@@ -102,7 +102,7 @@ Route::group(['middleware'=>'auth'], function() {
 
     });
 
-    Route::group(['middleware'=>'role:head'], function(){
+    Route::group(['middleware'=>'role:head,registrar'], function(){
         Route::get('/programs/create', [ProgramController::class, 'create']);
         Route::post('/programs', [ProgramController::class, 'store']);
         Route::put('/programs/{program}', [ProgramController::class, 'update']);
