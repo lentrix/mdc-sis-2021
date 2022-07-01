@@ -26,7 +26,7 @@
         Records
     </div>
 
-    @if(auth()->user()->is('registrar') || auth()->user->is('head'))
+    @if(auth()->user()->isAny(['registrar','head']))
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStudents"
             aria-expanded="true" aria-controls="collapseStudents">

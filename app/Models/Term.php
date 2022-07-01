@@ -35,4 +35,18 @@ class Term extends Model
         return Term::where('enrol_start',"<=", $now)
                 ->where('enrol_end',">=", $now);
     }
+
+    public function getGradingNames() {
+        $gradingNames = [];
+        foreach($this->periods as $period) {
+            $gradingNames[] = $period->name;
+        }
+        return implode(",", $gradingNames);
+    }
+
+    public function getPeriod($periodName) {
+        return Period::where('term_id', $this->id)
+            ->where('name', $periodName)
+            ->first();
+    }
 }

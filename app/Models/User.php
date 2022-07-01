@@ -75,6 +75,17 @@ class User extends Authenticatable
         return false;
     }
 
+    public function isAny(array $roleNames) {
+        foreach($this->userRoles as $userRole) {
+            foreach($roleNames as $roleName) {
+                if($roleName==$userRole->role->role) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public function isOnly($roleName) {
         $roleCount = count($this->userRoles);
 

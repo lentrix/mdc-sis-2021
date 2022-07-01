@@ -15,7 +15,7 @@
 <h1>Grading: {{$subjectClass->course_no}}</h1>
 <hr>
 
-{!! Form::open(['url'=>'/teacher-classes/' . $subjectClass->id . '/grading-config', 'method'=>'patch']) !!}
+{{-- {!! Form::open(['url'=>'/teacher-classes/' . $subjectClass->id . '/grading-config', 'method'=>'patch']) !!}
 <div class="d-flex align-items-center">
     <div class="pr-3">{!! Form::label("grading_names", "Grade Configuration") !!}</div>
     <div class="pr-3 w-25">
@@ -34,7 +34,7 @@
 </div>
 {!! Form::close() !!}
 
-<hr>
+<hr> --}}
 
 <ul class="nav nav-tabs" title="grade-tabs">
     @foreach($subjectClass->gradingPeriods as $index=>$gp)
@@ -53,9 +53,16 @@
 
 @foreach($subjectClass->gradingPeriods as $index=>$gp)
 
+    <?php $period = $subjectClass->term->getPeriod($gp) ?>
+
 <div id="content-{{$index+1}}" class="grade-content mt-3" style="display:none">
     <h4>{{$gp}} Grade</h4>
-    @include('teachers.subject-classes._grade-form', ['col'=>$index+1, 'subjectClass'=>$subjectClass])
+    <div>{{$period->start->format('F d, Y')}} - {{$period->end->format('F d, Y')}}</div>
+    @if($period->start->isBefore($now) && $period->end->isAfter($now))
+        @include('teachers.subject-classes._grade-form', ['col'=>$index+1, 'subjectClass'=>$subjectClass])
+    @else
+        @include('teachers.subject-classes._grade-sheet',['col'=>$index+1, 'subjectClass'=>$subjectClass])
+    @endif
 </div>
 
 @endforeach

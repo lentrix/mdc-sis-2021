@@ -6,6 +6,7 @@ use App\Models\SubjectClass;
 use App\Models\Term;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 
 class TeacherClassesController extends Controller
 {
@@ -38,18 +39,14 @@ class TeacherClassesController extends Controller
             return back()->with('Error','Sorry! You are not the teacher of the subject you are trying to open.');
         }
 
-        return view('teachers.subject-classes.grading', ['subjectClass'=>$subjectClass]);
-
-    }
-
-    public function setConfiguration(SubjectClass $subjectClass, Request $request) {
-        if(auth()->user()->id != $subjectClass->teacher->user_id) {
-            return back()->with('Error','Sorry! You are not the teacher of the subject you are trying to open.');
+        if(!$subjectClass->grading_names) {
+            $subjectClass->update([
+                'grading_names' => $subjectClass->term->getGradingNames()
+            ]);
         }
 
-        $subjectClass->update(['grading_names'=>$request->grading_names]);
+        return view('teachers.subject-classes.grading', ['subjectClass'=>$subjectClass,'now'=>Carbon::now()]);
 
-        return redirect('/teacher-classes/' . $subjectClass->id . '/grading')->with('Info','Grade configuration has been changed.');
     }
 
     public function setGrade(SubjectClass $subjectClass, Request $request, $col) {

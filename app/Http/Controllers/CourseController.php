@@ -11,11 +11,6 @@ use Illuminate\Http\Request;
 
 class CourseController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('role:admin')->except(['show','search']);
-    }
-
     public function create() {
         $programList = Program::orderBy('full_name')->pluck('full_name','id');
         $departmentList = Department::orderBy('accronym')->pluck('name','id');
