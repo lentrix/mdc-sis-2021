@@ -26,7 +26,7 @@
         Records
     </div>
 
-    @if(auth()->user()->isAny(['registrar','head']))
+    @if(auth()->user()->is('registrar'))
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStudents"
             aria-expanded="true" aria-controls="collapseStudents">
@@ -41,7 +41,9 @@
             </div>
         </div>
     </li>
+    @endif
 
+    @if(auth()->user()->isAny(['registrar,head']))
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCourses"
             aria-expanded="true" aria-controls="collapseCourses">
@@ -59,6 +61,9 @@
             </div>
         </div>
     </li>
+    @endif
+
+    @if(auth()->user()->is('admin'))
     <li class="nav-item">
         <a class="nav-link" href="{{url('/terms')}}">
             <i class="fas fa-calendar"></i>

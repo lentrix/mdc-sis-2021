@@ -95,9 +95,7 @@ Route::group(['middleware'=>'auth'], function() {
         Route::delete('/programs/{program}',[ProgramController::class, 'destroy']);
 
         Route::get('/teachers/create', [TeacherController::class,'create']);
-        Route::get('/teachers/search', [TeacherController::class, 'search']);
         Route::post('/teachers', [TeacherController::class, 'store']);
-        Route::get('/teachers/{teacher}', [TeacherController::class, 'show']);
         Route::put('/teachers/{teacher}', [TeacherController::class, 'update']);
 
     });
@@ -127,11 +125,15 @@ Route::group(['middleware'=>'auth'], function() {
         Route::get('/sections', [SectionController::class, 'index']);
         Route::post('/sections', [SectionController::class, 'store']);
 
+        Route::get('/students/search', [StudentController::class, 'search']);
+
+        Route::get('/teachers/search', [TeacherController::class, 'search']);
+        Route::get('/teachers/{teacher}', [TeacherController::class, 'show']);
+
     });
 
     Route::group(['middleware'=>'role:registrar'], function(){
         Route::get('/students/create', [StudentController::class, 'create']);
-        Route::get('/students/search', [StudentController::class, 'search']);
         Route::post('/students', [StudentController::class,'store']);
         Route::put('/students/{student}', [StudentController::class,'update']);
         Route::get('/students/edit/{student}', [StudentController::class,'edit']);
