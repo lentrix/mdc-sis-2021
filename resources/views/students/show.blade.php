@@ -4,7 +4,7 @@
 
 @include('students.educ.edit-modal')
 
-@if(auth()->user()->is('registrar'))
+@if(auth()->user()->isAny(['registrar','head']))
     <div class="float-right">
         <a href="{{url('/enrols/history/' . $student->id)}}" class="btn btn-info">
             <i class="fas fa-history"></i> Enrollment History

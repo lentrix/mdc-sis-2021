@@ -55,7 +55,7 @@
         @endif
     </div>
     <div class="col-md-9">
-        @if(auth()->user()->is('registrar') && !$enrol->withdrawn)
+        @if((auth()->user()->is('registrar') || (auth()->user()->is('head') && auth()->user()->isHeadOf($enrol->program->department))) && !$enrol->withdrawn)
             <div class="float-right">
                 @include('enrols.add-class-modal')
             </div>
@@ -69,7 +69,7 @@
                     <th>Schedule</th>
                     <th>Teacher</th>
                     <th class="text-center">Units</th>
-                    @if(!$enrol->withdrawn && auth()->user()->is('registrar'))
+                    @if(!$enrol->withdrawn && (auth()->user()->is('registrar') || (auth()->user()->is('head') && auth()->user()->isHeadOf($enrol->program->department))))
                         <th><i class="fa fa-cog"></i></th>
                     @endif
                 </tr>
@@ -89,7 +89,7 @@
                     <td>{{$subject->subjectClass->schedule_string}}</td>
                     <td>{{$subject->subjectClass->teacher->name}}</td>
                     <td class="text-center">{{$subject->subjectClass->credit_units}}</td>
-                    @if(!$enrol->withdrawn && auth()->user()->is('registrar'))
+                    @if(!$enrol->withdrawn && (auth()->user()->is('registrar') || (auth()->user()->is('head') && auth()->user()->isHeadOf($enrol->program->department))))
                     <td>
                         <a href="#" class="fa fa-trash text-danger remove-class"
                             title="Remove {{$subject->subjectClass->course->name}}"

@@ -141,4 +141,11 @@ class User extends Authenticatable
 
         return $heads;
     }
+
+    public function isHeadOf(Department $dept) {
+        $heads = Head::where('user_id', $this->id)
+                    ->where('department_id',$dept->id)
+                    ->first();
+        return $heads!=null;
+    }
 }

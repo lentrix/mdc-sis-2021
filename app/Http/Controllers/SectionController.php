@@ -19,7 +19,8 @@ class SectionController extends Controller
 {
     public function __construct()
     {
-
+        $this->middleware('role:head')->except(['index','show']);
+        $this->middleware('section-owner')->only('update','addSubjectClass','removeSubjectClass');
     }
 
     public function index(Request $request) {

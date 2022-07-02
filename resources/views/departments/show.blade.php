@@ -44,9 +44,11 @@
 
 <div class='row'>
     <div class="col-md-5">
+        @if(auth()->user()->is('admin'))
         <div class="float-right">
             @include('departments.set-head-modal',['users'=>$users])
         </div>
+        @endif
         <h3>Department Controllers</h3>
         <hr>
         @if(count($department->heads) > 0):
@@ -54,9 +56,11 @@
             @foreach($department->heads as $head)
                 <li class="list-group-item">
                     {{$head->user->full_name}}
+                    @if(auth()->user()->is('admin'))
                     <div class="float-right">
                         @include('departments.remove-head-modal',['head'=>$head])
                     </div>
+                    @endif
                 </li>
             @endforeach
         </ul>

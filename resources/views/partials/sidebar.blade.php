@@ -18,6 +18,8 @@
             <span>Dashboard</span></a>
     </li>
 
+    @if(auth()->user()->isAny(['registrar','head']))
+
     <!-- Divider -->
     <hr class="sidebar-divider">
 
@@ -26,7 +28,6 @@
         Records
     </div>
 
-    @if(auth()->user()->is('registrar'))
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStudents"
             aria-expanded="true" aria-controls="collapseStudents">
@@ -43,7 +44,7 @@
     </li>
     @endif
 
-    @if(auth()->user()->isAny(['registrar,head']))
+    @if(auth()->user()->isAny(['registrar','head']))
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCourses"
             aria-expanded="true" aria-controls="collapseCourses">
@@ -71,7 +72,7 @@
     </li>
     @endif
 
-    @if(!auth()->user()->isOnly('student'))
+    @if(auth()->user()->isAny(['registrar','head','admin']))
      <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTeachers"
             aria-expanded="true" aria-controls="collapseTeachers">
@@ -88,6 +89,7 @@
     </li>
     @endif
 
+    @if(auth()->user()->isAny(['registrar','head','admin']))
     <li class="nav-item">
         <a class="nav-link" href="{{url('/departments')}}">
             <i class="fas fa-chart-pie"></i>
@@ -149,6 +151,7 @@
             </div>
         </div>
     </li>
+    @endif
 
     @if(auth()->user()->is('admin'))
     <li class="nav-item">
@@ -169,11 +172,6 @@
     </li>
     @endif
 
-    {{-- <li class="nav-item">
-        <a class="nav-link" href="{{url('/users-mgt')}}">
-            <i class="fas fa-users fa-chart-area"></i>
-            <span>User Management</span></a>
-    </li> --}}
     @if(auth()->user()->is('teacher'))
     <li class="nav-item">
         <a class="nav-link" href="{{url('/teacher-classes')}}">

@@ -10,6 +10,10 @@ use Illuminate\Support\Carbon;
 
 class TeacherClassesController extends Controller
 {
+    public function __construct() {
+        $this->middleware('role:teacher')->except(['index','show',]);
+    }
+
     public function index() {
         $teacher = auth()->user()->teacherAccount;
         $subjectClasses = SubjectClass::where('teacher_id', $teacher->id)

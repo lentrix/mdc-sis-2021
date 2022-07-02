@@ -18,9 +18,9 @@ use Illuminate\Support\Facades\DB;
 
 class EnrolController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('role:registrar')->except('current');
+    public function __construct() {
+        $this->middleware('role:head,registrar')->except(['edit','update','withdrawEnrollment','restoreEnrollment']);
+        $this->middleware('role:registrar')->only(['edit','update','withdrawEnrollment','restoreEnrollment']);
     }
 
     public function index(Request $request) {

@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth')->only('logout');
+    }
+
     public function login(Request $request) {
         $request->validate([
             'user' => 'string|required',

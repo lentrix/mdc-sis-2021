@@ -36,7 +36,7 @@ class SubjectClassController extends Controller
         return view('classes.index',[
             'classes' => $classes->limit(50)->with('course')->with('teacher')->with('schedules')->get(),
             'key' => $key
-    ]);
+        ]);
 
     }
 

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+
     public function profile() {
         $user = auth()->user();
         return view('users.profile',[

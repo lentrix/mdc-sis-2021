@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 class HeadController extends Controller
 {
+    public function __construct() {
+        $this->middleware('role:admin');
+    }
+
     public function store(Department $department, Request $request) {
         $request->validate([
             'user_id'=>'required|numeric'
