@@ -21,7 +21,11 @@ class Period extends Model
         return $this->belongsTo('App\Models\Term');
     }
 
-    public function isActive() {
+    public function scoreColumns() {
+        return $this->hasMany('App\Models\ScoreColumn');
+    }
+
+    public function getIsActiveAttribute() {
         return Carbon::now()->isBetween($this->start, $this->end);
     }
 }

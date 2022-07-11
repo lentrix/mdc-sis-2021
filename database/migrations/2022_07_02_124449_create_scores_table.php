@@ -14,13 +14,14 @@ class CreateScoresTable extends Migration
     public function up()
     {
         Schema::create('scores', function (Blueprint $table) {
+            $table->id();
             $table->bigInteger('score_column_id')->unsigned();
             $table->bigInteger('enrol_subject_id')->unsigned();
             $table->integer('score')->nullable();
             $table->timestamps();
             $table->foreign('score_column_id')->references('id')->on('score_columns');
             $table->foreign('enrol_subject_id')->references('id')->on('enrol_subjects');
-            $table->primary(['score_column_id','enrol_subject_id']);
+            $table->unique(['score_column_id','enrol_subject_id']);
         });
     }
 
