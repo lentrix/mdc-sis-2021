@@ -16,5 +16,4 @@ class ScoreColumn extends Model
         return $this->belongsTo('App\Models\ClassRecord');
     }
 
-
 }

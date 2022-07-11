@@ -53,6 +53,10 @@ class SubjectClass extends Model
         return $this->hasMany('App\Models\EnrolSubject');
     }
 
+    public function classRecord() {
+        return $this->hasOne('App\Models\ClassRecord');
+    }
+
     public function getClassListAttribute() {
         return Enrol::whereHas('enrolSubjects', function($query){
             $query->where('subject_class_id', $this->id);
