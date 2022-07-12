@@ -81,7 +81,7 @@ class UserController extends Controller
             $file = $folderPath . $user->id . '.jpg';
 
             try {
-                $data = imagecreatefromstring($image_base64);
+                $data = \imagecreatefromstring($image_base64);
                 if(!$data) {
                     die("Fatal Error!");
                 }
