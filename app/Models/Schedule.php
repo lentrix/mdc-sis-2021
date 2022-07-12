@@ -101,23 +101,44 @@ class Schedule extends Model
             $start = $oneSched->start;
             $end = $oneSched->end;
 
-            foreach(explode(",", $oneSched->day) as $day) {
-                $sched = static::where(function($query) use ($startPlus, $endMinus, $start, $end) {
-                    $query->whereBetween('start',[$start,$endMinus])
-                        ->orWhereBetween('end',[$startPlus, $end]);
+            // foreach(explode(",", $oneSched->day) as $day) {
+            //     $sched = static::where(function($query) use ($startPlus, $endMinus, $start, $end) {
+            //         $query->whereBetween('start',[$start,$endMinus])
+            //             ->orWhereBetween('end',[$startPlus, $end]);
+            //     })
+            //     ->where('day','like',"%$day%")
+            //     ->whereHas('subjectClass', function($query) use ($section) {
+            //         $query->whereHas('classSections', function($q2) use ($section){
+            //             $q2->where('section_id', $section->id);
+            //         });
+            //     })
+            //     ->first();
+
+            //     if($sched) return $sched;
+            // }
+            $sched = static::whereIn('subject_class_id',
+                    ClassSection::where('section_id',$section->id)->pluck('subject_class_id'))
+                ->where(function($q1) use ($start, $startPlus, $end, $endMinus){
+                    $q1->whereBetween('start',[$start,$endMinus])
+                    ->orWhereBetween('end',[$startPlus, $end]);
                 })
-                ->where('day','like',"%$day%")
-                ->whereHas('subjectClass', function($query) use ($section) {
-                    $query->whereHas('classSections', function($q2) use ($section){
-                        $q2->where('section_id', $section->id);
-                    });
+                ->where(function($q2) use ($oneSched) {
+                    foreach(explode(",", $oneSched->day) as $oneDay) {
+                        $q2->orWhere('day','like',"%$oneDay%");
+                    }
                 })
                 ->first();
 
-                if($sched) return $sched;
-            }
+            if($sched) return $sched;
+
         }
         return null;
+    }
+
+    public static function getSchedulesInSection(Section $section) {
+        $scheds = static::whereIn('subject_class_id', ClassSection::where('section_id',$section->id)->pluck('id'))
+            ->get();
+        return $scheds;
     }
 
     public static function checkAddSchedSectionConflict($start, $end, $days, Section $section) {

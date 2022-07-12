@@ -2,7 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Models\ClassSection;
+use App\Models\Schedule;
 use App\Models\User;
+use Doctrine\DBAL\Schema\Schema;
 use Illuminate\Console\Command;
 
 class Check extends Command
@@ -12,7 +15,7 @@ class Check extends Command
      *
      * @var string
      */
-    protected $signature = 'check';
+    protected $signature = 'check {sectionId} {day}';
 
     /**
      * The console command description.
@@ -38,9 +41,21 @@ class Check extends Command
      */
     public function handle()
     {
-        foreach(User::get() as $usr) {
-            echo  $usr->user . " - " . ($usr->isOnly('student') ? "yes " : "no ");
-        }
-        return Command::SUCCESS;
+        $sectionId = $this->argument('sectionId');
+        $day = $this->argument('day');
+
+        $scheds = Schedule::whereIn('subject_class_id', ClassSection::where('section_id',$sectionId)->pluck('subject_class_id'))
+            ->where(function($q1){
+                $q1->whereBetween('start',['9:00','10:29'])
+                ->orWhereBetween('end',['9:01', '10:30']);
+            })
+            ->where(function($q2) use ($day) {
+                foreach(explode(",", $day) as $oneDay) {
+                    $q2->orWhere('day','like',"%$oneDay%");
+                }
+            })
+            ->get();
+
+        dd($scheds);
     }
 }
