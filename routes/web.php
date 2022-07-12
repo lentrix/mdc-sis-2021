@@ -35,6 +35,10 @@ use Illuminate\Support\Facades\Route;
 
 // Route::resource('/','Controller');
 
+Route::get('/phpinfo',function(){
+    return phpinfo();
+});
+
 Route::get('/', [SiteController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 
