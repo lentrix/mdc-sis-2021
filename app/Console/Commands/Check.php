@@ -45,16 +45,16 @@ class Check extends Command
         $day = $this->argument('day');
 
         $scheds = Schedule::whereIn('subject_class_id', ClassSection::where('section_id',$sectionId)->pluck('subject_class_id'))
-            ->where(function($q1){
-                $q1->whereBetween('start',['9:00','10:29'])
-                ->orWhereBetween('end',['9:01', '10:30']);
-            })
+            // ->where(function($q1){
+            //     $q1->whereBetween('start',['9:00','10:29'])
+            //     ->orWhereBetween('end',['9:01', '10:30']);
+            // })
             ->where(function($q2) use ($day) {
                 foreach(explode(",", $day) as $oneDay) {
                     $q2->orWhere('day','like',"%$oneDay%");
                 }
             })
-            ->get();
+            ->pluck('start','end','day');
 
         dd($scheds);
     }
