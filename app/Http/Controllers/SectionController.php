@@ -114,7 +114,7 @@ class SectionController extends Controller
         ]);
 
         //add the subject class to each enrol belonging to this section
-        foreach($section->enrols as $enrol) {
+        foreach($section->enrolees as $enrol) {
             EnrolSubject::create([
                 'enrol_id' => $enrol->id,
                 'subject_class_id' => $request->subject_class_id,

@@ -31,6 +31,10 @@ class Section extends Model
         return $this->hasMany('App\Models\ClassSection');
     }
 
+    public function enrolees() {
+        return $this->hasMany('App\Models\Enrol');
+    }
+
     public function getEnrolsAttribute() {
         // return $this->hasMany('App\Models\Enrol')
         //     ->with('student', function($query){
