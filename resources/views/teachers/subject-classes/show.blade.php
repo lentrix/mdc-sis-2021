@@ -11,6 +11,15 @@
 </nav>
 
 <div class="float-right">
+    @if($subjectClass->classRecord)
+        <a href="{{url('/teacher-classes/' . $subjectClass->id . '/class-record')}}" class="btn btn-success">
+            <i class="fas fa-bars"></i> Class Record
+        </a>
+    @else
+        <a href="{{url('/teacher-classes/' . $subjectClass->id . '/create-class-record')}}" class="btn btn-success">
+            <i class="fas fa-bars"></i> Create Class Record
+        </a>
+    @endif
     <a href="{{url('/teacher-classes/' . $subjectClass->id . "/grading")}}" class="btn btn-info">
         <i class="fas fa-chart-bar"></i> Grading
     </a>

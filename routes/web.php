@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ClassRecordController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EnrolController;
@@ -151,6 +152,9 @@ Route::group(['middleware'=>'auth'], function(){
 
     Route::get('/sections/{section}', [SectionController::class, 'show']);
 
+    Route::get('/teacher-classes/{subjectClass}/create-class-record',[ClassRecordController::class, 'createClassRecord']);
+    Route::get('/teacher-classes/{subjectClass}/class-record',[ClassRecordController::class, 'showClassRecord']);
+    Route::post('/teacher-classes/{subjectClass}/class-record/add-column',[ClassRecordController::class, 'addColumn']);
     Route::get('/teacher-classes', [TeacherClassesController::class,'index']);
     Route::get('/teacher-classes/{subjectClass}', [TeacherClassesController::class, 'show']);
     Route::get('/teacher-classes/{subjectClass}/grading', [TeacherClassesController::class, 'grading']);
