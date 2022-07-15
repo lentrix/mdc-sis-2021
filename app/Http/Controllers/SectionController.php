@@ -34,7 +34,7 @@ class SectionController extends Controller
         }
 
         return view('sections.index',[
-            'sections' => $sections->get(),
+            'sections' => $sections->orderBy('name')->get(),
             'department_id' => $request->department_id,
             'departmentList' => Department::headedBy(auth()->user())->orderBy('accronym')->pluck('name','id'),
             'termsList' => Term::getEnrolling()->pluck('name','id'),

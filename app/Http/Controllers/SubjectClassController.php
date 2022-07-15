@@ -33,11 +33,10 @@ class SubjectClassController extends Controller
             });
         }else {
             $classes->whereIn('department_id', Head::where('user_id', auth()->user()->id)->get('department_id'));
-            $classes->orderBy('updated_at','DESC');
         }
 
         return view('classes.index',[
-            'classes' => $classes->limit(50)->with('course')->with('teacher')->with('schedules')->get(),
+            'classes' => $classes->with('course')->with('teacher')->with('schedules')->orderBy('description')->get(),
             'key' => $key
         ]);
 

@@ -85,11 +85,10 @@ class CourseController extends Controller
             $courses->orderBy('name');
         }else {
             $courses->whereIn('department_id', Head::where('user_id', auth()->user()->id)->get('department_id'));
-            $courses->orderBy('updated_at','desc')->limit(10);
         }
 
         return view('courses.search',[
-            'courses' => $courses->get(),
+            'courses' => $courses->orderBy('name')->get(),
             'hasSearch' => $hasSearch
         ]);
     }
