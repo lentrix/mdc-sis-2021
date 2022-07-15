@@ -58,6 +58,10 @@ class User extends Authenticatable
         return "$this->lname, $this->fname";
     }
 
+    public function heads() {
+        return $this->hasMany('App\Models\Head');
+    }
+
     public function userRoles() {
         return $this->hasMany('App\Models\UserRole')->with('role');
     }

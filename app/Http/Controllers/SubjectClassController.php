@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\Department;
+use App\Models\Head;
 use App\Models\Schedule;
 use App\Models\SubjectClass;
 use App\Models\Teacher;
@@ -18,9 +19,10 @@ class SubjectClassController extends Controller
         $this->middleware('role:head')->except(['index','show']);
     }
 
-    public function index(Request $request) {
+    public function index(Request $request, $dept=false) {
 
         $classes = SubjectClass::whereIn('term_id', Term::getActive()->select('id')->get());
+
         $key = "";
 
         if($request->key) {
@@ -30,6 +32,7 @@ class SubjectClassController extends Controller
                     ->orWhere('description','like',"%$key%");
             });
         }else {
+            $classes->whereIn('department_id', Head::where('user_id', auth()->user()->id)->get('department_id'));
             $classes->orderBy('updated_at','DESC');
         }
 

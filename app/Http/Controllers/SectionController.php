@@ -7,6 +7,7 @@ use App\Models\Course;
 use App\Models\Department;
 use App\Models\Enrol;
 use App\Models\EnrolSubject;
+use App\Models\Head;
 use App\Models\Program;
 use App\Models\Schedule;
 use App\Models\Section;
@@ -24,11 +25,12 @@ class SectionController extends Controller
     }
 
     public function index(Request $request) {
-        $sections = Section::whereIn('term_id', Term::getEnrolling()->select('id')->get())
-            ->orderBy('department_id');
+        $sections = Section::whereIn('term_id', Term::getEnrolling()->select('id')->get());
 
         if($request->deparment) {
             $sections->where('department_id', $request->department);
+        }else {
+            $sections->whereIn('department_id', Head::where('user_id', auth()->user()->id)->get('department_id'));
         }
 
         return view('sections.index',[

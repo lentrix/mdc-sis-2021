@@ -62,4 +62,15 @@ class Department extends Model
 
         return $this;
     }
+
+    public static function getHierarchyList(Department $dept, $str="") {
+
+        if($dept->subDepartments->count()>0) {
+            foreach($dept->subDepartments as $sub) {
+                $str .= static::getHierarchy($sub);
+            }
+        }
+
+        return $str . "$dept->id,";
+    }
 }

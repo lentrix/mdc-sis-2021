@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\Department;
+use App\Models\Head;
 use App\Models\Program;
 use App\Models\SubjectClass;
 use App\Models\Term;
@@ -83,6 +84,7 @@ class CourseController extends Controller
         if($hasSearch) {
             $courses->orderBy('name');
         }else {
+            $courses->whereIn('department_id', Head::where('user_id', auth()->user()->id)->get('department_id'));
             $courses->orderBy('updated_at','desc')->limit(10);
         }
 
