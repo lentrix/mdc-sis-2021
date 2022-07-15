@@ -65,6 +65,11 @@
         </table>
     </div>
     <div class="col-md-5">
+        <div class="float-right">
+            <a href="{{url('/pdf/class-list/' . $subjectClass->id)}}" target="_new" class="btn btn-sm btn-secondary" title="Get Printable List">
+                <i class="far fa-file-pdf"></i> Printable
+            </a>
+        </div>
         <h5>List of Students</h5>
         <hr>
         @if(count($subjectClass->classList)>0)

@@ -8,6 +8,7 @@ use App\Http\Controllers\EnrolController;
 use App\Http\Controllers\HeadController;
 use App\Http\Controllers\PeriodController;
 use App\Http\Controllers\PermissionsController;
+use App\Http\Controllers\PrintablesController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\SectionController;
@@ -165,5 +166,9 @@ Route::group(['middleware'=>'auth'], function(){
     Route::get('/teachers/{teacher}', [TeacherController::class, 'show']);
     Route::put('/teachers/{teacher}', [TeacherController::class, 'update']);
     Route::post('/teachers', [TeacherController::class, 'store']);
+
+    Route::get('/pdf/class-list/{subjectClass}', [PrintablesController::class, 'classList']);
+    Route::get('/pdf/teaching-load/{teacher}', [PrintablesController::class, 'teachingLoad']);
+    Route::get('/pdf/study-load/{enrol}', [PrintablesController::class, 'studyLoad']);
 });
 

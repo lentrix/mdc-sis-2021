@@ -19,7 +19,9 @@
 <div class="row position-relative py-2">
     <div class="col-md-3">
         <h4>Enrollment Details</h4>
-        <table class="table table-bordered table-striped table-sm">
+        <table class="table table-bordered table-sm">
+            <tr><th class="bg-secondary text-white">ID Number</th></tr>
+            <tr><td>{{str_pad($enrol->student->id_number, 7, "0", STR_PAD_LEFT)}}-{{$enrol->student->id_extension}}</td></tr>
             <tr>
                 <th class='bg-secondary text-white'>Student</th>
             </tr>
@@ -60,6 +62,11 @@
                 @include('enrols.add-class-modal')
             </div>
         @endif
+        <div class="float-right mr-2">
+            <a href="{{url('/pdf/study-load/' . $enrol->id)}}" target="_blank" class="btn btn-secondary btn-sm">
+                <i class="far fa-file-pdf"></i> Study Load
+            </a>
+        </div>
         <h4>Study Load</h4>
         <table class="table table-striped table-bordered table-sm">
             <thead>

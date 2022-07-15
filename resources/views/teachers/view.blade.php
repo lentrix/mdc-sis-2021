@@ -24,6 +24,11 @@
     </div>
 </div>
 <hr>
+<div class="float-right">
+    <a href="{{url('/pdf/teaching-load/' . $teacher->id)}}" target="_blank" class="btn btn-secondary btn-sm">
+        <i class="far fa-file-pdf"></i> Teaching Load
+    </a>
+</div>
 <h4>Teaching Load</h4>
 <table class="table table-bordered table-striped">
     <thead>
