@@ -10,11 +10,12 @@ class StudentController extends Controller
 {
 
     public function __construct() {
-        $this->middleware('role:registar')->except(['show','search']);
-        $this->middleware('role:head,teacher')->only(['show','search']);
+        $this->middleware('role:registrar')->only('create','store','update','addEducationalBackground','updateEducationalBackground');
+        $this->middleware('role:head,registrar')->only('show','search');
     }
 
     public function create() {
+
         return view('students.create');
     }
 
