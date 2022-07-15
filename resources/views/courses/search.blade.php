@@ -24,7 +24,7 @@
     </div>
     <div class="col-md-9">
         @if($hasSearch) <h4>Search Results</h4>
-        @else <h4>Recent Courses</h4> @endif
+        @else <h4>Department Courses</h4> @endif
         <table class="table table-bordered table-striped">
             <thead>
                 <tr class="bg-info text-white">
