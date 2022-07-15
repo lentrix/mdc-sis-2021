@@ -87,7 +87,7 @@ $(document).ready(function(){
             var tbody = $("#section-rows")
             tbody.empty()
             response.forEach(function(section) {
-                var tr = tbody.append("tr")
+                var tr = tbody.append("<tr></tr>")
                 tr.append("<td>" + section.name + "</td>")
                 tr.append("<td>" + section.program.short_name + "</td>")
                 tr.append("<td>" + section.level + "</td>")
