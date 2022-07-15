@@ -48,4 +48,14 @@ class Student extends Model
             ->whereIn('term_id', Term::getActive()->select('id')->get())
             ->first();
     }
+
+    public static function getNextIDNumber() {
+        $lastStud = Student::orderBy('id_number','desc')->first();
+        $num = $lastStud->id_number;
+        do {
+            $check = Student::where('id_number',++$num)->first();
+        }while($check);
+
+        return $num;
+    }
 }

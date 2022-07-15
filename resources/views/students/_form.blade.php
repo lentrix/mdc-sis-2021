@@ -3,7 +3,7 @@
         <h4>Personal Identity</h4>
         <div class="mb-2">
             {!! Form::label("id_number", "ID Number") !!}
-            {!! Form::text("id_number", null, ['class'=>'form-control']) !!}
+            {!! Form::text("id_number", null, ['class'=>'form-control','placeholder'=>'[Auto insert]']) !!}
         </div>
         <div class="mb-2">
             {!! Form::label("id_extension", "ID Extension") !!}

@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\EducationalBackground;
 use App\Models\Student;
+use Exception;
 use Illuminate\Http\Request;
+
+use function PHPUnit\Framework\isEmpty;
 
 class StudentController extends Controller
 {
@@ -21,7 +24,7 @@ class StudentController extends Controller
 
     public function store(Request $request) {
         $request->validate([
-            'id_number' => 'numeric|required|unique:students',
+            'id_number' => 'unique:students',
             'last_name' => 'string|required',
             'first_name' => 'string|required',
             'middle_name' => 'string|required',
@@ -29,7 +32,15 @@ class StudentController extends Controller
             'birth_date' => 'date|required',
         ]);
 
-        $stud = Student::create($request->all());
+        if(isEmpty($request->id_number) || $request->id_number==null) {
+            $request->merge(['id_number'=>Student::getNextIDNumber()]);
+        }
+
+        try{
+            $stud = Student::create($request->all());
+        }catch(Exception $ex) {
+            return back()->withErrors($ex->getMessage());
+        }
 
         if(!$stud) {
             return back()->with('Error','There was a serious problem. Unable to create the student.');

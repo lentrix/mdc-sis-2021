@@ -8,7 +8,7 @@
     </a>
 </div>
 
-@if(auth()->user()->is('registrar'))
+@if(auth()->user()->is('registrar') || auth()->user()->is('head'))
 
     <h1>Create Enrollment</h1>
     <h5>
