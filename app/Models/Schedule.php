@@ -32,7 +32,7 @@ class Schedule extends Model
                 . " " . $this->venue->name;
     }
 
-    public static function checkSelfConflict($start, $end, $days, $class_id) {
+    public static function checkSelfConflict($start, $end, $days, $class_id, $excludeId=false) {
         $startPlus = Carbon::parse($start)->addMinute()->toTimeString();
         $endMinus = Carbon::parse($end)->subMinute()->toTimeString();
 
@@ -44,15 +44,18 @@ class Schedule extends Model
             ->where('day','like',"%$day%")
             ->whereHas('subjectClass', function($query) use ($class_id) {
                 $query->where('id', $class_id);
-            })
-            ->first();
+            });
 
-            if($sched) return $sched;
+            if($excludeId) {
+                $sched->where('id','<>', $excludeId);
+            }
+
+            if($sched->count()>0) return $sched->first();
         }
         return null;
     }
 
-    public static function checkVenueConflict($start, $end, $days, $venue_id) {
+    public static function checkVenueConflict($start, $end, $days, $venue_id, $excludeId=false) {
         $startPlus = Carbon::parse($start)->addMinute()->toTimeString();
         $endMinus = Carbon::parse($end)->subMinute()->toTimeString();
 
@@ -65,15 +68,18 @@ class Schedule extends Model
             ->where('venue_id', $venue_id)
             ->whereHas('subjectClass', function($query) {
                 $query->whereIn('term_id', Term::getActive()->select('id')->get());
-            })
-            ->first();
+            });
 
-            if($sched) return $sched;
+            if($excludeId) {
+                $sched->where('id','<>', $excludeId);
+            }
+
+            if($sched->count()>0) return $sched->first();
         }
         return null;
     }
 
-    public static function checkTeacherConflict($start, $end, $days, $teacher_id) {
+    public static function checkTeacherConflict($start, $end, $days, $teacher_id, $excludeId=false) {
         $startPlus = Carbon::parse($start)->addMinute()->toTimeString();
         $endMinus = Carbon::parse($end)->subMinute()->toTimeString();
 
@@ -86,10 +92,13 @@ class Schedule extends Model
             ->whereHas('subjectClass', function($query) use ($teacher_id) {
                 $query->whereIn('term_id', Term::getActive()->select('id')->get())
                         ->where('teacher_id', $teacher_id);
-            })
-            ->first();
+            });
 
-            if($sched) return $sched;
+            if($excludeId) {
+                $sched->where('id','<>', $excludeId);
+            }
+
+            if($sched->count()>0) return $sched->first();
         }
         return null;
     }
@@ -141,7 +150,7 @@ class Schedule extends Model
         return $scheds;
     }
 
-    public static function checkAddSchedSectionConflict($start, $end, $days, Section $section) {
+    public static function checkAddSchedSectionConflict($start, $end, $days, Section $section, $excludeId=false) {
         $startPlus = Carbon::parse($start)->addMinute()->toTimeString();
         $endMinus = Carbon::parse($end)->subMinute()->toTimeString();
 
@@ -155,10 +164,13 @@ class Schedule extends Model
                 $query->whereHas('classSections', function($query2) use ($section) {
                     $query2->where('section_id', $section->id);
                 });
-            })
-            ->first();
+            });
 
-            if($sched) return $sched;
+            if($excludeId) {
+                $sched->where('id','<>', $excludeId);
+            }
+
+            if($sched->count()>0) return $sched->first();
         }
     }
 

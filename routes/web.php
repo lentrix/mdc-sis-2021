@@ -114,6 +114,7 @@ Route::group(['middleware'=>'auth'], function(){
     Route::get('/classes/{class}/edit', [SubjectClassController::class, 'edit']);
     Route::delete('/classes/{class}/remove-sched', [SubjectClassController::class, 'removeSched']);
     Route::post('/classes/{class}/add-sched', [SubjectClassController::class, 'addSched']);
+    Route::patch('/classes/update-sched/{schedule}', [SubjectClassController::class, 'updateSched']);
     Route::put('/classes/{class}', [SubjectClassController::class, 'update']);
     Route::get('/classes/{class}', [SubjectClassController::class, 'show']);
     Route::post('/classes', [SubjectClassController::class, 'store']);

@@ -1,3 +1,13 @@
+
+<?php
+
+function hasDay($days, $day) {
+    $arr = explode(",", $days);
+    return in_array($day, $arr);
+}
+
+?>
+
 @extends('page')
 
 @section('content')
@@ -124,7 +134,9 @@
                 <td>{{$sched->day}}</td>
                 <td>{{$sched->venue->name}}</td>
                 <td>
+                    @include('classes._update-sched',['sched'=>$sched])
                     <i class="fa fa-trash-alt btn text-danger remove-sched"
+                        title="Remove Schedule"
                         data-id="{{$sched->id}}"
                         data-start="{{$sched->start->format('g:i A')}}"
                         data-end="{{$sched->end->format('g:i A')}}"
