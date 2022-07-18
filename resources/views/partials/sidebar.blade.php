@@ -144,6 +144,7 @@
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Generate Reports:</h6>
+                <a class="collapse-item" href="{{url('/reports/student-list')}}">Student List</a>
                 <a class="collapse-item" href="#">Teaching Load</a>
                 <a class="collapse-item" href="#">Class List</a>
                 <a class="collapse-item" href="#">Billing Assessment</a>

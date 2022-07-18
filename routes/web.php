@@ -10,6 +10,7 @@ use App\Http\Controllers\PeriodController;
 use App\Http\Controllers\PermissionsController;
 use App\Http\Controllers\PrintablesController;
 use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\SiteController;
@@ -171,5 +172,8 @@ Route::group(['middleware'=>'auth'], function(){
     Route::get('/pdf/class-list/{subjectClass}', [PrintablesController::class, 'classList']);
     Route::get('/pdf/teaching-load/{teacher}', [PrintablesController::class, 'teachingLoad']);
     Route::get('/pdf/study-load/{enrol}', [PrintablesController::class, 'studyLoad']);
+
+    Route::get('/reports/student-list', [ReportsController::class, 'studentList']);
+    Route::post('/reports/student-list', [ReportsController::class, 'studentList']);
 });
 

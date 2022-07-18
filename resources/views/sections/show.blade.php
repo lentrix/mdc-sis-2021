@@ -50,7 +50,7 @@
                 @foreach($section->classSections as $class)
                 <tr>
                     <td>
-                        <a href="{{url('/classes/' . $class->id)}}" class="nav-link">
+                        <a href="{{url('/classes/' . $class->subjectClass->id)}}" class="nav-link">
                             {{$class->subjectClass->course->name}}
                         </a>
                     </td>
