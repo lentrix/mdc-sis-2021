@@ -81,7 +81,7 @@ class StudentController extends Controller
             'level' => 'string|required',
             'school' => 'string|required',
             'address' => 'string|required',
-            'year' => 'numeric|required',
+            'year' => 'string|required',
         ]);
 
         EducationalBackground::create([
@@ -102,7 +102,7 @@ class StudentController extends Controller
             'level' => 'string|required',
             'school' => 'string|required',
             'address' => 'string|required',
-            'year' => 'numeric|required',
+            'year' => 'string|required',
         ]);
 
         $educationalBackground = EducationalBackground::findOrFail($request->id);
