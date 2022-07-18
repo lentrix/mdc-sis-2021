@@ -165,7 +165,7 @@ class SubjectClassController extends Controller
         $section = $class->section;
 
         if($section) {
-            $conflict = Schedule::checkAddSchedSectionConflict($request->start, $request->end, $request->days, $section);
+            $conflict = Schedule::checkAddSchedSectionConflict($request->start, $request->end, $request->days, $section->section);
             if($conflict) return back()->with('Error','The schedule is in conflict with '
                 . $conflict->subjectClass->course->name . " ". $conflict->summary . ' within the section '
                 . $section->name . ' which this class in assigned in.')->withInput();
