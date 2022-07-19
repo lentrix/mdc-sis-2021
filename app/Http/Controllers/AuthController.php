@@ -18,6 +18,11 @@ class AuthController extends Controller
         ]);
 
         $user = User::where('user', $request->user)->first();
+
+        if(!$user) {
+            return back()->with('Error','Sorry! User name ' . $request->user . ' is not found.');
+        }
+
         if(!$user->active) {
             return back()->with('Error','Sorry your user account is INACTIVE. Please contact the systems administrator to activate your account.');
         }
