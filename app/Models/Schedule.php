@@ -178,8 +178,8 @@ class Schedule extends Model
         foreach($subjectClass->schedules as $sched) {
             $startPlus = Carbon::parse($sched->start)->addMinute()->toTimeString();
             $endMinus = Carbon::parse($sched->end)->subMinute()->toTimeString();
-            $start = $sched->start;
-            $end = $sched->end;
+            $start = $sched->start->toTimeString();
+            $end = $sched->end->toTimeString();
 
             foreach(explode(",", $sched->day) as $day) {
                 $sched = static::where(function($query) use ($startPlus, $endMinus, $start, $end) {
