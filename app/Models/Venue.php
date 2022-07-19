@@ -11,4 +11,8 @@ class Venue extends Model
 
     protected $fillable = ['name', 'building','capacity'];
 
+    public function schedules() {
+        return $this->hasMany('App\Models\Schedule');
+    }
+
 }

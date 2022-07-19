@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Schedule;
+use App\Models\Term;
 use App\Models\Venue;
 use Illuminate\Http\Request;
 
@@ -32,8 +34,13 @@ class VenueController extends Controller
     }
 
     public function show(Venue $venue) {
+        $scheds = Schedule::where('venue_id', $venue->id)
+            ->join('subject_classes', 'schedules.subject_class_id','subject_classes.id')
+            ->whereIn('term_id', Term::getActive()->get('id'));
+
         return view('venues.show',[
-            'venue' => $venue
+            'venue' => $venue,
+            'scheds' => $scheds->get()
         ]);
     }
 

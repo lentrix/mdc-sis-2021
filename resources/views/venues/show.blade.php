@@ -40,13 +40,15 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach($scheds as $sched)
                 <tr>
-                    <td>SM 100</td>
-                    <td>Sample Class Description</td>
-                    <td>8:00-9:00 MWF</td>
-                    <td>Mr. Josesito Mercado</td>
-                    <td class='text-center'>38</td>
+                    <td>{{$sched->subjectClass->course->name}}</td>
+                    <td>{{$sched->subjectClass->course->description}}</td>
+                    <td>{{$sched->summary}}</td>
+                    <td>{{$sched->subjectClass->teacher->short_name}}</td>
+                    <td class='text-center'>{{$sched->subjectClass->student_count}}</td>
                 </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
