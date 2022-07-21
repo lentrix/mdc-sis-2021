@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Enrol;
+use App\Models\Section;
 use App\Models\SubjectClass;
 use App\Models\Teacher;
 use App\Models\Term;
@@ -37,6 +38,15 @@ class PrintablesController extends Controller
     public function studyLoad(Enrol $enrol) {
         $pdf = Pdf::loadView('pdf.study-load',[
             'enrol' => $enrol,
+            'now' => Carbon::now()->format('F d, Y g:i A')
+        ]);
+
+        return $pdf->stream();
+    }
+
+    public function sectionList(Section $section) {
+        $pdf = Pdf::loadView('pdf.section-list', [
+            'section' => $section,
             'now' => Carbon::now()->format('F d, Y g:i A')
         ]);
 

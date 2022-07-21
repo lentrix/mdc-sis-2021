@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Study Load - Unified SIS</title>
+
     <style>
         *{
             font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -26,7 +27,7 @@
         Tubigon, Bohol <br><br>
 
         <strong>STUDY LOAD</strong> <br>
-        {{$enrol->student->full_name}} {{$enrol->program->short_name}}-{{$enrol->level}} <br>
+        [{{str_pad($enrol->student->id_number, 7, "0", STR_PAD_LEFT)}}-{{$enrol->student->id_extension}}] {{$enrol->student->full_name}} {{$enrol->program->short_name}}-{{ Str::substr($enrol->level, 1, 1) }} <br>
         {{$enrol->term->name}}
     </p>
 

@@ -72,6 +72,11 @@
         </table>
     </div>
     <div class="col-md-5">
+        <div class="float-right">
+            <a href="{{url('/pdf/section-list/' . $section->id)}}" class="btn btn-secondary" target="_blank">
+                <i class="far fa-file-pdf"></i> Section List
+            </a>
+        </div>
         <h4>List of Students</h4>
         <hr>
         <div class="list-group">

@@ -124,6 +124,7 @@ Route::group(['middleware'=>'auth'], function(){
     Route::post('/sections/{section}/add-class', [SectionController::class, 'addSubjectClass']);
     Route::delete('/sections/{section}/remove-class', [SectionController::class, 'removeSubjectClass']);
     Route::put('/sections/{section}', [SectionController::class, 'update']);
+    Route::get('/sections/{section}', [SectionController::class, 'show']);
     Route::get('/sections', [SectionController::class, 'index']);
     Route::post('/sections', [SectionController::class, 'store']);
 
@@ -153,8 +154,6 @@ Route::group(['middleware'=>'auth'], function(){
     Route::post('/enrols/{student}', [EnrolController::class, 'store']);
     Route::get('/enrols', [EnrolController::class, 'search']);
 
-    Route::get('/sections/{section}', [SectionController::class, 'show']);
-
     Route::get('/teacher-classes/{subjectClass}/create-class-record',[ClassRecordController::class, 'createClassRecord']);
     Route::get('/teacher-classes/{subjectClass}/class-record',[ClassRecordController::class, 'showClassRecord']);
     Route::post('/teacher-classes/{subjectClass}/class-record/add-column',[ClassRecordController::class, 'addColumn']);
@@ -172,6 +171,7 @@ Route::group(['middleware'=>'auth'], function(){
     Route::get('/pdf/class-list/{subjectClass}', [PrintablesController::class, 'classList']);
     Route::get('/pdf/teaching-load/{teacher}', [PrintablesController::class, 'teachingLoad']);
     Route::get('/pdf/study-load/{enrol}', [PrintablesController::class, 'studyLoad']);
+    Route::get('/pdf/section-list/{section}', [PrintablesController::class, 'sectionList']);
 
     Route::get('/reports/student-list', [ReportsController::class, 'studentList']);
     Route::post('/reports/student-list', [ReportsController::class, 'studentList']);

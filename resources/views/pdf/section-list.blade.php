@@ -4,27 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Class List - Unified SIS</title>
+    <title>Section List</title>
     <style>
-        * {
-            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif'
-        }
-        td {
-            padding: 0 4px;
+        *{
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
         }
     </style>
+
 </head>
 <body>
 
-    <p style="font-weight: bold; text-align:center">
-        MATER DEI COLLEGE <br>
-        Tubigon, Bohol
-    </p>
-    <p style="text-align:center">
-        <strong>Class List: {{$subjectClass->course->description}}</strong> <br>
-        Teacher: {{$subjectClass->teacher->name}} <br>
-        Schedule: {{$subjectClass->scheduleString}} <br>
-        {{$subjectClass->term->name}} <br>
+    <p style="text-align: center;">
+        <strong>MATER DEI COLLEGE</strong> <br>
+        Tubigon, Bohol <br><br>
+
+        <strong>SECTION LIST</strong> <br>
+        Section: {{$section->name}} | Adviser: {{$section->adviser->short_name}}
     </p>
 
     <table style="margin-left: auto; margin-right:auto">
@@ -36,7 +31,7 @@
             <th style="text-align:left">Program</th>
             <th style="text-align:left">Level</th>
         </tr>
-        @foreach($subjectClass->classList as $index=>$enrol)
+        @foreach($section->enrols as $index=>$enrol)
         <tr>
             <td>{{$index+1}}.&nbsp;&nbsp;</td>
             <td>{{str_pad($enrol->student->id_number, 7, "0", STR_PAD_LEFT)}}-{{$enrol->student->id_extension}}&nbsp;&nbsp;</td>
@@ -47,6 +42,10 @@
         </tr>
         @endforeach
     </table>
+
+    <p style="font-size: 0.8em; text-align: center">
+        Generated {{$now}}
+    </p>
 
 </body>
 </html>

@@ -32,7 +32,7 @@
             <td>{{$section->program->full_name}}</td>
             <td>{{$section->level}}</td>
             <td>{{$section->term->name}}</td>
-            <td>...</td>
+            <td>{{$section->enrolees->count()}}</td>
             <td>
                 <a href="{{url('/sections/' . $section->id)}}" class="btn btn-sm fa fa-eye text-info"></a>
             </td>
