@@ -63,8 +63,8 @@
         </tbody>
     </table>
 
-    <p style="font-size: 0.7em">
-        Generated on {{$now}} by {{auth()->user()->user}}
+    <p style="font-size: 0.8em">
+        Generated {{$now}} <br />Note: This is a system generated document and does not require a signature.
     </p>
 
 </body>

@@ -15,7 +15,8 @@ class PrintablesController extends Controller
 {
     public function classList(SubjectClass $subjectClass) {
         $pdf = Pdf::loadView('pdf.class-list',[
-            'subjectClass'=>$subjectClass
+            'subjectClass'=>$subjectClass,
+            'now' => now()
         ]);
 
         return $pdf->stream();
@@ -29,7 +30,7 @@ class PrintablesController extends Controller
         $pdf = Pdf::loadView('pdf.teaching-load', [
             'teacher' => $teacher,
             'subjectClasses'=>$subjectClasses,
-            'now' => Carbon::now()->format('F d, Y g:i A')
+            'now' => now()
         ]);
 
         return $pdf->stream();
@@ -38,7 +39,7 @@ class PrintablesController extends Controller
     public function studyLoad(Enrol $enrol) {
         $pdf = Pdf::loadView('pdf.study-load',[
             'enrol' => $enrol,
-            'now' => Carbon::now()->format('F d, Y g:i A')
+            'now' => now()
         ]);
 
         return $pdf->stream();
@@ -47,9 +48,13 @@ class PrintablesController extends Controller
     public function sectionList(Section $section) {
         $pdf = Pdf::loadView('pdf.section-list', [
             'section' => $section,
-            'now' => Carbon::now()->format('F d, Y g:i A')
+            'now' => now()
         ]);
 
         return $pdf->stream();
+    }
+
+    private function now() {
+        return Carbon::now()->format('F d, Y g:i A');
     }
 }
