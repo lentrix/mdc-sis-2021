@@ -9,7 +9,7 @@
     The Promotional Report has been generated. Please click on the button below to download the file.
 </div>
 
-<a href="{{asset('promotional_report.csv')}}" class="btn btn-success">
+<a href="{{asset('reports/promotional_report.csv')}}" class="btn btn-success">
     Download Promotional Report File
 </a>
 
