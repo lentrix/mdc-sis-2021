@@ -91,15 +91,6 @@ class ReportsController extends Controller
                 ->select('enrols.id as id', 'id_number', 'last_name', 'first_name', 'middle_name', 'programs.short_name', 'level', 'students.sex')
                 ->get();
 
-        $headers = [
-            "Content-type" => "text/csv",
-            "Content-Disposition" => "attachment; filename=enrollment_list.csv",
-            "Pragma" => "no-cache",
-            "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
-            "Expires" => "0"
-        ];
-
-
         $file = fopen("enrolment_list.csv", 'w');
 
         fputcsv($file, ['#','ID Number','Last Name','First Name','Middle Name', 'Course & Year','Gender','Subjects','Units']);
@@ -121,5 +112,74 @@ class ReportsController extends Controller
         fclose($file);
 
         return view('reports.enrollment-list');
+    }
+
+    public function promotionalReport() {
+        $enrols = null;
+
+        $collegeDepts = Department::getHierarchyList(Department::where('accronym','College')->first());
+        $gsDept = Department::where('accronym','GS')->first();
+
+        $deptIds = $collegeDepts . $gsDept->id;
+
+        $enrols = DB::table('enrols')->whereIn('program_id', Program::whereIn('department_id', explode(",", $deptIds))->get('id'))
+                ->join('programs', 'programs.id','enrols.program_id')
+                ->join('students', 'students.id', 'enrols.student_id')
+                ->orderBy('programs.short_name')
+                ->orderBy('enrols.level')
+                ->orderBy('students.last_name')
+                ->orderBy('students.first_name')
+                ->select('enrols.id as id', 'id_number', 'last_name', 'first_name', 'middle_name', 'programs.short_name', 'level', 'students.sex')
+                ->get();
+
+        $file = fopen("promotional_report.csv", 'w');
+
+        fputcsv($file, ['#','ID Number','Last Name','First Name','Middle Name','Course & Year','Gender','Subject','MG','FG','Units']);
+
+        foreach($enrols as $idx=>$enrolItem) {
+            $enrol = Enrol::findOrFail($enrolItem->id);
+            $first = true;
+            foreach($enrol->enrolSubjects as $enrolSubject) {
+                if($first) {
+                    fputcsv($file, [
+                        $idx+1,
+                        $enrol->student->id_number,
+                        $enrol->student->last_name,
+                        $enrol->student->first_name,
+                        $enrol->student->middle_name,
+                        $enrol->program->short_name . "-" . substr($enrol->level,1,1),
+                        $enrol->student->sex,
+                        $enrolSubject->subjectClass->course->name,
+                        $enrolSubject->g1,
+                        $enrolSubject->rating,
+                        $this->evaluateUnit($enrolSubject->rating, $enrolSubject->subjectClass->credit_units)
+                    ]);
+                }else {
+                    fputcsv($file,[
+                        "","","","","","","",
+                        $enrolSubject->subjectClass->course->name,
+                        $enrolSubject->g1,
+                        $enrolSubject->rating,
+                        $this->evaluateUnit($enrolSubject->rating, $enrolSubject->subjectClass->credit_units)
+                    ]);
+                }
+                $first=false;
+            }
+        }
+        fclose($file);
+
+        return view('reports.promotional-report');
+    }
+
+    private function evaluateUnit($rating, $units) {
+        if(is_numeric($rating)) {
+            if($rating > 3.0) {
+                return 0;
+            }else {
+                return $units;
+            }
+        }else {
+            return '-';
+        }
     }
 }
