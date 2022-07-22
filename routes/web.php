@@ -175,5 +175,7 @@ Route::group(['middleware'=>'auth'], function(){
 
     Route::get('/reports/student-list', [ReportsController::class, 'studentList']);
     Route::post('/reports/student-list', [ReportsController::class, 'studentList']);
+    Route::get('/reports/enrollment-list', [ReportsController::class, 'enrollmentList']);
+    Route::get('/reports/promotional-report', [ReportsController::class, 'promotionalReport']);
 });
 

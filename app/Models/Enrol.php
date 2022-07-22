@@ -51,4 +51,19 @@ class Enrol extends Model
         return $this->belongsTo('App\Models\User', 'withdrawn_by','id');
     }
 
+    public function subjectSummary() {
+        $subjects = [];
+        $totalUnits = 0;
+
+        foreach($this->enrolSubjects as $enrolSubject) {
+            $subjects[] = $enrolSubject->subjectClass->course->name;
+            $totalUnits += $enrolSubject->subjectClass->credit_units;
+        }
+
+        return [
+            'subjects'=>$subjects,
+            'totalUnits' => $totalUnits
+        ];
+    }
+
 }

@@ -67,7 +67,7 @@ class Department extends Model
 
         if($dept->subDepartments->count()>0) {
             foreach($dept->subDepartments as $sub) {
-                $str .= static::getHierarchy($sub);
+                $str .= static::getHierarchyList($sub);
             }
         }
 

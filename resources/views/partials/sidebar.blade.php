@@ -64,14 +64,6 @@
     </li>
     @endif
 
-    @if(auth()->user()->is('admin'))
-    <li class="nav-item">
-        <a class="nav-link" href="{{url('/terms')}}">
-            <i class="fas fa-calendar"></i>
-            <span>Terms &amp; Periods</span></a>
-    </li>
-    @endif
-
     @if(auth()->user()->isAny(['registrar','head','admin']))
      <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTeachers"
@@ -86,6 +78,15 @@
                 <a class="collapse-item" href="{{url('/teachers/search')}}">Search Teacher</a>
             </div>
         </div>
+    </li>
+    @endif
+
+
+    @if(auth()->user()->is('admin'))
+    <li class="nav-item">
+        <a class="nav-link" href="{{url('/terms')}}">
+            <i class="fas fa-calendar"></i>
+            <span>Terms &amp; Periods</span></a>
     </li>
     @endif
 
@@ -145,9 +146,8 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Generate Reports:</h6>
                 <a class="collapse-item" href="{{url('/reports/student-list')}}">Student List</a>
-                <a class="collapse-item" href="#">Teaching Load</a>
-                <a class="collapse-item" href="#">Class List</a>
-                <a class="collapse-item" href="#">Billing Assessment</a>
+                <a class="collapse-item" href="{{url('/reports/promotional-report')}}">Promotional Report</a>
+                <a class="collapse-item" href="{{url('/reports/enrollment-list')}}">Enrollment List</a>
                 <a class="collapse-item" href="#">Grade Sheet</a>
             </div>
         </div>
