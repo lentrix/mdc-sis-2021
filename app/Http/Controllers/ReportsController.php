@@ -91,7 +91,7 @@ class ReportsController extends Controller
                 ->select('enrols.id as id', 'id_number', 'last_name', 'first_name', 'middle_name', 'programs.short_name', 'level', 'students.sex')
                 ->get();
 
-        $file = fopen("enrolment_list.csv", 'w');
+        $file = fopen("reports/enrolment_list.csv", 'w');
 
         fputcsv($file, ['#','ID Number','Last Name','First Name','Middle Name', 'Course & Year','Gender','Subjects','Units']);
 
@@ -132,7 +132,7 @@ class ReportsController extends Controller
                 ->select('enrols.id as id', 'id_number', 'last_name', 'first_name', 'middle_name', 'programs.short_name', 'level', 'students.sex')
                 ->get();
 
-        $file = fopen("promotional_report.csv", 'w');
+        $file = fopen("reports/promotional_report.csv", 'w');
 
         fputcsv($file, ['#','ID Number','Last Name','First Name','Middle Name','Course & Year','Gender','Subject','MG','FG','Units']);
 
