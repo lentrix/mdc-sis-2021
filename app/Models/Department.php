@@ -27,6 +27,20 @@ class Department extends Model
         return $this->hasMany('App\Models\Section');
     }
 
+    public function teachers() {
+        return $this->hasMany('App\Models\Teacher');
+    }
+
+    public function allTeachers() {
+        return Teacher::whereIn('department_id', explode(",", $this->getHierarchyList()));
+    }
+
+    public function allStudents() {
+        return Enrol::whereHas('program', function($query){
+            $query->whereIn('department_id', explode(",", $this->getHierarchyList()));
+        })->with('students')->orderBy('last_name')->orderBy('first_name');
+    }
+
     public static function list() {
         $depts = static::orderBy('name')->get();
 
@@ -63,14 +77,18 @@ class Department extends Model
         return $this;
     }
 
-    public static function getHierarchyList(Department $dept, $str="") {
+    public function getHierarchyList($str="") {
 
-        if($dept->subDepartments->count()>0) {
-            foreach($dept->subDepartments as $sub) {
-                $str .= static::getHierarchyList($sub);
+        if($this->subDepartments->count()>0) {
+            foreach($this->subDepartments as $sub) {
+                $str .= $sub->getHierarchyList();
             }
         }
 
-        return $str . "$dept->id,";
+        return $str . "$this->id,";
+    }
+
+    public function getTeacherCountAttribute() {
+        return $this->teachers->count();
     }
 }

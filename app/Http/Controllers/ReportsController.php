@@ -76,7 +76,7 @@ class ReportsController extends Controller
 
         $enrols = null;
 
-        $collegeDepts = Department::getHierarchyList(Department::where('accronym','College')->first());
+        $collegeDepts = Department::where('accronym','College')->first()->getHierarchyList();
         $gsDept = Department::where('accronym','GS')->first();
 
         $deptIds = $collegeDepts . $gsDept->id;
@@ -117,7 +117,7 @@ class ReportsController extends Controller
     public function promotionalReport() {
         $enrols = null;
 
-        $collegeDepts = Department::getHierarchyList(Department::where('accronym','College')->first());
+        $collegeDepts = Department::where('accronym','College')->first()->getHierarchyList();
         $gsDept = Department::where('accronym','GS')->first();
 
         $deptIds = $collegeDepts . $gsDept->id;

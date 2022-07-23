@@ -34,7 +34,7 @@ class SiteController extends Controller
     private function deptCount($dept) {
         return DB::table('enrols')->whereIn('term_id', Term::getActive()->get('id'))
             ->join('programs','programs.id','enrols.program_id')
-            ->whereIn('programs.department_id', explode(",", Department::getHierarchyList($dept)))
+            ->whereIn('programs.department_id', explode(",", $dept->getHierarchyList()))
             ->select('enrols.id')
             ->count();
     }

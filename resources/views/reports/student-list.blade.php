@@ -6,61 +6,77 @@
 <hr>
 <div class="row">
     <div class="col-md-4">
-        <h5>Filter</h5>
-        {!! Form::open(['url'=>'/reports/student-list','method'=>'post']) !!}
+        <div class="card shadow-sm mb-3">
+            <div class="card-header bg-info text-white">
+                <h5>Filter by Section</h5>
+            </div>
+            <div class="card-body bg-light">
+                {!! Form::open(['url'=>'/reports/student-list','method'=>'post']) !!}
 
-        <div class="mb-3">
-            {!! Form::label("section_id", "Section") !!}
-            <div class="input-group">
-                {!! Form::select("section_id", $sectionList, null, ['class'=>'form-control','placeholder'=>'Select section']) !!}
-                <div class="input-group-append">
-                    <button class="btn btn-secondary" type="submit" name="submit">
-                        <i class="fa fa-filter"></i>
-                    </button>
+                <div class="mb-3">
+                    {!! Form::label("section_id", "Section") !!}
+                    <div class="input-group">
+                        {!! Form::select("section_id", $sectionList, null, ['class'=>'form-control','placeholder'=>'Select section']) !!}
+                        <div class="input-group-append">
+                            <button class="btn btn-secondary" type="submit" name="submit">
+                                <i class="fa fa-filter"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
+
+                {!! Form::close() !!}
             </div>
         </div>
 
-        {!! Form::close() !!}
+        <div class="card shadow-sm mb-3">
+            <div class="card-header bg-success text-white">
+                <h5>Filter by Department</h5>
+            </div>
+            <div class="card-body">
+                {!! Form::open(['url'=>'/reports/student-list','method'=>'post']) !!}
 
-        <hr>
-
-        {!! Form::open(['url'=>'/reports/student-list','method'=>'post']) !!}
-
-        <div class="mb-3">
-            {!! Form::label("department_id", "Department") !!}
-            <div class="input-group">
-                {!! Form::select("department_id", $departmentList, null, ['class'=>'form-control','placeholder'=>'Select department']) !!}
-                <div class="input-group-append">
-                    <button class="btn btn-secondary" type="submit" name="submit">
-                        <i class="fa fa-filter"></i>
-                    </button>
+                <div class="mb-3">
+                    {!! Form::label("department_id", "Department") !!}
+                    <div class="input-group">
+                        {!! Form::select("department_id", $departmentList, null, ['class'=>'form-control','placeholder'=>'Select department']) !!}
+                        <div class="input-group-append">
+                            <button class="btn btn-secondary" type="submit" name="submit">
+                                <i class="fa fa-filter"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
+
+                {!! Form::close() !!}
             </div>
         </div>
 
-        {!! Form::close() !!}
+        <div class="card shadow-sm mb-3">
+            <div class="card-header bg-primary text-white">
+                <h5>Filter by Program & Level</h5>
+            </div>
+            <div class="card-body">
+                {!! Form::open(['url'=>'/reports/student-list','method'=>'post']) !!}
 
-        <hr>
+                <div class="mb-3">
+                    {!! Form::label("program_id", "Program") !!}
+                    {!! Form::select("program_id", $programList, null, ['class'=>'form-control','placeholder'=>'Select a program']) !!}
+                </div>
 
-        {!! Form::open(['url'=>'/reports/student-list','method'=>'post']) !!}
+                <div class="mb-3">
+                    {!! Form::label("level", "Level") !!}
+                    {!! Form::select("level", $levelList, null, ['class'=>'form-control','placeholder'=>'Select a level']) !!}
+                </div>
 
-        <div class="mb-3">
-            {!! Form::label("program_id", "Program") !!}
-            {!! Form::select("program_id", $programList, null, ['class'=>'form-control','placeholder'=>'Select a program']) !!}
+                <button class="btn btn-secondary btn-block" type="submit">
+                    <i class="fa fa-filter"></i> Program/Level
+                </button>
+
+
+                {!! Form::close() !!}
+            </div>
         </div>
-
-        <div class="mb-3">
-            {!! Form::label("level", "Level") !!}
-            {!! Form::select("level", $levelList, null, ['class'=>'form-control','placeholder'=>'Select a level']) !!}
-        </div>
-
-        <button class="btn btn-secondary btn-block" type="submit">
-            <i class="fa fa-filter"></i> Program/Level
-        </button>
-
-
-        {!! Form::close() !!}
 
 
     </div>

@@ -24,7 +24,7 @@
 
     <div class="card text-center" style="width: 200px; margin: 16px">
         <div class="card-body">
-            <h1>10</h1>
+            <h1>{{$department->allTeachers()->count()}}</h1>
         </div>
         <div class="card-footer">
             Teachers
@@ -33,7 +33,7 @@
 
     <div class="card text-center" style="width: 200px; margin: 16px">
         <div class="card-body">
-            <h1>344</h1>
+            <h1>{{$department->allStudents()->count()}}</h1>
         </div>
         <div class="card-footer">
             Students
